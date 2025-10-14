@@ -1,6 +1,6 @@
 ﻿namespace TextRPG_group5
 {
-     internal class Main
+     internal class Program
      {
           static void Main(string[] args)
           {
