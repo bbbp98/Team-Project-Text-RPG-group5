@@ -8,5 +8,9 @@ namespace TextRPG_group5
 {
     internal class Battle
     {
+        public void StartBattle()
+        {
+            Console.WriteLine("전투 시작!\n");
+        }
     }
 }

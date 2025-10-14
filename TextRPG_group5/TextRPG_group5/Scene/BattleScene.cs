@@ -24,6 +24,10 @@ namespace TextRPG_group5.Scene
         // 화면에 보여줄 텍스트들(Console.Write관련)
         public override void Show()
         {
+            // 전투 로직 호출 테스트
+            Battle bt = new Battle();
+            bt.StartBattle();
+            
             Console.WriteLine("Battle!!");
             Console.WriteLine();
 
