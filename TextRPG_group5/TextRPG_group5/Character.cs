@@ -8,7 +8,7 @@ namespace TextRPG_group5
 {
      internal abstract class Character
      {
-          public string Name { get; set; }  
+          public string? Name { get; set; }  
           public int Level { get; set; }  
           public int MaxHp { get; set; }  
           public int NowHp { get; set; }  
@@ -16,6 +16,8 @@ namespace TextRPG_group5
           public int Defence { get; set; }
 
           public bool IsDead => NowHp <= 0;
+
+          public Character() { }
 
           public Character(string name, int hp, int atk, int def)
           {
@@ -35,7 +37,7 @@ namespace TextRPG_group5
 
           public virtual void ShowStatus()
           {
-               Console.WriteLine("ShowStat");
+               Console.WriteLine($"Lv.{Level} {Name} HP: {NowHp}");
           }
      }
 }
