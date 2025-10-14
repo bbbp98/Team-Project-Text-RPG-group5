@@ -14,20 +14,20 @@ namespace TextRPG_group5
         // 무기, 방어구의 전체아이템을 딕셔너리에 보존
         private static Dictionary<string, EquipItem> EquipMentDB = new Dictionary<string, EquipItem>()
         {
-            {"목검", new Weapon("목검", " ", 5, 5, 100, 1)},
-            {"강철검", new Weapon("강철검", " ", 10, 10, 300, 1)},
-            {"BF대검", new Weapon("BF대검", " ", 30, 25, 1500, 1)},
-            {"워해머", new Weapon("워해머", " ", 20, 15, 700, 1)},
-            {"나무스태프", new Weapon("나무스태프", " ", 5, 5, 100, 2)},
-            {"철제스태프", new Weapon("철제스태프", " ", 10, 15, 300, 2)},
-            {"아크스태프", new Weapon("아크스태프", "", 30, 35, 1500, 2)},
-            {"스페셜완드", new Weapon("스페셜완드", "", 20, 25, 700, 2)},
-            {"가죽갑옷", new Armor("가죽갑옷", " ", 15, 300, 1)},
-            {"강철갑옷", new Armor("강철갑옷", " ", 30, 700, 1)},
-            {"체인메일", new Armor("체인메일", " ", 45, 1800, 1)},
-            {"수련생의 로브", new Armor("수련생의 로브", " ", 10, 200, 2)},
-            {"숙련자의 로브", new Armor("숙련자의 로브", " ", 20, 400, 2)},
-            {"달인의 로브", new Armor("달인의 로브", " ", 30, 2000, 1)},
+            {"목검", new Weapon("목검", " ", 5, 5, 100, 1, false)},
+            {"강철검", new Weapon("강철검", " ", 10, 10, 300, 1, false)},
+            {"BF대검", new Weapon("BF대검", " ", 30, 25, 1500, 1, false)},
+            {"워해머", new Weapon("워해머", " ", 20, 15, 700, 1, false)},
+            {"나무스태프", new Weapon("나무스태프", " ", 5, 5, 100, 2, false)},
+            {"철제스태프", new Weapon("철제스태프", " ", 10, 15, 300, 2, false)},
+            {"아크스태프", new Weapon("아크스태프", "", 30, 35, 1500, 2, false)},
+            {"스페셜완드", new Weapon("스페셜완드", "", 20, 25, 700, 2, false)},
+            {"가죽갑옷", new Armor("가죽갑옷", " ", 15, 300, 1, false)},
+            {"강철갑옷", new Armor("강철갑옷", " ", 30, 700, 1, false)},
+            {"체인메일", new Armor("체인메일", " ", 45, 1800, 1, false)},
+            {"수련생의 로브", new Armor("수련생의 로브", " ", 10, 200, 2, false)},
+            {"숙련자의 로브", new Armor("숙련자의 로브", " ", 20, 400, 2, false)},
+            {"달인의 로브", new Armor("달인의 로브", " ", 30, 2000, 1, false)},
         };
 
         // 모든 소비아이템 정보를 딕셔너리에 보존
@@ -56,6 +56,11 @@ namespace TextRPG_group5
             {
                 return null;
             }
+        }
+
+        public static void ShowItem(Item item)
+        {
+
         }
     }
 }

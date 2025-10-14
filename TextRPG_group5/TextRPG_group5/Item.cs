@@ -12,5 +12,7 @@ namespace TextRPG_group5
         public string Name { get; protected set; }
         public string Description { get; protected set; }
         public int Price { get; protected set; }
+
+        public bool IsEquip { get; protected set; }
     }
 }

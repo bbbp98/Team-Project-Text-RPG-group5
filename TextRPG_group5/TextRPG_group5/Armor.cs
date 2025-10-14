@@ -15,13 +15,14 @@ namespace TextRPG_group5
 
         public bool isCorrect { get; protected set; }
 
-        public Armor(string name, string description, int defPower, int price, int job)
+        public Armor(string name, string description, int defPower, int price, int job, bool isEquip)
         {
             Name = name;
             Job = (Class)job;
             DefPower = defPower;
             Price = price;
             Description = $"스탯 증가량 => 방어력 : +{defPower}";
+            IsEquip = isEquip;
         }
 
         public override void YouEquipItem() // ToDo : 플레이어 메서드 오브젝트를 매개변수로 추가 필요

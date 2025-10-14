@@ -13,13 +13,14 @@ namespace TextRPG_group5
         public int CriPro { get; protected set; }
         public Class Job { get; protected set; }
 
-        public Weapon(string name, string description, int atkPower, int criPro, int price, int job)
+        public Weapon(string name, string description, int atkPower, int criPro, int price, int job, bool isEquip)
         {
             Name = name;
             Job = (Class)job;
             AtkPower = atkPower;
             CriPro = criPro;
             Description = $"스탯증가량 => 공격력 : +{AtkPower}, 치명타확률 : +{CriPro}";
+            IsEquip = isEquip;
         }
 
         public override void YouEquipItem() // ToDo : 매개변수로 플레이어 오브젝트를 할당해야함
