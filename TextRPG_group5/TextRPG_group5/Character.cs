@@ -14,6 +14,8 @@ namespace TextRPG_group5
           public int NowHp { get; set; }  
           public int Attack { get; set; }  
           public int Defence { get; set; }
+          public double Critical {  get; set; }
+          public double Evasion { get; set; }
 
           public bool IsDead => NowHp <= 0;
 
@@ -25,14 +27,35 @@ namespace TextRPG_group5
                MaxHp = hp;
                Attack = atk;
                Defence = def;
+               Critical = 10.0;
+               Evasion = 10.0;
           }
 
-          public void TakeDamage(int dmg)
+          public void TakeDamage(int dmg, double crit)
           {
+               // 회피했다면
+               if (TryEvade())
+               {
+                    Console.WriteLine("회피했습니다.");
+                    return;
+               }
+
+               Random random = new Random();
+               bool insCritical = random.NextDouble() < crit;
+
+               if (insCritical)
+                    dmg = (int)(dmg * 1.5f);
+
                int damage = Math.Max(1, dmg - Defence);
                NowHp -= damage;
                if (NowHp < 0)
                     NowHp = 0;
+          }
+
+          public bool TryEvade()
+          {
+               Random random = new Random();
+               return random.NextDouble() < Evasion;
           }
 
           public virtual void ShowStatus()
