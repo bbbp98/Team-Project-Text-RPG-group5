@@ -21,6 +21,7 @@ namespace TextRPG_group5.Scenes
                     case 0:
                          // go to MainScene
                          //Program.SetScene(new MainScene());
+                         Program.currentScene = new DungeonEntranceScene();
                          break;
                     default:
                          Console.WriteLine("잘못된 입력입니다.\n");

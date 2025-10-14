@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.Managers;
 
 namespace TextRPG_group5.Scenes
 {
-     internal class DungeonEntranceScene : Scene
+    internal class DungeonEntranceScene : Scene
      {
           public override void HandleInput(byte input)
           {
@@ -14,10 +15,11 @@ namespace TextRPG_group5.Scenes
                {
                     case 0:
                          // go to MainScene
-                         //Program.SetScene(new MainScene());
+                         //Program.SetScene(new StartScene());
                          break;
                     case 1:
                          // go to StageScene
+                         Program.SetScene(new DungeonResultScene(true));
                          break;
                     default:
                          Console.WriteLine("잘못된 입력입니다.\n");

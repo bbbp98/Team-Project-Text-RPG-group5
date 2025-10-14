@@ -1,4 +1,5 @@
-﻿using TextRPG_group5.Scenes;
+﻿using TextRPG_group5.Managers;
+using TextRPG_group5.Scenes;
 
 namespace TextRPG_group5
 {
