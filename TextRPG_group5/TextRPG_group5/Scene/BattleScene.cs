@@ -21,12 +21,6 @@ namespace TextRPG_group5.Scene
             monster3 = mon3;
         }
 
-        // 입력 값 처리 메서드
-        public override void HandleInput(byte input)
-        {
-            throw new NotImplementedException();
-        }
-
         // 화면에 보여줄 텍스트들(Console.Write관련)
         public override void Show()
         {
@@ -46,6 +40,33 @@ namespace TextRPG_group5.Scene
             Console.WriteLine("1. 일반 공격");
             Console.WriteLine("2. 스킬 사용");
             Console.WriteLine("3. 아이템 사용");
+            Console.WriteLine();
+
+            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.Write(">> ");
+
+            byte input;
+            bool parseResult = byte.TryParse(Console.ReadLine(), out input);
+            HandleInput(input);
+        }
+
+        // 입력 값 처리 메서드
+        public override void HandleInput(byte input)
+        {
+            switch (input)
+            {
+                case 1:
+                    Console.WriteLine("일반 공격 사용");
+                    break;
+                case 2:
+                    Console.WriteLine("스킬 사용");
+                    break;
+                case 3:
+                    Console.WriteLine("아이템 사용");
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
