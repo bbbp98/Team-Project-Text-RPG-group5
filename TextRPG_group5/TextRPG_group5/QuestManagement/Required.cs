@@ -11,8 +11,8 @@ namespace TextRPG_group5.QuestManagement
         public string Type { get; set; }
         public string Target { get; set; }
         public int Count { get; set; }
-        public int current { get; set; }
+        public int Current { get; set; }
 
-        public bool IsComplete() => current >= Count;
+        public bool IsComplete() => Current >= Count;
     }
 }

@@ -37,7 +37,7 @@ namespace TextRPG_group5.QuestManagement
 
         public void AcceptQuest(int id)
         {
-            Quest q = Quests.FirstOrDefault(x => x.QuestID == id);
+            Quest? q = Quests.FirstOrDefault(x => x.QuestID == id);
             if(q != null && q.Status == QuestStatus.NoProgress)
             {
                 q.Status = QuestStatus.InProgress;
@@ -51,8 +51,8 @@ namespace TextRPG_group5.QuestManagement
             {
                 foreach(var o in q.objectives)
                 {
-                    o.current++;
-                    Console.WriteLine($"[진행] {o.Target} : {o.current}/{o.Count}");
+                    o.Current++;
+                    Console.WriteLine($"[진행] {o.Target} : {o.Current}/{o.Count}");
 
                     if(q.CheckCompletion())
                     {

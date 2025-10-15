@@ -8,7 +8,8 @@
         {
           "Type": "kill",
           "Target": "Slime",
-          "Count": 5
+          "Count": 5,
+          "Current": 0
         }
       ],
       "Rewards": {
@@ -26,7 +27,8 @@
         {
           "Type": "kill",
           "Target": "Goblin",
-          "Count": 5
+          "Count": 5,
+          "Current": 0
         }
       ],
       "Rewards": {
@@ -44,7 +46,8 @@
         {
           "Type": "kill",
           "Target": "HobGoblin",
-          "Count": 2
+          "Count": 2,
+          "Current": 0
         }
       ],
       "Rewards": {
