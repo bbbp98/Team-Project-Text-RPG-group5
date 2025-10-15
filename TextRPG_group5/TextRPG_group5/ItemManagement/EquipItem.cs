@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG_group5.ItemManagement
+namespace TextRPG_group5.ItemManage
 {
     /// <summary>
     /// 직업 간 차별성을 두기위해 직업별 장착가능한 무기나, 방어구를 구분하기 위한 열거형

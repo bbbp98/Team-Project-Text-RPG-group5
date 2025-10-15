@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_group5
 {
-    using TextRPG_group5.ItemManagement;
+    using TextRPG_group5.ItemManage;
     internal class PlayerEquip
     {
     private GamePlayer.Player player;
