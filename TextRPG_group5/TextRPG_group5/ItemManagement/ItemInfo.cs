@@ -81,7 +81,7 @@ namespace TextRPG_group5.ItemManage
         {
             if(EquipMentDB.ContainsKey(name))
             {
-                return EquipMentDB[name];
+                return EquipMentDB[name]; // 매개변수와 키값이 일치하는 곳의 밸류값을 반환
             }
             else if(UsableDB.ContainsKey(name))
             {
@@ -89,7 +89,7 @@ namespace TextRPG_group5.ItemManage
             }
             else
             {
-                return null;
+                return null; // 없을 시 null 반환
             }
         }
     }
