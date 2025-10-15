@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_group5
 {
-    internal class GamePlayer
-    {
+        
         internal class Player : Character
         {
             public string Job { get; private set; }
@@ -20,8 +19,10 @@ namespace TextRPG_group5
             public int Gold { get; private set; }
             public int Exp { get; private set; }
             public int MaxExp { get; private set; }
+            public int ReachedStage { get; private set; }
 
-            public Player(string name, string job)
+
+        public Player(string name, string job)
                 : base(name, 0, 0, 0)
             {
                 Gold = 500;
@@ -79,6 +80,7 @@ namespace TextRPG_group5
                 Console.WriteLine($"치명타 확률: {Critical * 100}");
                 Console.WriteLine($"회피확률: {Evasion * 100}");
                 Console.WriteLine($"소지금: {Gold}");
+                Console.WriteLine($"도달 스테이지: [{ReachedStage}]Stage");
                 Console.WriteLine("===================================\n");
             }
             public void GainExp(int amount)
@@ -110,4 +112,4 @@ namespace TextRPG_group5
             }
         }
     }
-}
+
