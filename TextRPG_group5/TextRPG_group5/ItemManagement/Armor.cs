@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG_group5
+namespace TextRPG_group5.ItemManagement
 {
     // 장비아이템 중 방어구를 관리할 메서드에 추상클래스 EquipItem 상속 후 재정의
     public class Armor : EquipItem
@@ -17,11 +17,21 @@ namespace TextRPG_group5
 
         public Armor(string name, string description, int defPower, int price, int job, bool isEquip)
         {
+            string jobLimits;
+
             Name = name;
             Job = (Class)job;
-            DefPower = defPower;
+            if((int)Job == 1)
+            {
+                jobLimits = "전사";
+            }
+            else
+            {
+                jobLimits = "마법사";
+            }
+                DefPower = defPower;
             Price = price;
-            Description = $"스탯 증가량 => 방어력 : +{defPower}";
+            Description = $"스탯 증가량 => 방어력 : +{defPower}, 장착 가능 직업 : {jobLimits}";
             IsEquip = isEquip;
         }
 

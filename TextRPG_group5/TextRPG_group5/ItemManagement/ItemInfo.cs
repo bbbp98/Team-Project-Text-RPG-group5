@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG_group5
+namespace TextRPG_group5.ItemManagement
 {
 
 
@@ -42,7 +42,7 @@ namespace TextRPG_group5
 
         // 획득한 아이템의 이름을 매개변수로 받아 딕셔너리의 키를 대조해 그에 해당하는 아이템 오브젝트를 반환
         // 인벤토리의 아이템을 출력할 때, 아이템의 이름만 매개변수로 받는 로직을 반복문을 통해 반복해주면 출력이 용이
-        public static Item GetItem(string name)
+        public static ItemManagement GetItem(string name)
         {
             if(EquipMentDB.ContainsKey(name))
             {
@@ -58,7 +58,7 @@ namespace TextRPG_group5
             }
         }
 
-        public static void ShowItem(Item item)
+        public static void ShowItem(ItemManagement item)
         {
 
         }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG_group5
+namespace TextRPG_group5.ItemManagement
 {
 
-    public class Item
+    public class ItemManagement
     {
         public string Name { get; protected set; }
         public string Description { get; protected set; }
