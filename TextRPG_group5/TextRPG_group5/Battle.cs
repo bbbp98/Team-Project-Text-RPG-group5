@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.Scenes;
 
 namespace TextRPG_group5
 {
@@ -96,5 +97,40 @@ namespace TextRPG_group5
           {
                Console.WriteLine("아이템 사용!");
           }
+        public void HitNormalAttack()
+        {
+            // Console.WriteLine("일반 공격 사용!");
+
+            Character attacker;
+            Character defender;
+
+            int attackerBeforeHp;
+            int defenderBeforeHp;
+
+            if (isPlayerTurn)   // Player 턴
+            {
+                attacker = player;
+                defender = monsters[userChoice - 1];
+
+                attackerBeforeHp = player.NowHp;
+                defenderBeforeHp = monsters[userChoice - 1].NowHp;
+            }
+            else    // Monster 턴
+            {
+                // Monster 무리 중 Player 를 공격할 Monster 를 랜덤으로 하나 선택
+                attacker = monsters[new Random().Next(0, monsters.Count)];
+                defender = player;
+
+                attackerBeforeHp = attacker.NowHp;
+                defenderBeforeHp = player.NowHp;
+            }
+
+            defender.TakeDamage(attacker.Attack, attacker.Critical);
+            isPlayerTurn = !isPlayerTurn;
+
+            ActionResultScene result = new ActionResultScene(attacker, defender, attackerBeforeHp, defenderBeforeHp);
+            result.Show();
+        }
+
      }
 }
