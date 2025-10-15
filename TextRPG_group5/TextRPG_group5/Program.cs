@@ -19,6 +19,14 @@ namespace TextRPG_group5
             while (true)
             {
                 bts.Show();
+                Console.WriteLine();
+
+                Console.WriteLine("원하시는 행동을 입력해주세요.");
+                Console.Write(">> ");
+
+                byte input;
+                bool parseResult = byte.TryParse(Console.ReadLine(), out input);
+                bts.HandleInput(input);
             }
         }
      }

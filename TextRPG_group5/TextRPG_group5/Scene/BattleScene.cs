@@ -66,15 +66,6 @@ namespace TextRPG_group5.Scene
                 default:
                     break;
             }
-
-            Console.WriteLine();
-
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
-            Console.Write(">> ");
-
-            byte input;
-            bool parseResult = byte.TryParse(Console.ReadLine(), out input);
-            HandleInput(input);
         }
 
         // 입력 값 처리 메서드
