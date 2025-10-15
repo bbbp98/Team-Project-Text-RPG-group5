@@ -10,16 +10,18 @@ namespace TextRPG_group5.ItemManagement
     public class Weapon : EquipItem
     {
         public int AtkPower { get; protected set; }
-        public int CriPro { get; protected set; }
+        public int MagicPower { get; protected set; }
+        public double CriPro { get; protected set; }
         public Class Job { get; protected set; }
 
-        public Weapon(string name, string description, int atkPower, int criPro, int price, int job, bool isEquip)
+        public Weapon(string name, string description, int atkPower, int magicPower, double criPro, int price, int job, bool isEquip)
         {
             string jobLimits;
 
             Name = name;
             Job = (Class)job;
             AtkPower = atkPower;
+            MagicPower = magicPower;
             CriPro = criPro;
 
             if((int)Job == 1)
@@ -29,6 +31,14 @@ namespace TextRPG_group5.ItemManagement
             else if((int)Job == 2)
             {
                 jobLimits = "마법사";
+            }
+            else if((int)Job == 3)
+            {
+                jobLimits = "궁수";
+            }
+            else if ((int)Job == 4)
+            {
+                jobLimits = "도적";
             }
             else
             {

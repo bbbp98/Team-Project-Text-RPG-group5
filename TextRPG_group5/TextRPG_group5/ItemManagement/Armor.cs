@@ -10,12 +10,11 @@ namespace TextRPG_group5.ItemManagement
     public class Armor : EquipItem
     {
         public int DefPower { get; protected set; }
+        public double EvadePro { get; protected set; }
 
         public Class Job { get; protected set; }
 
-        public bool isCorrect { get; protected set; }
-
-        public Armor(string name, string description, int defPower, int price, int job, bool isEquip)
+        public Armor(string name, string description, int defPower, double evadePro, int price, int job, bool isEquip)
         {
             string jobLimits;
 
@@ -34,6 +33,7 @@ namespace TextRPG_group5.ItemManagement
                 jobLimits = "공용";
             }
             DefPower = defPower;
+            EvadePro = evadePro;
             Price = price;
             Description = $"스탯 증가량 => 방어력 : +{defPower}, 장착 가능 직업 : {jobLimits}";
             IsEquip = isEquip;

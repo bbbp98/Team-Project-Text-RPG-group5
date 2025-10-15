@@ -13,6 +13,8 @@ namespace TextRPG_group5.ItemManagement
     {
         Warrior = 1,
         Magician,
+        Archer,
+        Thief,
         All
     }
 
