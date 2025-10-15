@@ -12,5 +12,20 @@ namespace TextRPG_group5
         {
             Console.WriteLine("전투 시작!\n");
         }
+
+        public void HitNormalAttack()
+        {
+            Console.WriteLine("일반 공격 사용!");
+        }
+
+        public void UseSkill()
+        {
+            Console.WriteLine("스킬 사용!");
+        }
+
+        public void UseItem()
+        {
+            Console.WriteLine("아이템 사용!");
+        }
     }
 }
