@@ -260,6 +260,54 @@ namespace TextRPG_group5
 
     }
 
+    internal class PresentBox : Monster
+    {
+        /*
+        깜짝상자: 럭키 몬스터
+        많은 돈이 들어있는 반짝이는 상자. 낮은 확률로 던전에서 마주칠 수 있다.
+        운이 좋다면, 큰 돈을 얻을 수 있을 지도 모른다.
+        */
+        public PresentBox(int level) : base("깜짝상자", "깜짝상자가 반짝인다!", MonsterType.unique, 100, 0, 0, 0, 0)
+        {
+            this.Level = level;
+            MaxHp += (int)(Level * 5);                  // 레벨에 비례
+            Gold += (int)(Level * 15 + PresentGold);    // 레벨에 비례해 골드 증가 + 랜덤으로 골드 증가
+        }
+
+        public int PresentGold
+        {
+            get
+            {
+                Random rand = new Random();
+                int randomInt = rand.Next(0, 16);       // 0 ~ 15 사이의 난수를 생성
+                return randomInt * Level;               // 추가 골드는 기본 골드의 0~15배를 얻음(다시 말해, 잘 하면 레벨의 30배까지도 얻을 수 있다)
+            }
+        }
+    }
+
+    internal class Dople : Monster
+    {
+        public Dople(Player targetPlayer) : base("도플갱어", "당신과 닮은 모습을 한 몬스터가 당신을 흉내낸다!", MonsterType.boss, 0, 0, 0, 0, 0)
+        {
+            /*
+            도플갱어: 플레이어가 강해질수록 더 강해지는 보스 몬스터
+            플레이어를 흉내낼 줄 아는 마물. 플레이어의 능력치를 80% 정도 흉내낸다.
+            플레이어가 강해질수록 더 강해지기 때문에, 까다롭다.
+            */
+            this.Level = targetPlayer.Level;
+            this.MaxHp += (int)(targetPlayer.MaxHp * 0.8);  
+            this.Attack += (int)(targetPlayer.Attack * 0.8);            
+            this.Defence += (int)(targetPlayer.Defence * 0.8);            
+            this.Critical += (targetPlayer.Critical * 0.8);          
+            this.Evasion += (targetPlayer.Evasion * 0.8);
+            // 플레이어의 80% 능력치를 가진다.
+            this.Exp += (int)(10 + targetPlayer.Level * 8);
+            this.Gold += (int)(15 + targetPlayer.Level * 8);
+            // 플레이어의 레벨에 따라 보상이 달라진다.
+        }
+        // 플레이어 스테이터스 성장 공식 완성 후 데이터 테이블에 추가(지금은 미등록)
+    }
+
     internal class Dragon : Monster
     {
         /*
