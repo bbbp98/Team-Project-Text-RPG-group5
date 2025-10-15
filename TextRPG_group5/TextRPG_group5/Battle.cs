@@ -6,8 +6,31 @@ using System.Threading.Tasks;
 
 namespace TextRPG_group5
 {
+    enum BattleState
+    {
+        NormalAttack,
+        Skill,
+        Item
+    }
+    
     internal class Battle
     {
+        Character player;
+        List<Character> monsters;
+
+        bool isPlayerTurn;
+        bool isEnemyTurn;
+
+        public Battle(Character player, List<Character> monsters)
+        {
+            this.player = player;
+            this.monsters = monsters;
+
+            // Player 선공
+            isPlayerTurn = true;
+            isEnemyTurn = false;
+        }
+        
         public void StartBattle()
         {
             Console.WriteLine("전투 시작!\n");
