@@ -17,9 +17,7 @@ namespace TextRPG_group5.Scenes
                if (input == 0)
                {
                     // go to MainScene
-                    //Program.SetScene(new StartScene());
-
-                    Console.WriteLine("마을로 돌아갑니다."); // log
+                    Program.SetScene(new MainScene());
                }
                else if (input > maxStage)
                {
@@ -32,22 +30,6 @@ namespace TextRPG_group5.Scenes
                     Program.SetScene(new DungeonResultScene(true)); // test
                     Console.WriteLine($"{input}층 던전 입장");   // log
                }
-
-
-               //switch (input)
-               //{
-               //     case 0:
-               //          // go to MainScene
-               //          //Program.SetScene(new StartScene());
-               //          break;
-               //     case 1:
-               //          // go to StageScene
-               //          Program.SetScene(new DungeonResultScene(true));
-               //          break;
-               //     default:
-               //          Console.WriteLine("잘못된 입력입니다.\n");
-               //          break;
-               //}
           }
 
 
@@ -65,7 +47,6 @@ namespace TextRPG_group5.Scenes
                     Console.WriteLine($"{stage}. {stage}층 던전 입장");
                     stage--;
                }
-               //Console.WriteLine($"1. 던전 입장 (현재 스테이지: {stage})");
                Console.WriteLine("0. 마을로 돌아가기");
           }
      }
