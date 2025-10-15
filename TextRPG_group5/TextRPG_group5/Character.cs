@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_group5
 {
-    internal abstract class Character
+    public abstract class Character
     {
         public string? Name { get; set; }
         public int Level { get; set; }

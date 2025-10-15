@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TextRPG_group5
 {
     using TextRPG_group5.ItemManagement;
-    internal class PlayerItem
+    public class PlayerItem
     {
         private Player player;
         private bool IsJobMatch(Class job)

@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace TextRPG_group5.ItemManagement
 {
-    internal class Armor : EquipItem
+    public class Armor : EquipItem
     {
         public int DefPower { get; protected set; }
 
