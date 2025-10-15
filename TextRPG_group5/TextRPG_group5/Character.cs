@@ -46,7 +46,7 @@ namespace TextRPG_group5
                if (insCritical)
                     dmg = (int)(dmg * 1.5f);
 
-               int damage = Math.Max(1, dmg - Defence);
+               int damage = Math.Max(1, dmg - Defence); // dmg - Defence가 음수라면 최소 데미지 1
                NowHp -= damage;
                if (NowHp < 0)
                     NowHp = 0;
