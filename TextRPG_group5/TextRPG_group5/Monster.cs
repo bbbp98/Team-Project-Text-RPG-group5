@@ -114,7 +114,7 @@ namespace TextRPG_group5
     internal class HobGoblin : Monster
     {
         /*
-        홉고블린: 고블린의 진화체
+        홉고블린: 고블린의 진화체 몬스터
         진리를 깨우쳐 고블린보다 더 빠르게 강해진다(고블린에 비해 공격력이 더 크게 증가)
         여전히 신체적 한계를 극복하지는 못했다.(체력과 방어력은 레벨에 비례)
         */
@@ -149,7 +149,7 @@ namespace TextRPG_group5
     internal class Orc : Monster
     {
         /*
-        오크: 초반 구간의 악몽
+        오크: 초반 구간의 악몽, 그리고 후반 구간의 꿀통 몬스터
         우월하고 강인한 유전자로 태생부터 강력하지만, 우둔하여 레벨이 올라도 성장폭은 크지 않다.
         강력한 체력, 공격력, 방어력을 가졌지만, 치명타 확률과 회피율은 낮다.
         */
@@ -164,10 +164,10 @@ namespace TextRPG_group5
         // 초반부에 마주치면 두려운 존재지만, 고레벨 때 마주치면 꿀통 몬스터
     }
 
-    internal class Golem: Monster
+    internal class Golem : Monster
     {
         /*
-        골렘: 더럽게 단단하지만 느린 탱커
+        골렘: 더럽게 단단하지만 느린 탱커형 몬스터(피통도 높고, 방어력도 높다)
         마법을 이용해 돌로 만들어진 거인. 강력한 체력과 방어력을 가졌지만, 방어력에만 치중한 탓에 공격력은 일정하다.
         느리고 둔해서 치명타를 때릴 확률도, 회피할 일도 없다.
         */
@@ -180,5 +180,39 @@ namespace TextRPG_group5
             Gold += (int)(45 + Level * 6);          // 기본 많은 골드, 레벨에 비례해 추가
         }
         // 잘 안 부서지지만, 마법 생물이다 보니 무력화시키면 돈을 짭잘하게 벌 수 있다.
+    }
+
+    internal class Skeleton : Monster
+    {
+        /*
+        스켈레톤: 일반 공격으로는 잘 안 죽는 몬스터(회피율이 높다)
+        죽은 자의 뼈로 만들어진 언데드 몬스터. 전체적인 능력치는 낮지만, 회피율이 높아 일반 공격으로는 잘 안 죽는다.
+        전혀 위협적이지는 않지만 스킬을 소모하게 만드는, 짜증나는 몬스터
+        */
+        public Skeleton(int level) : base("스켈레톤", "스켈레톤이 턱뼈를 달그락거리며 달라붙는다.", MonsterType.normal, 15, 5, 3, 0.05, 0.55)
+        {
+            MaxHp += (int)(Level * 3);              // 레벨에 비례    
+            Attack += (int)(Level * 1.5);           // 레벨에 비례
+            Defence += (int)(Level * 1.5);          // 레벨에 비례
+            Exp += (int)(Level * 4);                // 레벨에 비례
+            Gold += (int)(Level * 4);               // 레벨에 비례
+        }
+    }
+
+    internal class ShadowAssassin : Monster
+    {
+        /*
+        그림자어쌔신: 플레이어와 어쌔신 둘 중 누가 먼저 때리느냐의 싸움
+        그림자 속에서 움직이는 암살자. 체력과 방어력은 없는 수준이지만, 공격력과 치명타 확률이 매우 높고, 회피율도 높다.
+        운이 좋지 않으면 플레이어가 먼저 공격하기 전에 플레이어가 죽어버릴 수도 있으니, 스킬로 빠르게 치워버리자
+        */
+        public ShadowAssassin(int level) : base("그림자어쌔신", "그림자 속에서 피하기 힘든 공격이 다가온다", MonsterType.normal, 10, 15, 1, 0.8, 0.7)
+        {
+            MaxHp += (int)(Level);                  // 레벨에 비례    
+            Attack += (int)(Level * 10);            // 레벨에 비례
+            Defence += (int)(Level);                // 레벨에 비례
+            Exp += (int)(Level * 6);                // 레벨에 비례
+            Gold += (int)(Level * 6);               // 레벨에 비례
+        }
     }
 }
