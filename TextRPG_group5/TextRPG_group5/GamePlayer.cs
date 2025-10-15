@@ -11,12 +11,12 @@ namespace TextRPG_group5
         internal class Player : Character
         {
             public string Job { get; private set; }
-            public new int Level { get; private set; } = 1;
+            public int Level { get; private set; } = 1;
             public int MaxMp { get; private set; }
             public int NowMp { get; private set; }
             public int MagicPower { get; private set; }
-            public int Criticalrate { get; private set; }
-            public int Evasionrate { get; private set; }
+            public double Critical { get; private set; }
+            public double Evasion { get; private set; }
             public int Gold { get; private set; }
             public int Exp { get; private set; }
             public int MaxExp { get; private set; }
@@ -49,16 +49,16 @@ namespace TextRPG_group5
                 switch (job)
                 {
                     case "전사":
-                        Attack = 30; Defence = 50; MaxHp = 120; MaxMp = 60; MagicPower = 10; Criticalrate = 10; Evasionrate = 5;
+                        Attack = 30; Defence = 50; MaxHp = 120; MaxMp = 60; MagicPower = 10; Critical = 0.1; Evasion = 0.1;
                         return true;
                     case "궁수":
-                        Attack = 40; Defence = 30; MaxHp = 90; MaxMp = 80; MagicPower = 30; Criticalrate = 40; Evasionrate = 20;
+                        Attack = 40; Defence = 30; MaxHp = 90; MaxMp = 80; MagicPower = 30; Critical = 0.4; Evasion = 0.2;
                         return true;
                     case "도적":
-                        Attack = 50; Defence = 20; MaxHp = 80; MaxMp = 90; MagicPower = 25; Criticalrate = 30; Evasionrate = 25;
+                        Attack = 50; Defence = 20; MaxHp = 80; MaxMp = 90; MagicPower = 25; Critical = 0.3; Evasion = 0.3;
                         return true;
                     case "법사":
-                        Attack = 20; Defence = 20; MaxHp = 60; MaxMp = 120; MagicPower = 50; Criticalrate = 15; Evasionrate = 10;
+                        Attack = 20; Defence = 20; MaxHp = 60; MaxMp = 120; MagicPower = 50; Critical = 0.2; Evasion = 0.1;
                         return true;
                     default:
                         return false;
@@ -76,8 +76,8 @@ namespace TextRPG_group5
                 Console.WriteLine($"공격력: {Attack}");
                 Console.WriteLine($"방어력: {Defence}");
                 Console.WriteLine($"마력: {MagicPower}");
-                Console.WriteLine($"치명타 확률: {Criticalrate}");
-                Console.WriteLine($"회피확률: {Evasionrate}");
+                Console.WriteLine($"치명타 확률: {Critical * 100}");
+                Console.WriteLine($"회피확률: {Evasion * 100}");
                 Console.WriteLine($"소지금: {Gold}");
                 Console.WriteLine("===================================\n");
             }
