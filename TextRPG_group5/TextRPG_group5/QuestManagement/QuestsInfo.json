@@ -1,42 +1,40 @@
 {
   "quests": [
     {
-      "id": 1,
-      "title": "½½¶óÀÓ Åä¹ú",
-      "description": "¸¶À» ±ÙÃ³ÀÇ ½½¶óÀÓÀÌ ³óÀÛ¹°À» ¸ÁÄ¡°í ÀÖ½À´Ï´Ù. ½½¶óÀÓÀ» Ã³Ä¡ÇØ ÁÖ¼¼¿ä.",
+      "QuestID": 1,
+      "QuestTitle": "ìŠ¬ë¼ì„ í† ë²Œ",
+      "QuestDescription": "ë§ˆì„ ê·¼ì²˜ì˜ ìŠ¬ë¼ì„ì´ ë†ì‘ë¬¼ì„ ë§ì¹˜ê³  ìˆìŠµë‹ˆë‹¤. ìŠ¬ë¼ì„ì„ ì²˜ì¹˜í•´ ì£¼ì„¸ìš”.",
       "objectives": [
         {
-          "type": "kill",
-          "target": "Slime",
-          "count": 5
+          "Type": "kill",
+          "Target": "Slime",
+          "Count": 5
         }
       ],
-      "reward": {
-        "exp": 100,
-        "gold": 50,
-        "items": ["È¸º¹¾à"]
+      "Rewards": {
+        "Exp": 100,
+        "Gold": 50,
+        "Items": ["HPì†Œí˜•í¬ì…˜"]
       },
-      "requiredQuest": null,
-      "status": "NotStarted"
+      "Status": 0
     },
     {
-      "id": 2,
-      "title": "°íºí¸° ÅğÄ¡",
-      "description": "½£¼Ó¿¡¼­ °íºí¸°µéÀÌ ±æÀ» ¸·°í ÀÖ½À´Ï´Ù. À§ÇùÀ» Á¦°ÅÇÏ¼¼¿ä.",
+      "QuestID": 2,
+      "QuestTitle": "ê³ ë¸”ë¦° í‡´ì¹˜",
+      "QuestDescription": "ìˆ²ì†ì—ì„œ ê³ ë¸”ë¦°ë“¤ì´ ê¸¸ì„ ë§‰ê³  ìˆìŠµë‹ˆë‹¤. ìœ„í˜‘ì„ ì œê±°í•˜ì„¸ìš”.",
       "objectives": [
         {
-          "type": "kill",
-          "target": "Goblin",
-          "count": 3
+          "Type": "kill",
+          "Target": "Goblin",
+          "Count": 3
         }
       ],
-      "reward": {
-        "exp": 150,
-        "gold": 70,
-        "items": ["Ã¶°Ë"]
+      "Rewards": {
+        "Exp": 150,
+        "Gold": 70,
+        "Items": ["ì² ê²€"]
       },
-      "requiredQuest": 1,
-      "status": "Locked"
+      "Status": 0
     }
   ]
 }
