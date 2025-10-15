@@ -11,21 +11,20 @@ namespace TextRPG_group5.Scene
         Battle bt = new Battle();
 
         Character player;
-        Character monster1;
-        Character monster2;
-        Character monster3;
-        
-        public BattleScene(Character player, Character mon1, Character mon2, Character mon3)
+        List<Character> monsters;
+
+        public BattleScene(Character player, List<Character> monsters)
         {
             this.player = player;
-            monster1 = mon1;
-            monster2 = mon2;
-            monster3 = mon3;
+            this.monsters = monsters;
+
+            // 전투 로직 로드
+            bt = new Battle(player, monsters);
         }
 
         // 플레이어 선택별 출력 분기를 위한 변수
         byte choice = 0;
-        
+
         // 화면에 보여줄 텍스트들(Console.Write관련)
         public override void Show()
         {
@@ -37,9 +36,10 @@ namespace TextRPG_group5.Scene
             Console.WriteLine("Battle!!");
             Console.WriteLine();
 
-            monster1.ShowStatus();
-            monster2.ShowStatus();
-            monster3.ShowStatus();
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                monsters[i].ShowStatus();
+            }
             Console.WriteLine();
 
             Console.WriteLine("[내정보]");
