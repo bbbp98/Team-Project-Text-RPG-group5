@@ -120,7 +120,7 @@ namespace TextRPG_group5
         진리를 깨우쳐 고블린보다 더 빠르게 강해진다(고블린에 비해 공격력이 더 크게 증가)
         여전히 신체적 한계를 극복하지는 못했다.(체력과 방어력은 레벨에 비례)
         */
-        public HobGoblin(int level) : base("고블린", "고블린이 날카로운 칼날을 휘두른다!", MonsterType.normal, 15, 8, 4, 0.1, 0.2)
+        public HobGoblin(int level) : base("홉고블린", "홉고블린이 날카로운 칼날을 휘두른다!", MonsterType.normal, 15, 8, 4, 0.1, 0.2)
         {
             this.Level = level;
             MaxHp += (int)(Level * 3);                  // 레벨에 비례    
@@ -267,7 +267,7 @@ namespace TextRPG_group5
         고대의 신비를 품은 던전의 주인. 불합리한 공격력과 방어력을 가지고 있다. 모든 공격이 치명타로 적용하지만, 덩치 탓에 회피율은 낮다.
         플레이어는 드래곤을 상대하기 위해 가능한 좋은 장비와 스킬을 모두 갖추고 도전해야 한다.
         */
-        public Dragon(int level) : base("드래곤", "분노한 용의 숨결이 화면을 뒤덮는다.", MonsterType.boss, 500, 500, 500, 0.5, 0.1)
+        public Dragon(int level) : base("드래곤", "분노한 용의 숨결이 눈앞을 뒤덮는다.", MonsterType.boss, 500, 500, 500, 0.5, 0.1)
         {
             this.Level = level;                 // 레벨과 상관없이 절대적인 능력치를 가진다.
             Exp += (int)(500);                  // 많은 경험치
