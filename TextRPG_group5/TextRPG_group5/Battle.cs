@@ -7,13 +7,14 @@ using TextRPG_group5.Scenes;
 
 namespace TextRPG_group5
 {
-     enum BattleState
-     {
-          None,
-          NormalAttack,
-          Skill,
-          Item
-     }
+    enum BattleState
+    {
+        None,
+        NormalAttack,
+        Skill,
+        Item,
+        ActionResult
+    }
 
      internal class Battle
      {
