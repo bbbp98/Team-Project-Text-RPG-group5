@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using TextRPG_group5.Managers;
 using static TextRPG_group5.Managers.GameProgress;
@@ -14,13 +16,16 @@ namespace TextRPG_group5.Scenes
                "이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.\n";
           GameProgress gameProgress = new GameProgress();
 
+          const string savePath = "player.json";
+
           public override void HandleInput(byte input)
           {
                switch (input)
                {
                     case 0:
                          Console.WriteLine("게임을 종료합니다.");
-                         Exit.Show(gameProgress);
+                         //Exit.Show(gameProgress);
+                         Environment.Exit(0);
                          break;
                     case 1:
                          Console.WriteLine("캐릭터 정보를 확인합니다.");
@@ -30,11 +35,13 @@ namespace TextRPG_group5.Scenes
                          break;
                     case 3:
                          Console.WriteLine("퀘스트를 확인합니다.");
+                         Program.player!.TakeDamage(10, 0.2);
                          break;
                     case 4:
                          Program.SetScene(new DungeonEntranceScene());
                          break;
                     case 5:
+                         //Save();
                          Console.WriteLine("게임을 저장합니다.");
                          break;
                }
@@ -54,5 +61,27 @@ namespace TextRPG_group5.Scenes
                Console.WriteLine("5. 저장하기");
                Console.WriteLine("0. 게임 종료");
           }
+
+          //public void Save()
+          //{
+          //     string saveJson = JsonSerializer.Serialize(Program.player, new JsonSerializerOptions
+          //     {
+          //          WriteIndented = true
+          //     });
+          //     File.WriteAllText(savePath, saveJson);
+          //}
+
+          //public Player Load()
+          //{
+          //     if (File.Exists(savePath))
+          //     {
+          //          string json = File.ReadAllText(savePath);
+          //          return (JsonSerializer.Deserialize<Player>(json)); // 만약 불러온 Json파일이 null이면 캐릭터 생성 메서드 호출할 수 있도록
+          //     }
+          //     else
+          //     {
+          //          return new Player("test", "궁수");
+          //     }
+          //}
      }
 }

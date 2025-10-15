@@ -12,7 +12,7 @@ namespace TextRPG_group5.Scenes
      internal class DungeonResultScene : Scene
      {
           private bool isClearStage;
-          private int stage = 2;
+          private int stage;
           private class Reward
           {
                public int Gold;
@@ -21,13 +21,14 @@ namespace TextRPG_group5.Scenes
                public Reward(int stage)
                {
                     Gold = 200 * stage;
-                    Exp = 10 * stage;
+                    Exp = 45 * stage;
                }
           }
 
-          public DungeonResultScene(bool isClearStage)
+          public DungeonResultScene(int stage, bool isClearStage)
           {
                this.isClearStage = isClearStage;
+               this.stage = stage;
           }
 
           public override void HandleInput(byte input)
@@ -84,35 +85,45 @@ namespace TextRPG_group5.Scenes
                     Defence = player.Defence,
                };
                player.NowHp -= 30;
+               int beforeMp = player.NowMp;
+               int beforeGold = player.Gold;
+               int beforeExp = player.Exp;
 
                if (isClearStage)
                {
                     Reward reward = new Reward(stage);
 
-                    Console.WriteLine("[캐릭터 정보]");
-                    //player.Gold += reward.Gold;
+                    //player.Gold += reward.Gold; // Player에서 Exp처럼 Gold를 더할 수 있는 메서드 필요
                     player.GainExp(reward.Exp);
+
+                    Console.WriteLine("[캐릭터 정보]");
                     string levelStr = beforePlayer.Level.ToString();
                     string atkStr = beforePlayer.Attack.ToString();
                     string defStr = beforePlayer.Defence.ToString();
+
                     if (beforePlayer.Level != player.Level)
                     {
                          levelStr = $"{levelStr} -> {player.Level}";
                          atkStr = $"{atkStr} -> {player.Attack}";
                          defStr = $"{defStr} -> {player.Defence}";
                     }
+
                     Console.WriteLine($"Lv: {levelStr} {player.Name}");
                     Console.WriteLine($"HP: {beforePlayer.NowHp} -> {player.NowHp}");
-                    Console.WriteLine($"MP: {beforePlayer.NowMp} -> {player.NowMp}");
+                    Console.WriteLine($"MP: {beforeMp} -> {player.NowMp}");
                     Console.WriteLine($"공격력: {atkStr}");
                     Console.WriteLine($"방어력: {defStr}");
 
                     Console.WriteLine("\n[획득 아이템]");
-                    Console.WriteLine($"Gold: {beforePlayer.Gold} -> {player.Gold}");
-                    Console.WriteLine($"EXP: {beforePlayer.Exp} -> {player.Exp}");
+                    Console.WriteLine($"Gold: {beforeGold} -> {player.Gold}");
+                    Console.WriteLine($"EXP: {beforeExp} -> {player.Exp}");
 
-                    //if (stage > player.Stage) // update player stage
-                    //     player.Stage = stage;
+                    if (stage == player.ReachedStage) // update player stage
+                    {
+                         Console.WriteLine("최고 층이 갱신되었습니다.");
+                         Console.WriteLine();
+                         //player.ReachedStage++; // Player에서 ReachedStage에 set을 public으로 풀던가 stage++할 수 있는 메서드 필요
+                    }
                }
                else
                {
@@ -120,6 +131,7 @@ namespace TextRPG_group5.Scenes
                     Console.WriteLine($"Lv: {player.Level} {player.Name}");
                     Console.WriteLine($"HP: {beforePlayer.NowHp} -> {player.NowHp}");
                }
+               Console.WriteLine();
           }
      }
 }

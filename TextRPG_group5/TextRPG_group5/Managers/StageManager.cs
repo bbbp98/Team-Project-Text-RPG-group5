@@ -8,6 +8,19 @@ namespace TextRPG_group5.Managers
 {
      internal class StageManager
      {
+          static private StageManager? _instance;
+
+          // singleton
+          public static StageManager Instance
+          {
+               get
+               {
+                    if ( _instance == null )
+                         _instance = new StageManager();
+                    return _instance;
+               }
+          }
+
           public List<Monster> CreateMonsters(int stage)
           {
                List<Monster> monsters = new List<Monster>();
@@ -23,6 +36,9 @@ namespace TextRPG_group5.Managers
                {
                     // 슬라임2, 고블린2
                     monsters.Add(new Slime(stage));
+                    monsters.Add(new Slime(stage));
+                    monsters.Add(new Goblin(stage));
+                    monsters.Add(new Goblin(stage));
                }
                else
                {
