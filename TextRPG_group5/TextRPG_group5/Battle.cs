@@ -6,93 +6,95 @@ using System.Threading.Tasks;
 
 namespace TextRPG_group5
 {
-    enum BattleState
-    {
-        None,
-        NormalAttack,
-        Skill,
-        Item
-    }
-    
-    internal class Battle
-    {
-        Player player;
-        List<Monster> monsters;
+     enum BattleState
+     {
+          None,
+          NormalAttack,
+          Skill,
+          Item
+     }
 
-        private BattleState state = 0;
+     internal class Battle
+     {
+          Player player;
+          List<Monster> monsters;
 
-        bool isPlayerTurn;
-        bool isEnemyTurn;
+          private BattleState state = 0;
 
-        public Battle(Player player, List<Monster> monsters)
-        {
-            this.player = player;
-            this.monsters = monsters;
+          public byte userChoice;
 
-            // Player 선공
-            isPlayerTurn = true;
-            isEnemyTurn = false;
-        }
+          bool isPlayerTurn;
+          bool isEnemyTurn;
 
-        public void SetBattleState(BattleState currentState)
-        {
-            state = currentState;
-        }
+          public Battle(Player player, List<Monster> monsters)
+          {
+               this.player = player;
+               this.monsters = monsters;
 
-        public BattleState GetBattleState()
-        {
-            return state;
-        }
-        
-        public void StartBattle()
-        {
-            Console.WriteLine("전투 시작!\n");
-        }
+               // Player 선공
+               isPlayerTurn = true;
+               isEnemyTurn = false;
+          }
 
-        public void SelectTarget()
-        {
-            for (int i = 0; i < monsters.Count; i++)
-            {
-                Console.WriteLine($"[{i + 1}] {monsters[i].Name}");
-            }
+          public void SetBattleState(BattleState currentState)
+          {
+               state = currentState;
+          }
 
-            Console.WriteLine();
-            Console.WriteLine("0. 취소");
-        }
+          public BattleState GetBattleState()
+          {
+               return state;
+          }
 
-        public void SelectSkill()
-        {
-            Console.WriteLine("[1] 스킬 1번");
-            Console.WriteLine("[2] 스킬 2번");
-            Console.WriteLine("[3] 스킬 3번");
+          public void StartBattle()
+          {
+               Console.WriteLine("전투 시작!\n");
+          }
 
-            Console.WriteLine();
-            Console.WriteLine("0. 취소");
-        }
+          public void SelectTarget()
+          {
+               for (int i = 0; i < monsters.Count; i++)
+               {
+                    Console.WriteLine($"[{i + 1}] {monsters[i].Name}");
+               }
 
-        public void SelectUsableItem()
-        {
-            Console.WriteLine("[1] 소비 아이템 1번");
-            Console.WriteLine("[2] 소비 아이템 2번");
-            Console.WriteLine("[3] 소비 아이템 3번");
+               Console.WriteLine();
+               Console.WriteLine("0. 취소");
+          }
 
-            Console.WriteLine();
-            Console.WriteLine("0. 취소");
-        }
+          public void SelectSkill()
+          {
+               Console.WriteLine("[1] 스킬 1번");
+               Console.WriteLine("[2] 스킬 2번");
+               Console.WriteLine("[3] 스킬 3번");
 
-        public void HitNormalAttack()
-        {
-            Console.WriteLine("일반 공격 사용!");
-        }
+               Console.WriteLine();
+               Console.WriteLine("0. 취소");
+          }
 
-        public void UseSkill()
-        {
-            Console.WriteLine("스킬 사용!");
-        }
+          public void SelectUsableItem()
+          {
+               Console.WriteLine("[1] 소비 아이템 1번");
+               Console.WriteLine("[2] 소비 아이템 2번");
+               Console.WriteLine("[3] 소비 아이템 3번");
 
-        public void UseItem()
-        {
-            Console.WriteLine("아이템 사용!");
-        }
-    }
+               Console.WriteLine();
+               Console.WriteLine("0. 취소");
+          }
+
+          public void HitNormalAttack()
+          {
+               Console.WriteLine("일반 공격 사용!");
+          }
+
+          public void UseSkill()
+          {
+               Console.WriteLine("스킬 사용!");
+          }
+
+          public void UseItem()
+          {
+               Console.WriteLine("아이템 사용!");
+          }
+     }
 }

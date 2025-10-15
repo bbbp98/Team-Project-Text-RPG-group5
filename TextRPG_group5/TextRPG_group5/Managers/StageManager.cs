@@ -9,7 +9,7 @@ namespace TextRPG_group5.Managers
      internal class StageManager
      {
           static private StageManager? _instance;
-
+          
           // singleton
           public static StageManager Instance
           {
