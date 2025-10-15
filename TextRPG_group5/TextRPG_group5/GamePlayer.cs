@@ -3,31 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.ItemManage;
 
 namespace TextRPG_group5
 {
-    internal class GamePlayer
-    {
         internal class Player : Character
         {
             public string Job { get; private set; }
-            public new int Level { get; private set; } = 1;
             public int MaxMp { get; private set; }
             public int NowMp { get; private set; }
             public int MagicPower { get; private set; }
-            public new double Critical { get; private set; }
-            public new double Evasion { get; private set; }
-            public int Gold { get; private set; }
+            public int Gold { get; set; }
             public int Exp { get; private set; }
             public int MaxExp { get; private set; }
+            public int ReachedStage { get; set; }
 
-            public Player(string name, string job)
+
+        public Player(string name, string job)
                 : base(name, 0, 0, 0)
             {
+            Level = 1;
+            Critical = 0.1;
+            Evasion = 0.2;
                 Gold = 500;
                 Exp = 0;
                 MaxExp = 100;
-                while (true)
+            Equipment = new PlayerItem(this);
+            while (true)
                 {
                     if (StatbyJob(job))
                     {
@@ -43,6 +45,10 @@ namespace TextRPG_group5
                 NowHp = MaxHp;
                 NowMp = MaxMp;
             }
+        public Player() 
+        {
+            Equipment = new PlayerItem(this);
+        }
 
             private bool StatbyJob(string job)
             {
@@ -79,6 +85,7 @@ namespace TextRPG_group5
                 Console.WriteLine($"치명타 확률: {Critical * 100}");
                 Console.WriteLine($"회피확률: {Evasion * 100}");
                 Console.WriteLine($"소지금: {Gold}");
+                Console.WriteLine($"도달 스테이지: [{ReachedStage}]Stage");
                 Console.WriteLine("===================================\n");
             }
             public void GainExp(int amount)
@@ -99,7 +106,7 @@ namespace TextRPG_group5
                 NowHp = MaxHp; NowMp = MaxMp;
                 Console.WriteLine($"레벨 업 하였습니다.\n 현재 레벨 : {Level} 입니다.");
             }
-            public PlayerEquip Equipment { get; private set; }
+            public PlayerItem Equipment { get; private set; }
             public void AddCritical(double amount)
             {
                 Critical += amount;
@@ -110,4 +117,4 @@ namespace TextRPG_group5
             }
         }
     }
-}
+

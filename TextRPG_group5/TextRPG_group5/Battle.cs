@@ -6,88 +6,95 @@ using System.Threading.Tasks;
 
 namespace TextRPG_group5
 {
-    enum BattleState
-    {
-        None,
-        NormalAttack,
-        Skill,
-        Item
-    }
-    
-    internal class Battle
-    {
-        Character player;
-        List<Character> monsters;
+     enum BattleState
+     {
+          None,
+          NormalAttack,
+          Skill,
+          Item
+     }
 
-        private BattleState state = 0;
+     internal class Battle
+     {
+          Player player;
+          List<Monster> monsters;
 
-        bool isPlayerTurn;
-        bool isEnemyTurn;
+          private BattleState state = 0;
 
-        public Battle(Character player, List<Character> monsters)
-        {
-            this.player = player;
-            this.monsters = monsters;
+          public byte userChoice;
 
-            // Player 선공
-            isPlayerTurn = true;
-            isEnemyTurn = false;
-        }
+          bool isPlayerTurn;
+          bool isEnemyTurn;
 
-        public void SetBattleState(byte input)
-        {
-            switch (input)
-            {
-                case 1:
-                    state = BattleState.NormalAttack;
-                    break;
-                case 2:
-                    state = BattleState.Skill;
-                    break;
-                case 3:
-                    state = BattleState.Item;
-                    break;
-                default:
-                    break;
-            }
-        }
+          public Battle(Player player, List<Monster> monsters)
+          {
+               this.player = player;
+               this.monsters = monsters;
 
-        public BattleState GetBattleState()
-        {
-            return state;
-        }
-        
-        public void StartBattle()
-        {
-            Console.WriteLine("전투 시작!\n");
-        }
+               // Player 선공
+               isPlayerTurn = true;
+               isEnemyTurn = false;
+          }
 
-        public void SelectTarget()
-        {
-            // Console.WriteLine("공격 대상 선택...");
+          public void SetBattleState(BattleState currentState)
+          {
+               state = currentState;
+          }
 
-            // 몬스터가 총 몇 마리인지
-            int monNum = 3;
+          public BattleState GetBattleState()
+          {
+               return state;
+          }
 
-            for (int i = 0; i < monNum; i++)
-            {
-                Console.WriteLine($"[{i + 1}] {monsters[i].Name}");
-            }
-        }
+          public void StartBattle()
+          {
+               Console.WriteLine("전투 시작!\n");
+          }
 
-        public void HitNormalAttack()
-        {
-            Console.WriteLine("일반 공격 사용!");
-        }
+          public void SelectTarget()
+          {
+               for (int i = 0; i < monsters.Count; i++)
+               {
+                    Console.WriteLine($"[{i + 1}] {monsters[i].Name}");
+               }
 
-        public void UseSkill()
-        {
-            Console.WriteLine("스킬 사용!");
-        }
+               Console.WriteLine();
+               Console.WriteLine("0. 취소");
+          }
 
-        public void UseItem()
-        {
-            Console.WriteLine("아이템 사용!");
-        }
-    }
+          public void SelectSkill()
+          {
+               Console.WriteLine("[1] 스킬 1번");
+               Console.WriteLine("[2] 스킬 2번");
+               Console.WriteLine("[3] 스킬 3번");
+
+               Console.WriteLine();
+               Console.WriteLine("0. 취소");
+          }
+
+          public void SelectUsableItem()
+          {
+               Console.WriteLine("[1] 소비 아이템 1번");
+               Console.WriteLine("[2] 소비 아이템 2번");
+               Console.WriteLine("[3] 소비 아이템 3번");
+
+               Console.WriteLine();
+               Console.WriteLine("0. 취소");
+          }
+
+          public void HitNormalAttack()
+          {
+               Console.WriteLine("일반 공격 사용!");
+          }
+
+          public void UseSkill()
+          {
+               Console.WriteLine("스킬 사용!");
+          }
+
+          public void UseItem()
+          {
+               Console.WriteLine("아이템 사용!");
+          }
+     }
 }

@@ -5,16 +5,30 @@ using System.Numerics;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.QuestManagement;
 
 namespace TextRPG_group5.Scenes
 {
      internal class DungeonResultScene : Scene
      {
           private bool isClearStage;
+          private int stage;
+          private class Reward
+          {
+               public int Gold;
+               public int Exp;
 
-          public DungeonResultScene(bool isClearStage)
+               public Reward(int stage)
+               {
+                    Gold = 200 * stage;
+                    Exp = 45 * stage;
+               }
+          }
+
+          public DungeonResultScene(int stage, bool isClearStage)
           {
                this.isClearStage = isClearStage;
+               this.stage = stage;
           }
 
           public override void HandleInput(byte input)
@@ -22,13 +36,10 @@ namespace TextRPG_group5.Scenes
                switch (input)
                {
                     case 0:
-                         // go to MainScene
-                         //Program.SetScene(new MainScene());
                          if (isClearStage)
                               Program.currentScene = new DungeonEntranceScene();
                          else
-                              //Program.SetScene(new MainScene());
-                              Console.WriteLine("마을로 이동");
+                              Program.SetScene(new MainScene());
                          break;
                     default:
                          Console.WriteLine("잘못된 입력입니다.\n");
@@ -66,46 +77,61 @@ namespace TextRPG_group5.Scenes
 
           private void Result()
           {
-               //GamePlayer.Player player = Program.player ?? new GamePlayer.Player("test", "전사");
-               //GamePlayer.Player beforePlayer = new GamePlayer.Player
-               //{ 
-               //     NowHp = player.NowHp,
-               //     Attack = player.Attack,
-               //     Defence = player.Defence,
-               //};
-               //player.NowHp -= 30;
+               Player player = Program.player ?? new Player("test", "전사");
+               Player beforePlayer = new Player
+               {
+                    NowHp = player.NowHp,
+                    Attack = player.Attack,
+                    Defence = player.Defence,
+               };
+               player.NowHp -= 30;
+               int beforeMp = player.NowMp;
+               int beforeGold = player.Gold;
+               int beforeExp = player.Exp;
 
-               //if (isClearStage)
-               //{
-               //     Console.WriteLine("[캐릭터 정보]");
-               //     //player.Gold += 보상.Gold;
-               //     //player.Exp += 보상.Exp;
-               //     string levelStr = beforePlayer.Level.ToString();
-               //     string atkStr = beforePlayer.Attack.ToString();
-               //     string defStr = beforePlayer.Defence.ToString();
-               //     if (beforePlayer.Level != player.Level)
-               //     {
-               //          levelStr = $"{levelStr} -> {player.Level}";
-               //          atkStr = $"{atkStr} -> {player.Attack}";
-               //          defStr = $"{defStr} -> {player.Defence}";
-               //     }
-               //     Console.WriteLine($"Lv: {levelStr} {player.Name}");
-               //     Console.WriteLine($"HP: {beforePlayer.NowHp} -> {player.NowHp}");
-               //     //Console.WriteLine($"MP: {beforePlayer.NowMp} -> {player.NowMp}");
-               //     Console.WriteLine($"공격력: {atkStr}");
-               //     Console.WriteLine($"방어력: {defStr}");
+               if (isClearStage)
+               {
+                    Reward reward = new Reward(stage);
 
-               //     Console.WriteLine("\n[획득 아이템]");
-               //     //Console.WriteLine($"Gold: {beforePlayer.Gold} -> {player.Gold}");
-               //     //Console.WriteLine($"EXP: {beforePlayer.EXP} -> {player.EXP}");
+                    //player.Gold += reward.Gold; // Player에서 Exp처럼 Gold를 더할 수 있는 메서드 필요
+                    player.GainExp(reward.Exp);
 
-               //}
-               //else
-               //{
-               //     Console.WriteLine("[캐릭터 정보]");
-               //     Console.WriteLine($"Lv: {player.Level} {player.Name}");
-               //     Console.WriteLine($"HP: {beforePlayer.NowHp} -> {player.NowHp}");
-               //}
+                    Console.WriteLine("[캐릭터 정보]");
+                    string levelStr = beforePlayer.Level.ToString();
+                    string atkStr = beforePlayer.Attack.ToString();
+                    string defStr = beforePlayer.Defence.ToString();
+
+                    if (beforePlayer.Level != player.Level)
+                    {
+                         levelStr = $"{levelStr} -> {player.Level}";
+                         atkStr = $"{atkStr} -> {player.Attack}";
+                         defStr = $"{defStr} -> {player.Defence}";
+                    }
+
+                    Console.WriteLine($"Lv: {levelStr} {player.Name}");
+                    Console.WriteLine($"HP: {beforePlayer.NowHp} -> {player.NowHp}");
+                    Console.WriteLine($"MP: {beforeMp} -> {player.NowMp}");
+                    Console.WriteLine($"공격력: {atkStr}");
+                    Console.WriteLine($"방어력: {defStr}");
+
+                    Console.WriteLine("\n[획득 아이템]");
+                    Console.WriteLine($"Gold: {beforeGold} -> {player.Gold}");
+                    Console.WriteLine($"EXP: {beforeExp} -> {player.Exp}");
+
+                    if (stage == player.ReachedStage) // update player stage
+                    {
+                         Console.WriteLine("최고 층이 갱신되었습니다.");
+                         Console.WriteLine();
+                         //player.ReachedStage++; // Player에서 ReachedStage에 set을 public으로 풀던가 stage++할 수 있는 메서드 필요
+                    }
+               }
+               else
+               {
+                    Console.WriteLine("[캐릭터 정보]");
+                    Console.WriteLine($"Lv: {player.Level} {player.Name}");
+                    Console.WriteLine($"HP: {beforePlayer.NowHp} -> {player.NowHp}");
+               }
+               Console.WriteLine();
           }
      }
 }
