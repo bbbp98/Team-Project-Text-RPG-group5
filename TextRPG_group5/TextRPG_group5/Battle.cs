@@ -8,6 +8,7 @@ namespace TextRPG_group5
 {
     enum BattleState
     {
+        None,
         NormalAttack,
         Skill,
         Item
@@ -17,6 +18,8 @@ namespace TextRPG_group5
     {
         Character player;
         List<Character> monsters;
+
+        private BattleState state = 0;
 
         bool isPlayerTurn;
         bool isEnemyTurn;
@@ -29,6 +32,29 @@ namespace TextRPG_group5
             // Player 선공
             isPlayerTurn = true;
             isEnemyTurn = false;
+        }
+
+        public void SetBattleState(byte input)
+        {
+            switch (input)
+            {
+                case 1:
+                    state = BattleState.NormalAttack;
+                    break;
+                case 2:
+                    state = BattleState.Skill;
+                    break;
+                case 3:
+                    state = BattleState.Item;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public BattleState GetBattleState()
+        {
+            return state;
         }
         
         public void StartBattle()

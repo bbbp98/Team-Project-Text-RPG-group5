@@ -30,6 +30,7 @@ namespace TextRPG_group5.Scene
             Console.Clear();
             
             // 전투 로직 호출 테스트
+            //bt.StartBattle();
             
             Console.WriteLine("Battle!!");
             Console.WriteLine();
@@ -45,9 +46,10 @@ namespace TextRPG_group5.Scene
             Console.WriteLine($"HP {player.NowHp} / {player.MaxHp}");
             Console.WriteLine();
 
-            switch (choice)
             Console.WriteLine("==============================");
             Console.WriteLine();
+
+            switch ((byte)bt.GetBattleState())
             {
                 case 0:
                     Console.WriteLine("1. 일반 공격");
@@ -71,7 +73,10 @@ namespace TextRPG_group5.Scene
         // 입력 값 처리 메서드
         public override void HandleInput(byte input)
         {
-            switch (input)
+            // 일반 공격 or 스킬 사용 or 아이템 사용 등 사용자 입력 분기 처리
+            bt.SetBattleState(input);
+
+            /*switch (input)
             {
                 case 1:
                     choice = 1;
@@ -85,7 +90,7 @@ namespace TextRPG_group5.Scene
                 default:
                     choice = 0;
                     break;
-            }
+            }*/
         }
     }
 }
