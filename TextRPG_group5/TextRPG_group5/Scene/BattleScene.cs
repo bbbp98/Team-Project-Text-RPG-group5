@@ -57,7 +57,8 @@ namespace TextRPG_group5.Scene
                     Console.WriteLine("3. 아이템 사용");
                     break;
                 case 1:
-                    bt.HitNormalAttack();
+                    bt.SelectTarget();
+                    //bt.HitNormalAttack();
                     break;
                 case 2:
                     bt.UseSkill();

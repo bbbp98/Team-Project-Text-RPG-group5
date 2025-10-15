@@ -62,6 +62,19 @@ namespace TextRPG_group5
             Console.WriteLine("전투 시작!\n");
         }
 
+        public void SelectTarget()
+        {
+            // Console.WriteLine("공격 대상 선택...");
+
+            // 몬스터가 총 몇 마리인지
+            int monNum = 3;
+
+            for (int i = 0; i < monNum; i++)
+            {
+                Console.WriteLine($"[{i + 1}] {monsters[i].Name}");
+            }
+        }
+
         public void HitNormalAttack()
         {
             Console.WriteLine("일반 공격 사용!");
