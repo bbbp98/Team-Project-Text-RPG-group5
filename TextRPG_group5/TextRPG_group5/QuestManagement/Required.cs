@@ -8,8 +8,8 @@ namespace TextRPG_group5.QuestManagement
 {
     public class Required
     {
-        public string Type { get; protected set; }
-        public string Target { get; protected set; }
-        public string Count { get; protected set; }
+        public string Type { get; set; }
+        public string Target { get; set; }
+        public int Count { get; set; }
     }
 }

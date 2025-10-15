@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.Json;
+
 
 namespace TextRPG_group5.QuestManagement
 {
+    public enum QuestStatus
+    {
+        NoProgress,
+        InProgress,
+        Complete
+    }
     public class QuestManager
     {
-        public int QuestID { get; protected set; }
-        public string QuestTitle { get; protected set; }
-        public string QuestDescription { get; protected set; }
-        public List<Required> objectives { get; protected set; }
-
-
+        public int QuestID { get; set; }
+        public string QuestTitle { get; set; }
+        public string QuestDescription { get; set; }
+        public List<Required> objectives { get; set; }
+        public Rewards Rewards { get; set; }
+        public QuestStatus Status { get; set; }
     }
 }

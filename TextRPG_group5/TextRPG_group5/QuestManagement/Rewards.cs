@@ -8,8 +8,8 @@ namespace TextRPG_group5.QuestManagement
 {
     public class Rewards
     {
-        public int Exp { get; protected set; }
-        public int Gold { get; protected set; }
-        public List<string> items { get; protected set; }
+        public int Exp { get; set; }
+        public int Gold { get; set; }
+        public List<string> Items { get; set; }
     }
 }
