@@ -11,12 +11,12 @@ namespace TextRPG_group5
         internal class Player : Character
         {
             public string Job { get; private set; }
-            public int Level { get; private set; } = 1;
+            public new int Level { get; private set; } = 1;
             public int MaxMp { get; private set; }
             public int NowMp { get; private set; }
             public int MagicPower { get; private set; }
-            public double Critical { get; private set; }
-            public double Evasion { get; private set; }
+            public new double Critical { get; private set; }
+            public new double Evasion { get; private set; }
             public int Gold { get; private set; }
             public int Exp { get; private set; }
             public int MaxExp { get; private set; }
