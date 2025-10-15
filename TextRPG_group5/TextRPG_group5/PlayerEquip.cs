@@ -9,10 +9,10 @@ namespace TextRPG_group5
     using TextRPG_group5.ItemManagement;
     internal class PlayerEquip
     {
-    private GamePlayer.Player player;
+    private Player player;
     public Weapon? EquippedWeapon { get; private set; }
     public Armor? EquippedArmor { get; private set; }
-    public PlayerEquip(GamePlayer.Player player)
+    public PlayerEquip(Player player)
     { this.player = player; }
     public void EquipItem(EquipItem item)
         {

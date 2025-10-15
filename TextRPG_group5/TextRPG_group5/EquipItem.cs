@@ -23,7 +23,8 @@ namespace TextRPG_group5.ItemManagement
         /// </summary>
         public abstract class EquipItem : ItemManagement
         {
-            public abstract void YouEquipItem();
+        public bool IsEquip { get; set; }
+        public abstract void YouEquipItem();
         }
     
 }
