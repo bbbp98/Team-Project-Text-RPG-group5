@@ -74,24 +74,68 @@ namespace TextRPG_group5.Scenes
         // 입력 값 처리 메서드
         public override void HandleInput(byte input)
         {
-            // 일반 공격 or 스킬 사용 or 아이템 사용 등 사용자 입력 분기 처리
-            bt.SetBattleState(input);
-
-            /*switch (input)
+            if (bt.GetBattleState() == BattleState.None)
             {
-                case 1:
-                    choice = 1;
-                    break;
-                case 2:
-                    choice = 2;
-                    break;
-                case 3:
-                    choice = 3;
-                    break;
-                default:
-                    choice = 0;
-                    break;
-            }*/
+                switch (input)
+                {
+                    case 0:
+                        bt.SetBattleState(BattleState.None);
+                        break;
+                    case 1:
+                        bt.SetBattleState(BattleState.NormalAttack);
+                        break;
+                    case 2:
+                        bt.SetBattleState(BattleState.Skill);
+                        break;
+                    case 3:
+                        bt.SetBattleState(BattleState.Item);
+                        break;
+                    default:
+                        Console.WriteLine("잘못된 입력입니다.\n");
+                        break;
+                }
+            }
+
+            else
+            {
+                if (input == 0)
+                {
+                    bt.SetBattleState(BattleState.None);
+                    bt.userChoice = 0;
+                    return;
+                }
+
+                if (bt.GetBattleState() == BattleState.NormalAttack)
+                {
+                    if (input > monsters.Count)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.\n");
+                        return;
+                    }
+                }
+                else if (bt.GetBattleState() == BattleState.Skill)
+                {
+                    int skillCount = 3; // player.Skills.Count;
+
+                    if (input > skillCount)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.\n");
+                        return;
+                    }
+                }
+                else if (bt.GetBattleState() == BattleState.Item)
+                {
+                    int itemCount = 3; // player.Inventory.Count;
+
+                    if ( input > itemCount)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.\n");
+                        return;
+                    }
+                }
+
+                bt.userChoice = input;
+            }
         }
     }
 }
