@@ -44,7 +44,7 @@ namespace TextRPG_group5
     */
 
     // 몬스터의 수치는 추후 조정 필요
-    // 엑셀 파일을 별도로 만들도록 하겠습니다.
+    // 엑셀 파일을 별도로 만들었습니다. 'Monster_datatable.xlsx' 참고
 
     internal class Slime : Monster
     {
@@ -55,6 +55,7 @@ namespace TextRPG_group5
         */
         public Slime(int level) : base("슬라임", "슬라임이 말랑거린다.", MonsterType.normal, 15, 2, 5, 0, 0.1)
         {   
+            this.Level = level;
             MaxHp += (int)(Level * 5);          // 레벨에 비례    
             Attack += (int)(Level);             // 레벨에 비례
             Defence += (int)(Level * 2);        // 레벨에 비례
@@ -86,6 +87,7 @@ namespace TextRPG_group5
         */
         public Goblin(int level) : base("고블린", "고블린이 날카로운 칼날을 휘두른다!", MonsterType.normal, 10, 0, 3, 0.1, 0.2)
         {
+            this.Level = level;
             MaxHp += (int)(Level * 3);              // 레벨에 비례    
             Attack += (int)(goblinAttack);          // 레벨에 비례
             Defence += (int)(Level);                // 레벨에 비례
@@ -120,6 +122,7 @@ namespace TextRPG_group5
         */
         public HobGoblin(int level) : base("고블린", "고블린이 날카로운 칼날을 휘두른다!", MonsterType.normal, 15, 8, 4, 0.1, 0.2)
         {
+            this.Level = level;
             MaxHp += (int)(Level * 3);                  // 레벨에 비례    
             Attack += (int)(hobGoblinAttack);           // 레벨에 비례
             Defence += (int)(Level);                    // 레벨에 비례
@@ -155,6 +158,7 @@ namespace TextRPG_group5
         */
         public Orc(int level) : base("오크", "오크가 거대한 도끼를 휘두른다!", MonsterType.unique, 250, 70, 50, 0.08, 0.05)
         {
+            this.Level = level;
             MaxHp += (int)(Level * 1.5);            // 레벨에 비례    
             Attack += (int)(Level);                 // 레벨에 비례
             Defence += (int)(Level * 1.1);          // 레벨에 비례
@@ -173,9 +177,10 @@ namespace TextRPG_group5
         */
         public Golem(int level) : base("골렘", "골-렘-의-무-거-운 주-먹-이-다-가-온-다!", MonsterType.unique, 100, 30, 100, 0, 0)
         {
+            this.Level = level;
             MaxHp += (int)(Level * 20);             // 레벨에 비례    
             Attack += 0;                            // 레벨이 늘어도 공격력은 그대로! 내 이름은 골렘, 돌벽이죠.
-            Defence += (int)(Level * 20);           // 레벨에 비례
+            Defence += (int)(Level * 10);           // 레벨에 비례
             Exp += (int)(10 + Level);               // 레벨이 늘어도 경험치를 많이 주지는 않는다.
             Gold += (int)(45 + Level * 6);          // 기본 많은 골드, 레벨에 비례해 추가
         }
@@ -191,6 +196,7 @@ namespace TextRPG_group5
         */
         public Skeleton(int level) : base("스켈레톤", "스켈레톤이 턱뼈를 달그락거리며 달라붙는다.", MonsterType.normal, 15, 5, 3, 0.05, 0.55)
         {
+            this.Level = level;
             MaxHp += (int)(Level * 3);              // 레벨에 비례    
             Attack += (int)(Level * 1.5);           // 레벨에 비례
             Defence += (int)(Level * 1.5);          // 레벨에 비례
@@ -206,13 +212,66 @@ namespace TextRPG_group5
         그림자 속에서 움직이는 암살자. 체력과 방어력은 없는 수준이지만, 공격력과 치명타 확률이 매우 높고, 회피율도 높다.
         운이 좋지 않으면 플레이어가 먼저 공격하기 전에 플레이어가 죽어버릴 수도 있으니, 스킬로 빠르게 치워버리자
         */
-        public ShadowAssassin(int level) : base("그림자어쌔신", "그림자 속에서 피하기 힘든 공격이 다가온다", MonsterType.normal, 10, 15, 1, 0.8, 0.7)
+        public ShadowAssassin(int level) : base("그림자어쌔신", "그림자 속에서 피하기 힘든 공격이 다가온다", MonsterType.unique, 10, 15, 1, 0.9, 0.9)
         {
+            this.Level = level;
             MaxHp += (int)(Level);                  // 레벨에 비례    
             Attack += (int)(Level * 10);            // 레벨에 비례
             Defence += (int)(Level);                // 레벨에 비례
             Exp += (int)(Level * 6);                // 레벨에 비례
             Gold += (int)(Level * 6);               // 레벨에 비례
+        }
+    }
+
+    internal class Jester : Monster
+    {
+        /*
+        어릿광대: 매 공격마다 공격력이 달라지는 몬스터
+        정체불명의 공격을 하는 광대. 때릴 때마다 공격력이 달라진다.
+        운이 좋으면 아프지 않게 잡을 수 있지만, 운이 나쁘면 큰 피해를 입을 수도 있다.
+        */
+        private int jesterAttack;
+        private static Random rand = new Random();
+
+        public Jester(int level) : base("어릿광대", "어릿광대가 종잡을 수 없는 공격을 한다!", MonsterType.unique, 20, 10, 5, 0.2, 0.2)
+        {
+            this.Level = level;
+            MaxHp += (int)(Level * 4);              // 레벨에 비례    
+            jesterAttack = (int)(10 + Level * 2);   // 레벨에 비례해 늘어나는 기본 공격력
+            Defence += (int)(Level * 2);            // 레벨에 비례
+            Exp += (int)(Level * 5);                // 레벨에 비례
+            Gold += (int)(Level * 5);               // 레벨에 비례
+        }
+        public override int Attack                  // 공격할 때마다 공격력이 랜덤으로 증가
+        {
+            get
+            {
+                int randomInt = rand.Next(-3, 3);                   // -3 ~ +2 사이의 난수를 생성
+                int finalAttack = jesterAttack + randomInt * Level; // 현재 공격력에 난수를 더해 값을 변경
+                if (finalAttack < 1)                                // 공격력이 1 미만으로 떨어지지 않도록 보정
+                    finalAttack = 1;
+                return finalAttack;                                 // 변경된 값을 반환
+            }
+            set
+            {
+                jesterAttack = value;
+            }
+        }
+
+    }
+
+    internal class Dragon : Monster
+    {
+        /*
+        드래곤: 최종 보스 몬스터
+        고대의 신비를 품은 던전의 주인. 불합리한 공격력과 방어력을 가지고 있다. 모든 공격이 치명타로 적용하지만, 덩치 탓에 회피율은 낮다.
+        플레이어는 드래곤을 상대하기 위해 가능한 좋은 장비와 스킬을 모두 갖추고 도전해야 한다.
+        */
+        public Dragon(int level) : base("드래곤", "분노한 용의 숨결이 화면을 뒤덮는다.", MonsterType.boss, 500, 500, 500, 0.5, 0.1)
+        {
+            this.Level = level;                 // 레벨과 상관없이 절대적인 능력치를 가진다.
+            Exp += (int)(500);                  // 많은 경험치
+            Gold += (int)(500);                 // 많은 골드
         }
     }
 }
