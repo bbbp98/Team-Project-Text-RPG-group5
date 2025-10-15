@@ -23,19 +23,21 @@ namespace TextRPG_group5.Scenes
                switch (input)
                {
                     case 0:
-                         Console.WriteLine("게임을 종료합니다.");
-                         //Exit.Show(gameProgress);
                          Environment.Exit(0);
+                         //Exit.Show(gameProgress);
+                         Console.WriteLine("게임을 종료합니다.");
                          break;
                     case 1:
+                         Program.SetScene(new PlayerInfoScene());
                          Console.WriteLine("캐릭터 정보를 확인합니다.");
                          break;
                     case 2:
+                         Program.SetScene(new InventoryScene());
                          Console.WriteLine("인벤토리를 확인합니다.");
                          break;
                     case 3:
+                         Program.SetScene(new QuestScene());
                          Console.WriteLine("퀘스트를 확인합니다.");
-                         Program.player!.TakeDamage(10, 0.2);
                          break;
                     case 4:
                          Program.SetScene(new DungeonEntranceScene());
