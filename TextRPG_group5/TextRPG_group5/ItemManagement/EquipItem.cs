@@ -12,7 +12,8 @@ namespace TextRPG_group5.ItemManagement
     public enum Class
     {
         Warrior = 1,
-        Magician
+        Magician,
+        All
     }
 
     /// <summary>

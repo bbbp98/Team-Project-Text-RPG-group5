@@ -18,6 +18,7 @@ namespace TextRPG_group5.ItemManagement
             {"강철검", new Weapon("강철검", " ", 10, 10, 300, 1, false)},
             {"BF대검", new Weapon("BF대검", " ", 30, 25, 1500, 1, false)},
             {"워해머", new Weapon("워해머", " ", 20, 15, 700, 1, false)},
+            {"테스트용무기", new Weapon("테스트용무기", " ", 999, 100, 0, 3, false)},
             {"나무스태프", new Weapon("나무스태프", " ", 5, 5, 100, 2, false)},
             {"철제스태프", new Weapon("철제스태프", " ", 10, 15, 300, 2, false)},
             {"아크스태프", new Weapon("아크스태프", "", 30, 35, 1500, 2, false)},
@@ -27,7 +28,8 @@ namespace TextRPG_group5.ItemManagement
             {"체인메일", new Armor("체인메일", " ", 45, 1800, 1, false)},
             {"수련생의 로브", new Armor("수련생의 로브", " ", 10, 200, 2, false)},
             {"숙련자의 로브", new Armor("숙련자의 로브", " ", 20, 400, 2, false)},
-            {"달인의 로브", new Armor("달인의 로브", " ", 30, 2000, 1, false)},
+            {"달인의 로브", new Armor("달인의 로브", " ", 30, 2000, 2, false)},
+            {"테스트용 방어구", new Armor("테스트용 방어구", " ", 3000, 0, 3, false)},
         };
 
         // 모든 소비아이템 정보를 딕셔너리에 보존

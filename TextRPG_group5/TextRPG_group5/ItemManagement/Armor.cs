@@ -21,15 +21,19 @@ namespace TextRPG_group5.ItemManagement
 
             Name = name;
             Job = (Class)job;
-            if((int)Job == 1)
+            if ((int)Job == 1)
             {
                 jobLimits = "전사";
             }
-            else
+            else if ((int)Job == 2)
             {
                 jobLimits = "마법사";
             }
-                DefPower = defPower;
+            else
+            {
+                jobLimits = "공용";
+            }
+            DefPower = defPower;
             Price = price;
             Description = $"스탯 증가량 => 방어력 : +{defPower}, 장착 가능 직업 : {jobLimits}";
             IsEquip = isEquip;

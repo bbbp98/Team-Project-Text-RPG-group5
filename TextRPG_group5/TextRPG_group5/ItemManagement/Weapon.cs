@@ -26,9 +26,13 @@ namespace TextRPG_group5.ItemManagement
             {
                 jobLimits = "전사";
             }
-            else
+            else if((int)Job == 2)
             {
                 jobLimits = "마법사";
+            }
+            else
+            {
+                jobLimits = "공용";
             }
 
             Description = $"스탯증가량 => 공격력 : +{AtkPower}, 치명타확률 : +{CriPro}, 장착 가능 직업 : {jobLimits}";
