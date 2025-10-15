@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG_group5.Scene
+namespace TextRPG_group5.Scenes
 {
     internal class BattleScene : Scene
     {
@@ -28,10 +28,10 @@ namespace TextRPG_group5.Scene
         public override void Show()
         {
             Console.Clear();
-            
+
             // 전투 로직 호출 테스트
             //bt.StartBattle();
-            
+
             Console.WriteLine("Battle!!");
             Console.WriteLine();
 
