@@ -21,17 +21,9 @@ namespace TextRPG_group5.Scenes
             bt = new Battle(player, monsters);
         }
 
-        // 플레이어 선택별 출력 분기를 위한 변수
-        byte choice = 0;
-
         // 화면에 보여줄 텍스트들(Console.Write관련)
         public override void Show()
         {
-            Console.Clear();
-
-            // 전투 로직 호출 테스트
-            //bt.StartBattle();
-
             Console.WriteLine("Battle!!");
             Console.WriteLine();
 
@@ -42,7 +34,7 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine();
 
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{player.Level}\t{player.Name} ( 캐릭터직업 )");
+            Console.WriteLine($"Lv.{player.Level}\t{player.Name} ( {player.Job} )");
             Console.WriteLine($"HP {player.NowHp} / {player.MaxHp}");
             Console.WriteLine();
 
