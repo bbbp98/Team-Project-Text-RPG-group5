@@ -16,15 +16,15 @@ namespace TextRPG_group5
     
     internal class Battle
     {
-        Character player;
-        List<Character> monsters;
+        Player player;
+        List<Monster> monsters;
 
         private BattleState state = 0;
 
         bool isPlayerTurn;
         bool isEnemyTurn;
 
-        public Battle(Character player, List<Character> monsters)
+        public Battle(Player player, List<Monster> monsters)
         {
             this.player = player;
             this.monsters = monsters;
@@ -64,12 +64,7 @@ namespace TextRPG_group5
 
         public void SelectTarget()
         {
-            // Console.WriteLine("공격 대상 선택...");
-
-            // 몬스터가 총 몇 마리인지
-            int monNum = 3;
-
-            for (int i = 0; i < monNum; i++)
+            for (int i = 0; i < monsters.Count; i++)
             {
                 Console.WriteLine($"[{i + 1}] {monsters[i].Name}");
             }

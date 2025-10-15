@@ -9,10 +9,10 @@ namespace TextRPG_group5.Scenes
     internal class BattleScene : Scene
     {
         Battle bt;
-        Character player;
-        List<Character> monsters;
+        Player player;
+        List<Monster> monsters;
 
-        public BattleScene(Character player, List<Character> monsters)
+        public BattleScene(Player player, List<Monster> monsters)
         {
             this.player = player;
             this.monsters = monsters;
