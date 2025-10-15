@@ -6,7 +6,9 @@ namespace TextRPG_group5
      internal class Program
      {
           static public Scene? currentScene;
+          static public Player? player;
 
+          static public GameProgress? gameProgress;
           static void Main(string[] args)
           {
                Initialize();
@@ -26,12 +28,18 @@ namespace TextRPG_group5
           static private void Initialize()
           {
                // scene initialize
-               currentScene = null; // startScene
+               currentScene = new MainScene(); // startScene
+
+               // player initialize
+               // load player data OR create player data 
+               player = new Player("group5", "전사"); // test player
+               //gameProgress = new GameProgress();
           }
 
           static public void SetScene(Scene scene)
           {
                currentScene = scene;
           }
+
      }
 }

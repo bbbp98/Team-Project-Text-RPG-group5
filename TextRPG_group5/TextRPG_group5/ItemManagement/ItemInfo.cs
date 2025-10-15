@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG_group5.ItemManagement
+namespace TextRPG_group5.ItemManage
 {
 
 
@@ -91,11 +91,6 @@ namespace TextRPG_group5.ItemManagement
             {
                 return null;
             }
-        }
-
-        public static void ShowItem(ItemManagement item)
-        {
-
         }
     }
 }
