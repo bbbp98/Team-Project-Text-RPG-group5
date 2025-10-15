@@ -10,12 +10,12 @@ namespace TextRPG_group5
      {
           public string? Name { get; set; }  
           public int Level { get; set; }  
-          public int MaxHp { get; set; }  
-          public int NowHp { get; set; }  
-          public int Attack { get; set; }  
-          public int Defence { get; set; }
-          public double Critical {  get; set; }
-          public double Evasion { get; set; }
+          public virtual int MaxHp { get; set; }  
+          public virtual int NowHp { get; set; }  
+          public virtual int Attack { get; set; }  
+          public virtual int Defence { get; set; }
+          public virtual double Critical {  get; set; }
+          public virtual double Evasion { get; set; }
 
           public bool IsDead => NowHp <= 0;
 
@@ -27,10 +27,12 @@ namespace TextRPG_group5
                MaxHp = hp;
                Attack = atk;
                Defence = def;
-               Critical = 10.0;
-               Evasion = 10.0;
+               Critical = 0.1;
+               Evasion = 0.1;
           }
 
+          // dmg: 플레이어, 몬스터의 공격력
+          // crit: 
           public void TakeDamage(int dmg, double crit)
           {
                // 회피했다면
@@ -41,9 +43,10 @@ namespace TextRPG_group5
                }
 
                Random random = new Random();
-               bool insCritical = random.NextDouble() < crit;
+               bool isCritical = random.NextDouble() < crit;
 
-               if (insCritical)
+               // 크리티컬이면 
+               if (isCritical)
                     dmg = (int)(dmg * 1.5f);
 
                int damage = Math.Max(1, dmg - Defence); // dmg - Defence가 음수라면 최소 데미지 1

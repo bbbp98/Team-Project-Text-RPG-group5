@@ -26,7 +26,7 @@ namespace TextRPG_group5
           static private void Initialize()
           {
                // scene initialize
-               currentScene = null; // startScene
+               currentScene = new DungeonEntranceScene(); // startScene
           }
 
           static public void SetScene(Scene scene)
