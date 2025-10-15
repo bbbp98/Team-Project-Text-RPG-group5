@@ -59,7 +59,7 @@ namespace TextRPG_group5.Scenes
                Console.WriteLine("한 층, 또 한 층. 당신의 용기만이 길을 밝혀줄 것이다.");
 
                Console.WriteLine();
-               int stage = maxStage;
+               int stage = 4;
                while (stage > 0)
                {
                     Console.WriteLine($"{stage}. {stage}층 던전 입장");
