@@ -16,15 +16,15 @@ namespace TextRPG_group5
     
     internal class Battle
     {
-        Character player;
-        List<Character> monsters;
+        Player player;
+        List<Monster> monsters;
 
         private BattleState state = 0;
 
         bool isPlayerTurn;
         bool isEnemyTurn;
 
-        public Battle(Character player, List<Character> monsters)
+        public Battle(Player player, List<Monster> monsters)
         {
             this.player = player;
             this.monsters = monsters;
@@ -34,22 +34,9 @@ namespace TextRPG_group5
             isEnemyTurn = false;
         }
 
-        public void SetBattleState(byte input)
+        public void SetBattleState(BattleState currentState)
         {
-            switch (input)
-            {
-                case 1:
-                    state = BattleState.NormalAttack;
-                    break;
-                case 2:
-                    state = BattleState.Skill;
-                    break;
-                case 3:
-                    state = BattleState.Item;
-                    break;
-                default:
-                    break;
-            }
+            state = currentState;
         }
 
         public BattleState GetBattleState()
@@ -64,15 +51,33 @@ namespace TextRPG_group5
 
         public void SelectTarget()
         {
-            // Console.WriteLine("공격 대상 선택...");
-
-            // 몬스터가 총 몇 마리인지
-            int monNum = 3;
-
-            for (int i = 0; i < monNum; i++)
+            for (int i = 0; i < monsters.Count; i++)
             {
                 Console.WriteLine($"[{i + 1}] {monsters[i].Name}");
             }
+
+            Console.WriteLine();
+            Console.WriteLine("0. 취소");
+        }
+
+        public void SelectSkill()
+        {
+            Console.WriteLine("[1] 스킬 1번");
+            Console.WriteLine("[2] 스킬 2번");
+            Console.WriteLine("[3] 스킬 3번");
+
+            Console.WriteLine();
+            Console.WriteLine("0. 취소");
+        }
+
+        public void SelectUsableItem()
+        {
+            Console.WriteLine("[1] 소비 아이템 1번");
+            Console.WriteLine("[2] 소비 아이템 2번");
+            Console.WriteLine("[3] 소비 아이템 3번");
+
+            Console.WriteLine();
+            Console.WriteLine("0. 취소");
         }
 
         public void HitNormalAttack()

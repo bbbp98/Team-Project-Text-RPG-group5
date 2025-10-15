@@ -9,10 +9,10 @@ namespace TextRPG_group5.Scenes
     internal class BattleScene : Scene
     {
         Battle bt;
-        Character player;
-        List<Character> monsters;
+        Player player;
+        List<Monster> monsters;
 
-        public BattleScene(Character player, List<Character> monsters)
+        public BattleScene(Player player, List<Monster> monsters)
         {
             this.player = player;
             this.monsters = monsters;
@@ -21,17 +21,9 @@ namespace TextRPG_group5.Scenes
             bt = new Battle(player, monsters);
         }
 
-        // 플레이어 선택별 출력 분기를 위한 변수
-        byte choice = 0;
-
         // 화면에 보여줄 텍스트들(Console.Write관련)
         public override void Show()
         {
-            Console.Clear();
-
-            // 전투 로직 호출 테스트
-            //bt.StartBattle();
-
             Console.WriteLine("Battle!!");
             Console.WriteLine();
 
@@ -42,7 +34,7 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine();
 
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{player.Level}\t{player.Name} ( 캐릭터직업 )");
+            Console.WriteLine($"Lv.{player.Level}\t{player.Name} ( {player.Job} )");
             Console.WriteLine($"HP {player.NowHp} / {player.MaxHp}");
             Console.WriteLine();
 
@@ -61,10 +53,10 @@ namespace TextRPG_group5.Scenes
                     //bt.HitNormalAttack();
                     break;
                 case 2:
-                    bt.UseSkill();
+                    bt.SelectSkill();
                     break;
                 case 3:
-                    bt.UseItem();
+                    bt.SelectUsableItem();
                     break;
                 default:
                     break;
@@ -74,24 +66,68 @@ namespace TextRPG_group5.Scenes
         // 입력 값 처리 메서드
         public override void HandleInput(byte input)
         {
-            // 일반 공격 or 스킬 사용 or 아이템 사용 등 사용자 입력 분기 처리
-            bt.SetBattleState(input);
-
-            /*switch (input)
+            if (bt.GetBattleState() == BattleState.None)
             {
-                case 1:
-                    choice = 1;
-                    break;
-                case 2:
-                    choice = 2;
-                    break;
-                case 3:
-                    choice = 3;
-                    break;
-                default:
-                    choice = 0;
-                    break;
-            }*/
+                switch (input)
+                {
+                    case 0:
+                        bt.SetBattleState(BattleState.None);
+                        break;
+                    case 1:
+                        bt.SetBattleState(BattleState.NormalAttack);
+                        break;
+                    case 2:
+                        bt.SetBattleState(BattleState.Skill);
+                        break;
+                    case 3:
+                        bt.SetBattleState(BattleState.Item);
+                        break;
+                    default:
+                        Console.WriteLine("잘못된 입력입니다.\n");
+                        break;
+                }
+            }
+
+            else
+            {
+                if (input == 0)
+                {
+                    bt.SetBattleState(BattleState.None);
+                    bt.userChoice = 0;
+                    return;
+                }
+
+                if (bt.GetBattleState() == BattleState.NormalAttack)
+                {
+                    if (input > monsters.Count)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.\n");
+                        return;
+                    }
+                }
+                else if (bt.GetBattleState() == BattleState.Skill)
+                {
+                    int skillCount = 3; // player.Skills.Count;
+
+                    if (input > skillCount)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.\n");
+                        return;
+                    }
+                }
+                else if (bt.GetBattleState() == BattleState.Item)
+                {
+                    int itemCount = 3; // player.Inventory.Count;
+
+                    if ( input > itemCount)
+                    {
+                        Console.WriteLine("잘못된 입력입니다.\n");
+                        return;
+                    }
+                }
+
+                bt.userChoice = input;
+            }
         }
     }
 }
