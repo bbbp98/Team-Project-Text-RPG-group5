@@ -1,0 +1,42 @@
+{
+  "quests": [
+    {
+      "id": 1,
+      "title": "슬라임 토벌",
+      "description": "마을 근처의 슬라임이 농작물을 망치고 있습니다. 슬라임을 처치해 주세요.",
+      "objectives": [
+        {
+          "type": "kill",
+          "target": "Slime",
+          "count": 5
+        }
+      ],
+      "reward": {
+        "exp": 100,
+        "gold": 50,
+        "items": ["회복약"]
+      },
+      "requiredQuest": null,
+      "status": "NotStarted"
+    },
+    {
+      "id": 2,
+      "title": "고블린 퇴치",
+      "description": "숲속에서 고블린들이 길을 막고 있습니다. 위협을 제거하세요.",
+      "objectives": [
+        {
+          "type": "kill",
+          "target": "Goblin",
+          "count": 3
+        }
+      ],
+      "reward": {
+        "exp": 150,
+        "gold": 70,
+        "items": ["철검"]
+      },
+      "requiredQuest": 1,
+      "status": "Locked"
+    }
+  ]
+}
