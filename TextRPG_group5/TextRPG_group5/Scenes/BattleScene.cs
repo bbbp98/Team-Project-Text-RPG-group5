@@ -61,10 +61,10 @@ namespace TextRPG_group5.Scenes
                     //bt.HitNormalAttack();
                     break;
                 case 2:
-                    bt.UseSkill();
+                    bt.SelectSkill();
                     break;
                 case 3:
-                    bt.UseItem();
+                    bt.SelectUsableItem();
                     break;
                 default:
                     break;

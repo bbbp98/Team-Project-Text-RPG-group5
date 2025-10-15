@@ -55,6 +55,29 @@ namespace TextRPG_group5
             {
                 Console.WriteLine($"[{i + 1}] {monsters[i].Name}");
             }
+
+            Console.WriteLine();
+            Console.WriteLine("0. 취소");
+        }
+
+        public void SelectSkill()
+        {
+            Console.WriteLine("[1] 스킬 1번");
+            Console.WriteLine("[2] 스킬 2번");
+            Console.WriteLine("[3] 스킬 3번");
+
+            Console.WriteLine();
+            Console.WriteLine("0. 취소");
+        }
+
+        public void SelectUsableItem()
+        {
+            Console.WriteLine("[1] 소비 아이템 1번");
+            Console.WriteLine("[2] 소비 아이템 2번");
+            Console.WriteLine("[3] 소비 아이템 3번");
+
+            Console.WriteLine();
+            Console.WriteLine("0. 취소");
         }
 
         public void HitNormalAttack()
