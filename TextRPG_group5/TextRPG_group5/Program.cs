@@ -14,8 +14,12 @@ namespace TextRPG_group5
             Character mon2 = new Character("대포미니언", 25, 5, 5, 5);
             Character mon3 = new Character("공허충", 10, 5, 5, 3);
 
-            BattleScene bt = new BattleScene(player, mon1, mon2, mon3);
-            bt.Show();
+            BattleScene bts = new BattleScene(player, mon1, mon2, mon3);
+
+            while (true)
+            {
+                bts.Show();
+            }
         }
      }
 }

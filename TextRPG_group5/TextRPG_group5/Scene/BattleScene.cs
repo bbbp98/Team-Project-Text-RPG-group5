@@ -21,9 +21,14 @@ namespace TextRPG_group5.Scene
             monster3 = mon3;
         }
 
+        // 플레이어 선택별 출력 분기를 위한 변수
+        byte choice = 0;
+        
         // 화면에 보여줄 텍스트들(Console.Write관련)
         public override void Show()
         {
+            Console.Clear();
+            
             // 전투 로직 호출 테스트
             Battle bt = new Battle();
             bt.StartBattle();
@@ -41,9 +46,26 @@ namespace TextRPG_group5.Scene
             Console.WriteLine($"HP {player.NowHp} / {player.MaxHp}");
             Console.WriteLine();
 
-            Console.WriteLine("1. 일반 공격");
-            Console.WriteLine("2. 스킬 사용");
-            Console.WriteLine("3. 아이템 사용");
+            switch (choice)
+            {
+                case 0:
+                    Console.WriteLine("1. 일반 공격");
+                    Console.WriteLine("2. 스킬 사용");
+                    Console.WriteLine("3. 아이템 사용");
+                    break;
+                case 1:
+                    bt.HitNormalAttack();
+                    break;
+                case 2:
+                    bt.UseSkill();
+                    break;
+                case 3:
+                    bt.UseItem();
+                    break;
+                default:
+                    break;
+            }
+
             Console.WriteLine();
 
             Console.WriteLine("원하시는 행동을 입력해주세요.");
@@ -60,15 +82,16 @@ namespace TextRPG_group5.Scene
             switch (input)
             {
                 case 1:
-                    Console.WriteLine("일반 공격 사용");
+                    choice = 1;
                     break;
                 case 2:
-                    Console.WriteLine("스킬 사용");
+                    choice = 2;
                     break;
                 case 3:
-                    Console.WriteLine("아이템 사용");
+                    choice = 3;
                     break;
                 default:
+                    choice = 0;
                     break;
             }
         }
