@@ -8,7 +8,7 @@ namespace TextRPG_group5.QuestManagement
 {
     public class QuestDataRoot
     {
-        public List<QuestManager> quests { get; set; }
+        public List<QuestManager> Quests { get; set; }
 
     }
 }

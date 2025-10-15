@@ -23,7 +23,7 @@ namespace TextRPG_group5.QuestManagement
 
                 string json = File.ReadAllText(filePath, Encoding.UTF8);
                 QuestDataRoot data = JsonSerializer.Deserialize<QuestDataRoot>(json, options);
-                return data.quests;
+                return data.Quests;
             }
             catch(FileNotFoundException ex)
             {
