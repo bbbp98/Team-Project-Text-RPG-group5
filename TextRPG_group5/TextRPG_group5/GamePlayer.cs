@@ -99,6 +99,15 @@ namespace TextRPG_group5
                 NowHp = MaxHp; NowMp = MaxMp;
                 Console.WriteLine($"레벨 업 하였습니다.\n 현재 레벨 : {Level} 입니다.");
             }
+            public PlayerEquip Equipment { get; private set; }
+            public void AddCritical(double amount)
+            {
+                Critical += amount;
+            }
+            public void AddEvasion(double amount)
+            {
+                Evasion += amount;
+            }
         }
     }
 }
