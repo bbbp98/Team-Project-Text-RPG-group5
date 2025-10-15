@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TextRPG_group5
 {
     using TextRPG_group5.ItemManagement;
-    internal class PlayerEquip
+    internal class PlayerItem
     {
         private Player player;
         private bool IsJobMatch(Class job)
@@ -18,7 +18,7 @@ namespace TextRPG_group5
         }
         public Weapon? EquippedWeapon { get; private set; }
         public Armor? EquippedArmor { get; private set; }
-        public PlayerEquip(Player player)
+        public PlayerItem(Player player)
         { this.player = player; }
         public void EquipItem(EquipItem item)
         {
