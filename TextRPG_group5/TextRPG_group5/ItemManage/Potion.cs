@@ -9,7 +9,7 @@ namespace TextRPG_group5.ItemManage
     /// <summary>
     /// 추상클래스 Item을 상속한 포션클래스
     /// </summary>
-    public class Potion : UsableItem
+    internal class Potion : UsableItem
     {
         public int HealAmount { get; protected set; }
 
@@ -21,9 +21,10 @@ namespace TextRPG_group5.ItemManage
             Description = $"{HealAmount}만큼 체력을 보충합니다.";
         }
 
-        public override void UseItem() // 매개변수 추가 필요 : 플레이어 메서드 오브젝트
+        public override void UseItem(Player player)
         {
-            // 회복 or 버프 로직 추가 필요
+            Console.WriteLine(Description);
+            player.NowHp += HealAmount;
         }
     }
 }

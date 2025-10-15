@@ -7,7 +7,7 @@ using System.Text.Json;
 
 namespace TextRPG_group5.QuestManagement
 {
-    public class QuestManager : Exception
+    internal class QuestManager : Exception
     {
         public List<Quest> Quests { get; private set; }
 
@@ -72,11 +72,14 @@ namespace TextRPG_group5.QuestManagement
         /// <summary>
         /// 퀘스트 보상을 player클래스 오브젝트에 반영
         /// </summary>
-        public void GiveReward()// Todo : 매개변수에 Player오브젝트 추가
+        public void GiveReward(Player player)// Todo : 매개변수에 Player오브젝트 추가
         {
             foreach(var q in Quests.Where(x => x.Status == QuestStatus.Complete))
             {
-                // Todo : 플레이어의 경험치, 돈, 인벤토리 조작 로직 추가
+                // 플레이어의 경험치, 돈 변경 로직 추가
+                player.GainExp(q.Rewards.Exp);
+                player.Gold += q.Rewards.Gold;
+                // Todo : 플레이어 인벤토리 추가 필요
 
                 q.Status = QuestStatus.NoProgress; // 보상을 한번만 받을 수 있도록 설정
             }
