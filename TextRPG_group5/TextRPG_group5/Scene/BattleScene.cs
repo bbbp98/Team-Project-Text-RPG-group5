@@ -8,8 +8,7 @@ namespace TextRPG_group5.Scene
 {
     internal class BattleScene : Scene
     {
-        Battle bt = new Battle();
-
+        Battle bt;
         Character player;
         List<Character> monsters;
 
@@ -31,7 +30,6 @@ namespace TextRPG_group5.Scene
             Console.Clear();
             
             // 전투 로직 호출 테스트
-            bt.StartBattle();
             
             Console.WriteLine("Battle!!");
             Console.WriteLine();
