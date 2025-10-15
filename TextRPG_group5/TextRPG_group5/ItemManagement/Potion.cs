@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG_group5.ItemManagement
+namespace TextRPG_group5.ItemManage
 {
     /// <summary>
     /// 추상클래스 Item을 상속한 포션클래스

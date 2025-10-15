@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG_group5.ItemManagement
+namespace TextRPG_group5.ItemManage
 {
     // 장비아이템 중 무기류를 관리할 메서드에 추상클래스 EquipItem 상속 후 재정의
     public class Weapon : EquipItem
