@@ -48,6 +48,8 @@ namespace TextRPG_group5.Scene
             Console.WriteLine();
 
             switch (choice)
+            Console.WriteLine("==============================");
+            Console.WriteLine();
             {
                 case 0:
                     Console.WriteLine("1. 일반 공격");
