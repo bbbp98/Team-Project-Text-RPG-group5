@@ -9,7 +9,6 @@ namespace TextRPG_group5.Scenes
 {
      internal class DungeonEntranceScene : Scene
      {
-          int selectedStage = byte.MaxValue;
           private Player player;
 
           public DungeonEntranceScene(Player player)
@@ -37,7 +36,6 @@ namespace TextRPG_group5.Scenes
                     // go to BattleScene
                     Battle selectedStage = new Battle(player, StageManager.Instance.CreateMonsters(input), input);
                     Program.SetScene(new BattleScene(selectedStage));
-                    //Program.SetScene(new DungeonResultScene(player, stage: input, isClearStage: true)); // test
                     Console.WriteLine($"{input}층 던전에 입장했습니다.\n");   // log
                }
           }

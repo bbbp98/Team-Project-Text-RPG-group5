@@ -19,9 +19,15 @@ namespace TextRPG_group5.Scenes
         }
         public override void HandleInput(byte input)
         {
-            QuestManager.AcceptQuest(input);
-
-            Console.ReadKey();
+            if (input != byte.MaxValue)
+            {
+                QuestManager.AcceptQuest(input);
+                Program.SetScene(new MainScene(player));
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요");
+            }
         }
 
         public override void Show()
@@ -34,17 +40,13 @@ namespace TextRPG_group5.Scenes
             quests = QuestManager.Load();
 
 
-            while (isActive)
+            for (questIdx = 0; questIdx < quests.Count; questIdx++)
             {
                 Console.WriteLine("--------- 퀘스트 내용 ---------");
-
-                if (questIdx == quests.Count) questIdx = 0;
-                else if (questIdx < 0) questIdx = 0;
-
                 Console.WriteLine($"{quests[questIdx].QuestID} : {quests[questIdx].QuestTitle}");
                 Console.WriteLine($"{quests[questIdx].QuestDescription}");
                 Console.WriteLine($"조건 : {quests[questIdx].objectives[REQUIRED].Target} {quests[questIdx].objectives[REQUIRED].Count}마리 {quests[questIdx].objectives[REQUIRED].Type}");
-                Console.WriteLine($"보상 : {quests[questIdx].Rewards.Exp}EXP, {quests[questIdx].Rewards.Gold}G, {string.Join(", ",(quests[questIdx].Rewards.Items))}");
+                Console.WriteLine($"보상 : {quests[questIdx].Rewards.Exp}EXP, {quests[questIdx].Rewards.Gold}G, {string.Join(", ", (quests[questIdx].Rewards.Items))}");
                 if (quests[questIdx].Status == QuestStatus.NoProgress)
                 {
                     Console.WriteLine("수락 가능");
@@ -56,36 +58,7 @@ namespace TextRPG_group5.Scenes
                 }
                 else
                 {
-                    Console.WriteLine("이미 완료한 퀘스트입니다.");
-                }
-
-
-                ConsoleKeyInfo key = Console.ReadKey(true);
-
-                switch (key.Key)
-                {
-                    case ConsoleKey.RightArrow:
-                        questIdx++;
-                        Console.Clear();
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        if (questIdx == 0)
-                        {
-                            Console.Clear();
-                            break;
-                        }
-                        questIdx--;
-                        Console.Clear();
-                        break;
-                    case ConsoleKey.Enter:
-                        HandleInput((byte)(questIdx + 1));
-                        isActive = false;
-                        Console.Clear();
-                        break;
-                    default:
-                        questIdx = 0;
-                        Console.Clear();
-                        break;
+                    Console.WriteLine("완료 (진행 불가)");
                 }
             }
         }

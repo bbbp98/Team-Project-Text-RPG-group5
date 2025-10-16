@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TextRPG_group5.EffectManagement
+{
+    public enum EffectType  // 효과 타입
+    {
+        // 긍정적 효과
+        AtkUp, DefUp, CriticalUp, EvasionUp,
+
+        // 부정적 효과
+        AtkDown, DefDown, CriticalDown, EvasionDown,    // 디버프 계열
+        Burn, Freeze, Poison, Stun                                       // 상태이상 계열
+    }
+
+    /*
+    상태이상 효과를 메서드 안에 넣는 사용 예시
+    public void PoisonSkill(Player player, Monster monster) // 플레이어가 몬스터에게 독 스킬을 사용
+    {
+        // 스킬이 구현하는 다른 메서드
+        var poison = new Poison(player, 3); // 3턴 지속되는 독 효과 생성
+        target.ApplyEffect(poison); // 몬스터에게 독 효과 적용
+    }
+    */
+
+    internal class Burn : Effect // 시전자의 시전 당시 마나(NowMp)에 비례하여 지속적인 피해를 입히는 효과
+    {
+        public double burnRate = 0.1; // 화상 피해 비율
+
+        public Burn(Character caster, int duration) : base(caster, duration)
+        {
+            Type = EffectType.Burn;
+            this.Value = (int)(5 + caster.NowMp * burnRate);    // 매 턴 5 + 시전자의 시전 당시 마나의 10% 만큼 피해
+        }
+        public override void OnTurnStart(Character target)
+        {
+            target.NowHp -= this.Value;
+            if (target.NowHp < 0)
+                target.NowHp = 0;
+            Console.WriteLine($"{target.Name}은(는) 화상으로 인해 {Value}의 피해를 입었습니다.");
+        }
+    }
+
+    internal class Freeze : Effect // 시전자의 최대 마나(MaxMp)에 비례하여 지속적인 피해를 주고, 일정 확률로 행동 불능 상태에 빠뜨린다.
+    {
+        private double FreezeRate = 0.1;    // 빙결 피해 비율
+        private double freezeChance;        // 행동 불능 확률
+
+        public Freeze(Character caster, int duration, double chance) : base(caster, duration)
+        {
+            Type = EffectType.Freeze;
+            this.Value = (int)(5 + caster.MaxMp * FreezeRate);    // 매 턴 5 + 시전자의 최대 마나의 10% 만큼 피해
+            this.freezeChance = chance; // 예: 0.3은 30% 확률로 행동 불능
+        }
+        public bool TryFreeze()
+        {
+            Random random = new Random();
+            return random.NextDouble() < freezeChance;
+        }
+        public override void OnTurnStart(Character target)
+        {
+            if (TryFreeze())
+            {
+                Console.WriteLine($"{target.Name}은(는) 빙결로 인해 행동 불능 상태에 빠졌습니다!");
+                // 행동 불능 상태 처리 로직 추가 필요
+            }
+
+            target.NowHp -= this.Value;
+            if (target.NowHp < 0)
+                target.NowHp = 0;
+            Console.WriteLine($"{target.Name}은(는) 빙결로 인해 {Value}의 피해를 입었습니다.");
+        }
+    }
+
+    internal class Poison : Effect
+    {
+        // 시전자의 레벨에 비례하여 지속적인 피해를 입히는 효과
+        public Poison(Character caster, int duration) : base(caster, duration)
+        {
+            Type = EffectType.Poison;
+            this.Value = (int)(5 + caster.Attack * 0.1);    // 매 턴 5 + 시전자의 공격력 10% 만큼 피해
+        }
+
+        public override void OnTurnStart(Character target)
+        {
+            target.NowHp -= this.Value;
+            if (target.NowHp < 0)
+                target.NowHp = 0;
+            Console.WriteLine($"{target.Name}은(는) 독으로 인해 {Value}의 피해를 입었습니다.");
+        }
+    }
+
+    //internal class Stun : Effect
+    //{
+
+    //}
+}
