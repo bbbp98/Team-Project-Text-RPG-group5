@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.ItemManage;
 
 namespace TextRPG_group5.Scenes
 {
@@ -213,9 +214,13 @@ namespace TextRPG_group5.Scenes
 
         void PrintUsableItemList()
         {
-            Console.WriteLine("[1] 소비 아이템 1번");
-            Console.WriteLine("[2] 소비 아이템 2번");
-            Console.WriteLine("[3] 소비 아이템 3번");
+            List<UsableItem> usableItems = CurrentBattle.GetUsableItemList(Player.Inventory);
+
+            for (int i = 0; i < usableItems.Count; i++)
+            {
+                // 소비 아이템만 출력
+                Console.WriteLine($"[{i + 1}] {usableItems[i].Name}");
+            }
             Console.WriteLine();
 
             Console.WriteLine("0. 취소");
