@@ -104,7 +104,24 @@ namespace TextRPG_group5
 
             Console.WriteLine("아이템 사용!");
         }
-     }
+
+        public bool IsAllEnemyDead()
+        {
+            foreach (Monster mon in Monsters)
+            {
+                // 한 마리라도 살아있다면
+                if (!mon.IsDead)
+                    return false;
+            }
+            return true;
+        }
+
+        public bool IsStageClear()
+        {
+            if (IsAllEnemyDead())
+                return true;
+            return false;
+        }
 
         public void EndBattle(bool isClear)
         {
