@@ -91,8 +91,13 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("Battle!!");
             Console.WriteLine();
 
+            if (!CurrentBattle.isPlayerTurn)
             {
+                // 몬스터 턴
+                CurrentBattle.SetBattleState(BattleState.NormalAttack);
+                CurrentBattle.HitNormalAttack(); // 자동 공격 전환 -> 바로 결과창으로
                 return;
+            }
 
             PrintEnemyInfo();
 
