@@ -42,8 +42,6 @@ namespace TextRPG_group5
 
         public void HitNormalAttack()
         {
-            // Console.WriteLine("일반 공격 사용!");
-
             Character attacker;
             List<Character> defenders = new List<Character>();
 
