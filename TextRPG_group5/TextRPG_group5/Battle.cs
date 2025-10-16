@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.ItemManage;
 using TextRPG_group5.Scenes;
 
 namespace TextRPG_group5
@@ -142,4 +143,17 @@ namespace TextRPG_group5
                Program.SetScene(new DungeonResultScene(Player, preBattlePlayer, CurrentStage, isClear));
           }
      }
+        public List<UsableItem> GetUsableItemList(Inventory playerInventory)
+        {
+            List<UsableItem> usableItems = new List<UsableItem>();
+
+            for (int i = 0; i < playerInventory.GetCount(); i++)
+            {
+                if (playerInventory.GetItem(i) is UsableItem)
+                    usableItems.Add((UsableItem)playerInventory.GetItem(i));
+            }
+
+            return usableItems;
+        }
+
 }
