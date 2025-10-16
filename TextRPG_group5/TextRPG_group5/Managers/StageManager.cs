@@ -9,16 +9,23 @@ namespace TextRPG_group5.Managers
      internal class StageManager
      {
           static private StageManager? _instance;
-          
+
           // singleton
           public static StageManager Instance
           {
                get
                {
-                    if ( _instance == null )
+                    if (_instance == null)
                          _instance = new StageManager();
                     return _instance;
                }
+          }
+
+          private Player? player;
+
+          public void SetPlayer(Player player)
+          {
+               this.player = player;
           }
 
           public List<Monster> CreateMonsters(int stage)
@@ -34,15 +41,36 @@ namespace TextRPG_group5.Managers
                }
                else if (stage <= 4)
                {
-                    // 슬라임2, 고블린2
-                    monsters.Add(new Slime(stage));
-                    monsters.Add(new Slime(stage));
+                    // 고블린1, 홉 고블린1, 오크1
                     monsters.Add(new Goblin(stage));
-                    monsters.Add(new Goblin(stage));
+                    monsters.Add(new HobGoblin(stage));
+                    monsters.Add(new Orc(stage));
                }
-               else
+               else if (stage <= 6)
                {
-
+                    monsters.Add(new Golem(stage));
+                    monsters.Add(new Skeleton(stage));
+                    monsters.Add(new ShadowAssassin(stage));
+               }
+               else if (stage <= 8)
+               {
+                    double rand = new Random().NextDouble();
+                    if (rand < 0.05)
+                         monsters.Add(new PresentBox(stage));
+                    monsters.Add(new Golem(stage));
+                    monsters.Add(new Jester(stage));
+                    monsters.Add(new Jester(stage));
+               }
+               else if (stage == 9)
+               {
+                    monsters.Add(new Dople(player!));
+                    monsters.Add(new Slime(stage));
+                    monsters.Add(new Slime(stage));
+               }
+               else if (stage == 10)
+               {
+                    // boss
+                    monsters.Add(new Dragon(stage));
                }
 
                return monsters;

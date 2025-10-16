@@ -8,13 +8,13 @@ namespace TextRPG_group5
 {
      internal abstract class Character
      {
-          public string? Name { get; set; }  
-          public int Level { get; set; }  
-          public virtual int MaxHp { get; set; }  
-          public virtual int NowHp { get; set; }  
-          public virtual int Attack { get; set; }  
+          public string? Name { get; set; }
+          public int Level { get; set; }
+          public virtual int MaxHp { get; set; }
+          public virtual int NowHp { get; set; }
+          public virtual int Attack { get; set; }
           public virtual int Defence { get; set; }
-          public virtual double Critical {  get; set; }
+          public virtual double Critical { get; set; }
           public virtual double Evasion { get; set; }
 
           public bool IsDead => NowHp <= 0;

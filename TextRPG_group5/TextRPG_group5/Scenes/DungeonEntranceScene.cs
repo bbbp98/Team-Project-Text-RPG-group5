@@ -10,28 +10,34 @@ namespace TextRPG_group5.Scenes
      internal class DungeonEntranceScene : Scene
      {
           int selectedStage = byte.MaxValue;
-          const int maxStage = 6;
+          private Player player;
+
+          public DungeonEntranceScene(Player player)
+          {
+               this.player = player;
+          }
 
           public override void HandleInput(byte input)
           {
                if (input == 0)
                {
                     // go to MainScene
-                    Program.SetScene(new MainScene());
+                    Program.SetScene(new MainScene(player));
                }
-               else if (input > maxStage)
+               else if (input > player.ReachedStage)
                {
                     Console.WriteLine("잘못된 입력입니다.\n");
                }
                else
                {
                     // go to BattleScene
+                    if (input == 9)
+                         StageManager.Instance.SetPlayer(player);
                     //Program.SetScene(new BattleScene()); // stage 정보 전달
-                    Program.SetScene(new DungeonResultScene(input, false)); // test
-                    Console.WriteLine($"{input}층 던전 입장");   // log
+                    Program.SetScene(new DungeonResultScene(player, stage: input, isClearStage: true)); // test
+                    Console.WriteLine($"{input}층 던전에 입장합니다.");   // log
                }
           }
-
 
           public override void Show()
           {
@@ -41,7 +47,8 @@ namespace TextRPG_group5.Scenes
                Console.WriteLine("한 층, 또 한 층. 당신의 용기만이 길을 밝혀줄 것이다.");
 
                Console.WriteLine();
-               int stage = Program.player.ReachedStage;
+               int stage = player.ReachedStage;
+               stage = stage > Program.maxStage ? Program.maxStage : stage; // 최대 층까지 제한
 
                while (stage > 0)
                {

@@ -14,7 +14,14 @@ namespace TextRPG_group5.Scenes
      {
           const string welcomMessage = "스파르타 마을에 오신 여러분 환영합니다.\n" +
                "이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.\n";
-          GameProgress gameProgress = new GameProgress();
+          //GameProgress gameProgress = new GameProgress();
+
+          private Player player;
+
+          public MainScene(Player player)
+          {
+               this.player = player;
+          }
 
           const string savePath = "player.json";
 
@@ -28,19 +35,19 @@ namespace TextRPG_group5.Scenes
                          Console.WriteLine("게임을 종료합니다.");
                          break;
                     case 1:
-                         Program.SetScene(new PlayerInfoScene());
+                         Program.SetScene(new PlayerInfoScene(player));
                          Console.WriteLine("캐릭터 정보를 확인합니다.");
                          break;
                     case 2:
-                         Program.SetScene(new InventoryScene());
+                         Program.SetScene(new InventoryScene(player));
                          Console.WriteLine("인벤토리를 확인합니다.");
                          break;
                     case 3:
-                         Program.SetScene(new QuestScene());
+                         Program.SetScene(new QuestScene(player));
                          Console.WriteLine("퀘스트를 확인합니다.");
                          break;
                     case 4:
-                         Program.SetScene(new DungeonEntranceScene());
+                         Program.SetScene(new DungeonEntranceScene(player));
                          break;
                     case 5:
                          //Save();
@@ -64,9 +71,10 @@ namespace TextRPG_group5.Scenes
                Console.WriteLine("0. 게임 종료");
           }
 
+
           //public void Save()
           //{
-          //     string saveJson = JsonSerializer.Serialize(Program.player, new JsonSerializerOptions
+          //     string saveJson = JsonSerializer.Serialize(player, new JsonSerializerOptions
           //     {
           //          WriteIndented = true
           //     });
