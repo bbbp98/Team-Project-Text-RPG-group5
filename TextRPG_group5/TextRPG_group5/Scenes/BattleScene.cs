@@ -10,10 +10,6 @@ namespace TextRPG_group5.Scenes
     {
         public Battle CurrentBattle { get; private set; }
 
-        public BattleScene(Player player, List<Monster> monsters)
-        {
-            this.player = player;
-            this.monsters = monsters;
         public Player Player { get { return CurrentBattle.Player;  } }
         public List<Monster> Monsters { get { return CurrentBattle.Monsters; } }
 
@@ -102,21 +98,21 @@ namespace TextRPG_group5.Scenes
                 return;
             }*/
 
-            for (int i = 0; i < monsters.Count; i++)
+            for (int i = 0; i < Monsters.Count; i++)
             {
-                monsters[i].ShowStatus();
+                Monsters[i].ShowStatus();
             }
             Console.WriteLine();
 
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{player.Level}\t{player.Name} ( {player.Job} )");
-            Console.WriteLine($"HP {player.NowHp} / {player.MaxHp}");
+            Console.WriteLine($"Lv.{Player.Level}\t{Player.Name} ( {Player.Job} )");
+            Console.WriteLine($"HP {Player.NowHp} / {Player.MaxHp}");
             Console.WriteLine();
 
             Console.WriteLine("==============================");
             Console.WriteLine();
 
-            switch ((byte)bt.GetBattleState())
+            switch ((byte)CurrentBattle.GetBattleState())
             {
                 case 0:
                     Console.WriteLine("1. 일반 공격");
@@ -124,21 +120,21 @@ namespace TextRPG_group5.Scenes
                     Console.WriteLine("3. 아이템 사용");
                     break;
                 case 1:
-                    if (bt.userChoice != 0)
-                        bt.HitNormalAttack();
+                    if (CurrentBattle.userChoice != 0)
+                        CurrentBattle.HitNormalAttack();
                     else
-                        bt.SelectTarget();
+                        CurrentBattle.SelectTarget();
                     //bt.HitNormalAttack();
                     break;
                 case 2:
-                    if (bt.userChoice != 0)
-                        bt.UseSkill();
-                    bt.SelectSkill();
+                    if (CurrentBattle.userChoice != 0)
+                        CurrentBattle.UseSkill();
+                    CurrentBattle.SelectSkill();
                     break;
                 case 3:
-                    if (bt.userChoice != 0)
-                        bt.UseItem();
-                    bt.SelectUsableItem();
+                    if (CurrentBattle.userChoice != 0)
+                        CurrentBattle.UseItem();
+                    CurrentBattle.SelectUsableItem();
                     break;
                 default:
                     break;
