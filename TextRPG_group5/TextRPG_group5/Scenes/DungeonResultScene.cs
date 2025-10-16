@@ -5,7 +5,6 @@ using System.Numerics;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
-using TextRPG_group5.QuestManagement;
 
 namespace TextRPG_group5.Scenes
 {
@@ -13,6 +12,7 @@ namespace TextRPG_group5.Scenes
      {
           private bool isClearStage;
           private int stage;
+          private Player player;
           private class Reward
           {
                public int Gold;
@@ -21,12 +21,13 @@ namespace TextRPG_group5.Scenes
                public Reward(int stage)
                {
                     Gold = 200 * stage;
-                    Exp = 45 * stage;
+                    Exp = 15 * stage;
                }
           }
 
-          public DungeonResultScene(int stage, bool isClearStage)
+          public DungeonResultScene(Player player, int stage, bool isClearStage)
           {
+               this.player = player;
                this.isClearStage = isClearStage;
                this.stage = stage;
           }
@@ -37,9 +38,9 @@ namespace TextRPG_group5.Scenes
                {
                     case 0:
                          if (isClearStage)
-                              Program.currentScene = new DungeonEntranceScene();
+                              Program.SetScene(new DungeonEntranceScene(player));
                          else
-                              Program.SetScene(new MainScene());
+                              Program.SetScene(new MainScene(player));
                          break;
                     default:
                          Console.WriteLine("잘못된 입력입니다.\n");
@@ -64,7 +65,6 @@ namespace TextRPG_group5.Scenes
                else
                {
                     Console.WriteLine("이번엔 패배했지만, 모험은 끝나지 않았다.");
-                    Console.WriteLine("던전은 당신의 귀환을 기다린다.");
                     Console.WriteLine("누군가는 포기하겠지만, 진정한 모험가는 다시 돌아온다.");
                     Console.WriteLine("실패는 또 다른 시작일 뿐이다. 준비를 마치고 다시 도전하라.");
                     Console.WriteLine();
@@ -77,12 +77,12 @@ namespace TextRPG_group5.Scenes
 
           private void Result()
           {
-               Player player = Program.player ?? new Player("test", "전사");
                Player beforePlayer = new Player
                {
                     NowHp = player.NowHp,
                     Attack = player.Attack,
                     Defence = player.Defence,
+                    Level = player.Level,
                };
                player.NowHp -= 30;
                int beforeMp = player.NowMp;
@@ -93,7 +93,7 @@ namespace TextRPG_group5.Scenes
                {
                     Reward reward = new Reward(stage);
 
-                    //player.Gold += reward.Gold; // Player에서 Exp처럼 Gold를 더할 수 있는 메서드 필요
+                    player.Gold += reward.Gold; // Player에서 Exp처럼 Gold를 더할 수 있는 메서드 필요
                     player.GainExp(reward.Exp);
 
                     Console.WriteLine("[캐릭터 정보]");
@@ -120,9 +120,9 @@ namespace TextRPG_group5.Scenes
 
                     if (stage == player.ReachedStage) // update player stage
                     {
-                         Console.WriteLine("최고 층이 갱신되었습니다.");
-                         Console.WriteLine();
-                         //player.ReachedStage++; // Player에서 ReachedStage에 set을 public으로 풀던가 stage++할 수 있는 메서드 필요
+                         Console.WriteLine("\n최고 층이 갱신되었습니다.");
+                         if (player.ReachedStage < Program.maxStage)
+                              player.ReachedStage++;
                     }
                }
                else

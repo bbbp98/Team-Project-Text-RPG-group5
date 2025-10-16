@@ -8,13 +8,13 @@ namespace TextRPG_group5
 {
      internal abstract class Character
      {
-          public string? Name { get; set; }  
-          public int Level { get; set; }  
-          public virtual int MaxHp { get; set; }  
-          public virtual int NowHp { get; set; }  
-          public virtual int Attack { get; set; }  
+          public string? Name { get; set; }
+          public int Level { get; set; }
+          public virtual int MaxHp { get; set; }
+          public virtual int NowHp { get; set; }
+          public virtual int Attack { get; set; }
           public virtual int Defence { get; set; }
-          public virtual double Critical {  get; set; }
+          public virtual double Critical { get; set; }
           public virtual double Evasion { get; set; }
 
           public bool IsDead => NowHp <= 0;
@@ -25,6 +25,7 @@ namespace TextRPG_group5
           {
                Name = name;
                MaxHp = hp;
+               NowHp = MaxHp;
                Attack = atk;
                Defence = def;
                Critical = 0.1;
@@ -63,7 +64,7 @@ namespace TextRPG_group5
 
           public virtual void ShowStatus()
           {
-               Console.WriteLine($"Lv.{Level} {Name} HP: {NowHp}");
+               Console.WriteLine($"Lv.{Level} {Name} HP: {NowHp}/{MaxHp}");
           }
      }
 }

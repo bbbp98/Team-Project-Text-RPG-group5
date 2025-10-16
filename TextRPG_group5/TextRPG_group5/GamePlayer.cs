@@ -12,7 +12,6 @@ namespace TextRPG_group5
             public string Job { get; private set; }
             public int MaxMp { get; private set; }
             public int NowMp { get; private set; }
-            public int MagicPower { get; private set; }
             public int Gold { get; set; }
             public int Exp { get; private set; }
             public int MaxExp { get; private set; }
@@ -55,16 +54,16 @@ namespace TextRPG_group5
                 switch (job)
                 {
                     case "전사":
-                        Attack = 30; Defence = 50; MaxHp = 120; MaxMp = 60; MagicPower = 10; Critical = 0.1; Evasion = 0.1;
+                        Attack = 30; Defence = 50; MaxHp = 120; MaxMp = 60; Critical = 0.1; Evasion = 0.1;
                         return true;
                     case "궁수":
-                        Attack = 40; Defence = 30; MaxHp = 90; MaxMp = 80; MagicPower = 30; Critical = 0.4; Evasion = 0.2;
+                        Attack = 40; Defence = 30; MaxHp = 90; MaxMp = 80; Critical = 0.4; Evasion = 0.2;
                         return true;
                     case "도적":
-                        Attack = 50; Defence = 20; MaxHp = 80; MaxMp = 90; MagicPower = 25; Critical = 0.3; Evasion = 0.3;
+                        Attack = 50; Defence = 20; MaxHp = 80; MaxMp = 90; Critical = 0.3; Evasion = 0.3;
                         return true;
                     case "법사":
-                        Attack = 20; Defence = 20; MaxHp = 60; MaxMp = 120; MagicPower = 50; Critical = 0.2; Evasion = 0.1;
+                        Attack = 20; Defence = 20; MaxHp = 60; MaxMp = 120; Critical = 0.2; Evasion = 0.1;
                         return true;
                     default:
                         return false;
@@ -81,7 +80,6 @@ namespace TextRPG_group5
                 Console.WriteLine($"마나: {NowMp}/{MaxMp}");
                 Console.WriteLine($"공격력: {Attack}");
                 Console.WriteLine($"방어력: {Defence}");
-                Console.WriteLine($"마력: {MagicPower}");
                 Console.WriteLine($"치명타 확률: {Critical * 100}");
                 Console.WriteLine($"회피확률: {Evasion * 100}");
                 Console.WriteLine($"소지금: {Gold}");
@@ -102,7 +100,7 @@ namespace TextRPG_group5
             {
                 Level++;
                 MaxExp = (int)(MaxExp * 1.2);
-                Attack += 2; Defence += 2; MagicPower += 1; MaxHp += 10; MaxMp += 5;
+                Attack += 2; Defence += 2; MaxHp += 10; MaxMp += 5;
                 NowHp = MaxHp; NowMp = MaxMp;
                 Console.WriteLine($"레벨 업 하였습니다.\n 현재 레벨 : {Level} 입니다.");
             }
