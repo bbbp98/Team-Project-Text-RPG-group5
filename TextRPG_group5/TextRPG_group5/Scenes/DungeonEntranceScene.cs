@@ -7,48 +7,52 @@ using TextRPG_group5.Managers;
 
 namespace TextRPG_group5.Scenes
 {
-     internal class DungeonEntranceScene : Scene
-     {
-          int selectedStage = byte.MaxValue;
-          const int maxStage = 6;
+    internal class DungeonEntranceScene : Scene
+    {
+        int selectedStage = byte.MaxValue;
+        const int maxStage = 6;
 
-          public override void HandleInput(byte input)
-          {
-               if (input == 0)
-               {
-                    // go to MainScene
-                    Program.SetScene(new MainScene());
-               }
-               else if (input > maxStage)
-               {
-                    Console.WriteLine("잘못된 입력입니다.\n");
-               }
-               else
-               {
-                    // go to BattleScene
-                    //Program.SetScene(new BattleScene()); // stage 정보 전달
-                    Program.SetScene(new DungeonResultScene(input, false)); // test
-                    Console.WriteLine($"{input}층 던전 입장");   // log
-               }
-          }
+        public override void HandleInput(byte input)
+        {
+            if (input == 0)
+            {
+                // go to MainScene
+                Program.SetScene(new MainScene());
+            }
+            else if (input > maxStage)
+            {
+                Console.WriteLine("잘못된 입력입니다.\n");
+            }
+            else
+            {
+                // go to BattleScene
+
+                // Battle 테스트
+                Battle selectedStage = new Battle(Program.player, StageManager.Instance.CreateMonsters(Program.player.ReachedStage));
+                Program.SetScene(new BattleScene(selectedStage)); // stage 정보 전달
+                    
+                //Program.SetScene(new DungeonResultScene(input, false)); // test
+                Console.WriteLine($"{input}층 던전 입장");   // log
+            }
+        }
 
 
-          public override void Show()
-          {
-               Console.WriteLine("던전 입구\n");
-               Console.WriteLine("그 누구도 끝까지 도달하지 못한 곳. 이제 당신이 그 전설이 될 차례다.");
-               Console.WriteLine("탑의 꼭대기에는 전설의 보스가 잠들어 있다고 한다.");
-               Console.WriteLine("한 층, 또 한 층. 당신의 용기만이 길을 밝혀줄 것이다.");
+        public override void Show()
+        {
+            Console.WriteLine("던전 입구\n");
+            Console.WriteLine("그 누구도 끝까지 도달하지 못한 곳. 이제 당신이 그 전설이 될 차례다.");
+            Console.WriteLine("탑의 꼭대기에는 전설의 보스가 잠들어 있다고 한다.");
+            Console.WriteLine("한 층, 또 한 층. 당신의 용기만이 길을 밝혀줄 것이다.");
 
-               Console.WriteLine();
-               int stage = Program.player.ReachedStage;
+            Console.WriteLine();
+            int stage = Program.player.ReachedStage;
 
-               while (stage > 0)
-               {
-                    Console.WriteLine($"{stage}. {stage}층 던전 입장");
-                    stage--;
-               }
-               Console.WriteLine("0. 마을로 돌아가기");
-          }
-     }
+            while (stage > 0)
+            {
+                Console.WriteLine($"{stage}. {stage}층 던전 입장");
+                stage--;
+            }
+            Console.WriteLine("0. 마을로 돌아가기");
+        }
+    }
 }
