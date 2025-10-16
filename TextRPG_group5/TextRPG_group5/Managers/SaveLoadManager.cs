@@ -22,7 +22,7 @@ namespace TextRPG_group5.Managers
         {
             try
             {
-                data.LastSaveTime = DateTime.Now;
+                // data.LastSaveTime = DateTime.Now;
 
                 if (!Directory.Exists(SaveDir))
                     Directory.CreateDirectory(SaveDir);
