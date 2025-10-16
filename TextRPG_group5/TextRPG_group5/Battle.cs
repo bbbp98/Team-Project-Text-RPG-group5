@@ -114,13 +114,25 @@ namespace TextRPG_group5
         public void UseItem()
         {
             // Attacker == Player (무조건)
+            // Attacker == ItemUser == Player (무조건)
             Character attacker = Player;
             List<Character> defenders = new List<Character>();
 
+            // TODO : 일단 HP, MP 회복 두 개만, 나중에 상태이상 회복도 추가
+            int attackerBeforeHp = Player.NowHp;
             int attackerBeforeMp = Player.NowMp;
-            List<int> defendersBeforeHp = new List<int>();
 
-            Console.WriteLine("아이템 사용!");
+            List<UsableItem> usableItems = GetUsableItemList(Player.Inventory);
+            
+            /* Inventory 클래스에 구현 예정 (범근님 작업)
+            UsableItem selectedItem = usableItems[userChoice - 1];
+            Player.Inventory.UseItem(selectedItem);*/
+
+            UsableItemOnly[userChoice - 1].UseItem(Player);    // UsableItem 클래스 내 함수 (민근님 작업)
+
+            ActionResultScene result = new ActionResultScene(this, attackerBeforeHp, attackerBeforeMp);
+            result.Show();
+            Program.SetScene(result);
         }
 
         public List<UsableItem> GetUsableItemList(Inventory playerInventory)
