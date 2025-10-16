@@ -25,7 +25,6 @@ namespace TextRPG_group5
         public byte userChoice;
 
         public bool isPlayerTurn;
-        // bool isEnemyTurn;
 
         public Battle(Player player, List<Monster> monsters)
         {
@@ -34,7 +33,6 @@ namespace TextRPG_group5
 
             // Player 선공
             isPlayerTurn = true;
-            // isEnemyTurn = false;
 
             state = BattleState.None;
     }
