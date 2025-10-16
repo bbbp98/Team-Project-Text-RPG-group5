@@ -98,11 +98,7 @@ namespace TextRPG_group5.Scenes
                 return;
             }*/
 
-            for (int i = 0; i < Monsters.Count; i++)
-            {
-                Monsters[i].ShowStatus();
-            }
-            Console.WriteLine();
+            PrintEnemyInfo();
 
             Console.WriteLine("[내정보]");
             Console.WriteLine($"Lv.{Player.Level}\t{Player.Name} ( {Player.Job} )");
@@ -139,6 +135,23 @@ namespace TextRPG_group5.Scenes
                 default:
                     break;
             }
+        }
+
+        void PrintEnemyInfo()
+        {
+            for (int i = 0; i < Monsters.Count; i++)
+            {
+                Monsters[i].ShowStatus();
+            }
+            Console.WriteLine();
+        }
+
+        void PrintPlayerInfo()
+        {
+            Console.WriteLine("[내정보]");
+            Console.WriteLine($"Lv.{Player.Level}\t{Player.Name} ( {Player.Job} )");
+            Console.WriteLine($"HP {Player.NowHp} / {Player.MaxHp}");
+            Console.WriteLine();
         }
     }
 }
