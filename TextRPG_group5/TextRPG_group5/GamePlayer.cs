@@ -100,7 +100,33 @@ namespace TextRPG_group5
             {
                 Level++;
                 MaxExp = (int)(MaxExp * 1.2);
-                Attack += 2; Defence += 2; MaxHp += 10; MaxMp += 5;
+                switch(Job)
+            {
+                case "전사":
+                    Attack += 3;
+                    Defence += 5;
+                    MaxHp += 20;
+                    MaxMp += 5;
+                    break;
+                case "궁수":
+                    Attack += 4;
+                    Defence += 4;
+                    MaxHp += 15;
+                    MaxMp += 10;
+                    break;
+                case "도적":
+                    Attack += 5;
+                    Defence += 3;
+                    MaxHp += 10;
+                    MaxMp += 15;
+                    break;
+                case "법사":
+                    Attack += 5;
+                    Defence += 3;
+                    MaxHp += 5;
+                    MaxMp += 20;
+                    break;
+            }
                 NowHp = MaxHp; NowMp = MaxMp;
                 Console.WriteLine($"레벨 업 하였습니다.\n 현재 레벨 : {Level} 입니다.");
             }
