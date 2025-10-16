@@ -26,7 +26,7 @@ namespace TextRPG_group5
             {
                 case '1':
 
-                    Console.WriteLine("진행 사항은 저장되지 않아요. 정말 종료할까? (Y/N)");
+                    Console.WriteLine("정말 종료하시겠습니까? (Y/N)");
                     if (Confirm())
                     {
                         Console.WriteLine("게임을 종료합니다.");
