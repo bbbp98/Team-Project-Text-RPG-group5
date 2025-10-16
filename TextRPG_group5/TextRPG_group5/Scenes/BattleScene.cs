@@ -54,8 +54,8 @@ namespace TextRPG_group5.Scenes
 
                 if (CurrentBattle.GetBattleState() == BattleState.NormalAttack)
                 {
-                    if (input > Monsters.Count)
-                    {
+                    if (input > Monsters.Count || Monsters[input - 1].IsDead)
+                    {   // 몬스터 번호 범위 밖이거나, 이미 죽은 몬스터 선택
                         Console.WriteLine("잘못된 입력입니다.\n");
                         return;
                     }
