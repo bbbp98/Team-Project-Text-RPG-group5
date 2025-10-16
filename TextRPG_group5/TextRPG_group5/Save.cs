@@ -65,7 +65,6 @@ namespace TextRPG_group5
           private static void DrawSummary(GameProgress gp)
           {
                Console.WriteLine(gp?.ToString() ?? "(진행 정보 없음)");
-               Console.WriteLine("------------------------------");
           }
 
           private static void DrawMenu()
