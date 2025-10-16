@@ -32,7 +32,7 @@ namespace TextRPG_group5.Scenes
             switch(input)
             {
                 case 0:
-                    if (CurrentBattle.IsAllEnemyDead())
+                    if (CurrentBattle.IsAllEnemyDead() || CurrentBattle.Player.IsDead)
                     {
                         CurrentBattle.EndBattle(CurrentBattle.IsStageClear());
                         return;
