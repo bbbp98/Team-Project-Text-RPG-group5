@@ -33,6 +33,7 @@ namespace TextRPG_group5
         public 이름() : base("name", "msg", type, hp, atk, def, exp, gold, critical, evasion)
         {
             MaxHp += (HP 성장 공식);
+            NowHp = MaxHp;
             Attack += (Atk 성장 공식);
             Defence += (방어력 성장 공식);
             Exp += (경험치 성장 공식);
@@ -56,7 +57,8 @@ namespace TextRPG_group5
         public Slime(int level) : base("슬라임", "슬라임이 말랑거린다.", MonsterType.normal, 15, 2, 5, 0, 0.1)
         {
             this.Level = level;
-            MaxHp += (int)(Level * 5);          // 레벨에 비례    
+            MaxHp += (int)(Level * 5);          // 레벨에 비례
+            NowHp = MaxHp;
             Attack += (int)(Level);             // 레벨에 비례
             Defence += (int)(Level * 2);        // 레벨에 비례
             Exp += (int)(slimeExp);             // 레벨 구간에 따라 결정
@@ -293,8 +295,10 @@ namespace TextRPG_group5
         }
     }
 
-    internal class Dople : Monster
+    internal class Dople : Monster  // Doppelganger가 맞는 표기법이지만, 편의상 Dople로 표기
     {
+        public double dopleRate = 0.8; // 플레이어 능력치의 80%를 흉내낸다.
+
         public Dople(Player targetPlayer) : base("도플갱어", "당신과 닮은 모습을 한 몬스터가 당신을 흉내낸다!", MonsterType.boss, 0, 0, 0, 0, 0)
         {
             /*
@@ -303,15 +307,15 @@ namespace TextRPG_group5
             플레이어가 강해질수록 더 강해지기 때문에, 까다롭다.
             */
             this.Level = targetPlayer.Level;
-            this.MaxHp += (int)(targetPlayer.MaxHp * 0.8);
+            this.MaxHp += (int)(targetPlayer.MaxHp * dopleRate);
             NowHp = MaxHp;
-            this.Attack += (int)(targetPlayer.Attack * 0.8);
-            this.Defence += (int)(targetPlayer.Defence * 0.8);
-            this.Critical += (targetPlayer.Critical * 0.8);
-            this.Evasion += (targetPlayer.Evasion * 0.8);
+            this.Attack += (int)(targetPlayer.Attack * dopleRate);
+            this.Defence += (int)(targetPlayer.Defence * dopleRate);
+            this.Critical += (targetPlayer.Critical * dopleRate);
+            this.Evasion += (targetPlayer.Evasion * dopleRate);
             // 플레이어의 80% 능력치를 가진다.
-            this.Exp += (int)(10 + targetPlayer.Level * 8);
-            this.Gold += (int)(15 + targetPlayer.Level * 8);
+            this.Exp += (int)(10 + targetPlayer.Level * dopleRate * 10);
+            this.Gold += (int)(15 + targetPlayer.Level * dopleRate * 10);
             // 플레이어의 레벨에 따라 보상이 달라진다.
         }
         // 플레이어 스테이터스 성장 공식 완성 후 데이터 테이블에 추가(지금은 미등록)
