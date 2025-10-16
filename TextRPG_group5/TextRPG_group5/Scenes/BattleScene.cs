@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.ItemManage;
 
 namespace TextRPG_group5.Scenes
 {
@@ -32,7 +33,10 @@ namespace TextRPG_group5.Scenes
                         CurrentBattle.SetBattleState(BattleState.NormalAttack);
                         break;
                     case 2:
-                        CurrentBattle.SetBattleState(BattleState.Skill);
+                        //CurrentBattle.SetBattleState(BattleState.Skill);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("아직은 사용할 수 없습니다.\n");
+                        Console.ResetColor();
                         break;
                     case 3:
                         CurrentBattle.SetBattleState(BattleState.Item);
@@ -78,9 +82,7 @@ namespace TextRPG_group5.Scenes
                 }
                 else if (CurrentBattle.GetBattleState() == BattleState.Item)
                 {
-                    int itemCount = 3; // player.Inventory.Count;
-
-                    if (input > itemCount)
+                    if (input > CurrentBattle.UsableItemOnly.Count)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("잘못된 입력입니다.\n");
@@ -210,9 +212,16 @@ namespace TextRPG_group5.Scenes
 
         void PrintUsableItemList()
         {
-            Console.WriteLine("[1] 소비 아이템 1번");
-            Console.WriteLine("[2] 소비 아이템 2번");
-            Console.WriteLine("[3] 소비 아이템 3번");
+            List<UsableItem> usableItems = CurrentBattle.UsableItemOnly;
+
+            for (int i = 0; i < usableItems.Count; i++)
+            {
+                // TODO : 일단 포션만, 나중에 버프/디버프 소비 아이템도 추가
+                Potion potion = (Potion)usableItems[i];
+                
+                // 소비 아이템만 출력
+                Console.WriteLine($"[{i + 1}] {potion.Name} (회복량 : +{potion.HealAmount})");
+            }
             Console.WriteLine();
 
             Console.WriteLine("0. 취소");

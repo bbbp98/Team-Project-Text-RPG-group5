@@ -11,6 +11,7 @@ namespace TextRPG_group5.Scenes
         public Character Attacker { get; private set; }
         public List<Character> Defenders { get; private set; }
 
+        public int AttBeforeHp { get; private set; }
         public int AttBeforeMp { get; private set; }
         public List<int> DefBeforeHp { get; private set; }
 
@@ -18,6 +19,7 @@ namespace TextRPG_group5.Scenes
 
         public ActionResultScene(Battle current, Character att, List<Character> defs, int attBeforeMp, List<int> defBeforeHp)
         {
+            // 일반 공격, 스킬 공격용 ActionResultScene 생성자
             Attacker = att;
             Defenders = defs;
 
@@ -25,6 +27,15 @@ namespace TextRPG_group5.Scenes
             DefBeforeHp = defBeforeHp;
 
             CurrentBattle = current;
+        }
+
+        public ActionResultScene(Battle current, int playerBeforeHp, int playerBeforeMp)
+        {
+            // 아이템 사용용 ActionResultScene 생성자
+            CurrentBattle = current;
+            Attacker = CurrentBattle.Player;
+            AttBeforeHp = playerBeforeHp;
+            AttBeforeMp = playerBeforeMp;
         }
 
         public override void HandleInput(byte input)
@@ -88,7 +99,7 @@ namespace TextRPG_group5.Scenes
                     break;
                 case BattleState.Item:
                     // Attacker == Player (무조건)
-                    Console.WriteLine($"{Attacker.Name} 의 {CurrentBattle.userChoice} 번 소비 아이템 사용");
+                    Console.WriteLine($"{Attacker.Name} 의 {CurrentBattle.UsableItemOnly[CurrentBattle.userChoice - 1].Name} 사용");
                     break;
                 default:
                     break;
@@ -129,6 +140,11 @@ namespace TextRPG_group5.Scenes
                         }
                         Console.WriteLine();
                     }
+                    break;
+                case BattleState.Item:
+                    // TODO : 일단은 HP 만, 나중에 MP, 상태이상 등도 추가
+                    Console.WriteLine($"HP : {AttBeforeHp} -> {Attacker.NowHp}");
+                    Console.WriteLine();
                     break;
                 default:
                     break;
