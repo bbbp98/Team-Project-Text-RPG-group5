@@ -77,6 +77,8 @@ namespace TextRPG_group5
 
         public void UseSkill()
         {
+            // Attacker == Player (무조건)
+            Character attacker = Player;
             List<Character> defenders = new List<Character>();
 
             int attackerBeforeMp = Player.NowMp;
@@ -93,6 +95,8 @@ namespace TextRPG_group5
 
         public void UseItem()
         {
+            // Attacker == Player (무조건)
+            Character attacker = Player;
             List<Character> defenders = new List<Character>();
 
             int attackerBeforeMp = Player.NowMp;
