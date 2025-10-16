@@ -27,15 +27,24 @@ namespace TextRPG_group5
                this.owner = owner;
           }
 
+          /// <summary>
+          /// Inventory의 아이템 종류 개수 받아오기
+          /// </summary>
           public int GetCount()
           { return items.Count; }
 
+          /// <summary>
+          /// Inventory에 아이템 추가
+          /// </summary>
           public void AddItem(ItemManagement item)
           {
                items.Add(item);
                //Console.WriteLine($"{item.Name}을(를) 인벤토리에 추가했습니다.");
           }
 
+          /// <summary>
+          /// Inventory의 아이템 삭제
+          /// </summary>
           public void RemoveItem(ItemManagement item)
           {
                if (items.Remove(item))
@@ -88,6 +97,9 @@ namespace TextRPG_group5
                }
           }
 
+          /// <summary>
+          /// 아이템 장착/해제
+          /// </summary>
           public void Equip(int index)
           {
                index--;
@@ -120,6 +132,9 @@ namespace TextRPG_group5
                }
           }
 
+          /// <summary>
+          /// 1: 이름순, 2: 장착순(무기 -> 방어구), 3: 장비 아이템순, 4: 소비 아이템순
+          /// </summary>
           public void Sort(byte input)
           {
                switch (input)
@@ -139,6 +154,9 @@ namespace TextRPG_group5
                }
           }
 
+          /// <summary>
+          /// 특정 인덱스의 아이템 가져오기
+          /// </summary>
           public ItemManagement GetItem(int index)
           {
                return items[index];

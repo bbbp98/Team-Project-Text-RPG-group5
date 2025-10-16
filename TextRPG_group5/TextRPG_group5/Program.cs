@@ -35,6 +35,7 @@ namespace TextRPG_group5
                player = new Player("group5", "전사"); // test player
                player.ReachedStage = 1;
 
+               // test items initialize
                player.Inventory.AddItem(ItemInfo.GetItem("목검"));
                player.Inventory.AddItem(ItemInfo.GetItem("워해머"));
                player.Inventory.AddItem(ItemInfo.GetItem("HP소형포션"));
