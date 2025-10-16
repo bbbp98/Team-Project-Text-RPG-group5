@@ -25,8 +25,6 @@ namespace TextRPG_group5.Scenes
                switch (input)
                {
                     case 0: 
-                         //Environment.Exit(0); 
-                         //Exit.Show(Program.GetGameProgress());
                          ExitScene exitScene = new ExitScene();
                          exitScene.HandleExitAsync().Wait();
                          break;
@@ -70,28 +68,5 @@ namespace TextRPG_group5.Scenes
                Console.WriteLine("5. 저장하기");
                Console.WriteLine("0. 게임 종료");
           }
-
-
-          //public void Save()
-          //{
-          //     string saveJson = JsonSerializer.Serialize(player, new JsonSerializerOptions
-          //     {
-          //          WriteIndented = true
-          //     });
-          //     File.WriteAllText(savePath, saveJson);
-          //}
-
-          //public Player Load()
-          //{
-          //     if (File.Exists(savePath))
-          //     {
-          //          string json = File.ReadAllText(savePath);
-          //          return (JsonSerializer.Deserialize<Player>(json)); // 만약 불러온 Json파일이 null이면 캐릭터 생성 메서드 호출할 수 있도록
-          //     }
-          //     else
-          //     {
-          //          return new Player("test", "궁수");
-          //     }
-          //}
      }
 }

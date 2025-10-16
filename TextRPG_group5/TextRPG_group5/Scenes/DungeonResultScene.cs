@@ -98,17 +98,6 @@ namespace TextRPG_group5.Scenes
 
           private void Result()
           {
-               //     Player beforePlayer = new Player
-               //     {
-               //          NowHp = player.NowHp,
-               //          Attack = player.Attack,
-               //          Defence = player.Defence,
-               //          Level = player.Level,
-               //     };
-               //     int beforeMp = player.NowMp;
-               //     int beforeGold = player.Gold;
-               //     int beforeExp = player.Exp;
-
                if (isClearStage)
                {
                     Reward reward = new Reward(stage);
@@ -131,15 +120,12 @@ namespace TextRPG_group5.Scenes
                     Console.WriteLine($"Lv: {levelStr} {player.Name}");
                     Console.WriteLine($"HP: {preBattlePlayer.NowHp} -> {player.NowHp}");
                     Console.WriteLine($"MP: {preBattlePlayer.NowMp} -> {player.NowMp}");
-                    //Console.WriteLine($"MP: {beforePlayer.NowMp} -> {player.NowMp}");
                     Console.WriteLine($"공격력: {atkStr}");
                     Console.WriteLine($"방어력: {defStr}");
 
                     Console.WriteLine("\n[획득 아이템]");
                     Console.WriteLine($"Gold: {preBattlePlayer.Gold} -> {player.Gold}");
-                    //Console.WriteLine($"Gold: {beforeGold} -> {player.Gold}");
                     Console.WriteLine($"EXP: {preBattlePlayer.Exp} -> {player.Exp}");
-                    //Console.WriteLine($"EXP: {beforeExp} -> {player.Exp}");
 
                     if (stage == player.ReachedStage) // update player stage
                     {

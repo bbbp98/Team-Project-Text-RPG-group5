@@ -19,6 +19,8 @@ namespace TextRPG_group5
                { typeof(EtcItem), 4 },
           };
 
+          // 소비, 기타 아이템용
+          public int Quanitity { get; private set; } = 1;
           private List<ItemManagement> items = new List<ItemManagement>();
           private Player owner;
 
@@ -28,19 +30,78 @@ namespace TextRPG_group5
           }
 
           /// <summary>
-          /// Inventory의 아이템 종류 개수 받아오기
+          /// 인벤토리에 해당 아이템이 존재하는지 확인
           /// </summary>
-          public int GetCount()
-          { return items.Count; }
+          /// <param name="item"></param>
+          /// <returns>존재하면 item을 return, null: 존재X</returns>
+          private ItemManagement? CheckItemExist(ItemManagement item) => items.FirstOrDefault(i => i.Name == item.Name);
 
           /// <summary>
-          /// Inventory에 아이템 추가
+          /// Inventory의 아이템 종류 개수 받아오기
+          /// </summary>
+          public int GetCount() => items.Count;
+
+          /// <summary>
+          /// Inventory에 장비 아이템 추가
           /// </summary>
           public void AddItem(ItemManagement item)
           {
-               items.Add(item);
+               ItemManagement? existing = CheckItemExist(item);
+               if (existing == null)
+               {
+                    items.Add(item);
+               }
+               else
+               {
+                    Console.WriteLine($"{item.Name}은(는) 이미 보유 중입니다.");
+               }
+
                //Console.WriteLine($"{item.Name}을(를) 인벤토리에 추가했습니다.");
           }
+
+          /// <summary>
+          /// 소비, 기타 아이템 같이 개수가 여러 개인 아이템 추가
+          /// </summary>
+          public void AddItem(UsableItem item, int amount)
+          {
+               ItemManagement? existing = CheckItemExist(item);
+
+               // 인벤토리에 아이템이 존재하지 않으면 인벤토리에 추가
+               if (existing == null)
+               {
+                    //item.Quantity = amount;
+                    items.Add(item);
+               }
+               // 인벤토리에 아이템이 존재한다면 개수만 추가
+               else
+               {
+                    //existing.Quantity += amount;
+               }
+          }
+
+          /// <summary>
+          /// 소비 아이템 사용
+          /// </summary>
+          public void UseItem(UsableItem item)
+          {
+               ItemManagement? existing = CheckItemExist(item);
+
+               if (existing == null)
+               {
+                    Console.WriteLine($"{item.Name}이 존재하지 않습니다.");
+                    return;
+               }
+
+               if (item is Potion potion)
+               {
+                    potion.UseItem(owner);
+                    //existing.Quantity--;   1개 줄이기
+                    // 개수가 0개면 Remove
+                    //if (existing.Quantity < 0)
+                    //     RemoveItem(existing);
+               }
+          }
+
 
           /// <summary>
           /// Inventory의 아이템 삭제
@@ -93,7 +154,7 @@ namespace TextRPG_group5
 
                     Console.Write($"{items[i].Name!.PadRight(10)} | ");
                     Console.WriteLine(items[i].Description);
-                    Console.ForegroundColor = ConsoleColor.White;     
+                    Console.ForegroundColor = ConsoleColor.White;
                }
           }
 
@@ -161,5 +222,6 @@ namespace TextRPG_group5
           {
                return items[index];
           }
+
      }
 }

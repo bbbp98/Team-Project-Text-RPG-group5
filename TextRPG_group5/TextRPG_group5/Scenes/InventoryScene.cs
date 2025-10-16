@@ -27,7 +27,6 @@ namespace TextRPG_group5.Scenes
                          Program.SetScene(new InventorySortScene(player));
                          break;
                     case 2:
-                         // load InventoryEquipScene
                          Program.SetScene(new EquipmentScene(player));
                          break;
                     default:

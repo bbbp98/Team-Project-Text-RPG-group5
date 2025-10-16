@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.EffectManagement;
 
 namespace TextRPG_group5
 {
@@ -19,7 +20,7 @@ namespace TextRPG_group5
           public virtual int MaxMp { get; set; }
           public virtual int NowMp { get; set; }
 
-          //public List<Effect> effects { get; private set; }
+          public List<Effect> effects { get; private set; }
 
           public bool IsDead => NowHp <= 0;
 
@@ -34,7 +35,7 @@ namespace TextRPG_group5
                Defence = def;
                Critical = 0.1;
                Evasion = 0.1;
-               //effects = new List<Effect>();
+               effects = new List<Effect>();
           }
 
           // dmg: 플레이어, 몬스터의 공격력
@@ -72,29 +73,29 @@ namespace TextRPG_group5
                Console.WriteLine($"Lv.{Level} {Name} HP: {NowHp}/{MaxHp}");
           }
 
-          //public bool IsStun => effects.Any(e => e.Type == EffectType.Stun);
+          public bool IsStun => effects.Any(e => e.Type == EffectType.Stun);
 
-          //public void ApplyEffect(Effect effect) // 효과를 적용하는 메서드
-          //{
-          //     effects.Add(effect);                                                            // 동일 효과도 중첩 적용 가능
-          //     Console.WriteLine($"{Name}에게 {effect.Type} 효과가 적용됩니다!");              // 효과 적용 메시지 출력
-          //}
+          public void ApplyEffect(Effect effect) // 효과를 적용하는 메서드
+          {
+               effects.Add(effect);                                                            // 동일 효과도 중첩 적용 가능
+               Console.WriteLine($"{Name}에게 {effect.Type} 효과가 적용됩니다!");              // 효과 적용 메시지 출력
+          }
 
-          //public void UpdateEffect() // 턴마다 효과를 처리하고 지속시간을 관리하는 메서드
-          //{
-          //     if (effects.Count == 0) return;
+          public void UpdateEffect() // 턴마다 효과를 처리하고 지속시간을 관리하는 메서드
+          {
+               if (effects.Count == 0) return;
 
-          //     for (int i = effects.Count - 1; i >= 0; i--)
-          //     {
-          //          var effect = effects[i];
-          //          effect.OnTurnStart(this);   // 턴마다 효과가 적용되는 효과 로직을 실행하라고 지시.
-          //          effect.Duration--;          // 지속시간을 1 감소시키고, 0이 되면 제거.
-          //          if (effect.Duration <= 0)
-          //          {
-          //               Console.WriteLine($"{Name}의 {effect.Type} 효과가 사라졌습니다.");
-          //               effects.RemoveAt(i);
-          //          }
-          //     }
-          //}
+               for (int i = effects.Count - 1; i >= 0; i--)
+               {
+                    var effect = effects[i];
+                    effect.OnTurnStart(this);   // 턴마다 효과가 적용되는 효과 로직을 실행하라고 지시.
+                    effect.Duration--;          // 지속시간을 1 감소시키고, 0이 되면 제거.
+                    if (effect.Duration <= 0)
+                    {
+                         Console.WriteLine($"{Name}의 {effect.Type} 효과가 사라졌습니다.");
+                         effects.RemoveAt(i);
+                    }
+               }
+          }
      }
 }
