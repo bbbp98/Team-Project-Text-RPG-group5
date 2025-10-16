@@ -32,7 +32,10 @@ namespace TextRPG_group5.Scenes
                         CurrentBattle.SetBattleState(BattleState.NormalAttack);
                         break;
                     case 2:
-                        CurrentBattle.SetBattleState(BattleState.Skill);
+                        //CurrentBattle.SetBattleState(BattleState.Skill);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("아직은 사용할 수 없습니다.\n");
+                        Console.ResetColor();
                         break;
                     case 3:
                         CurrentBattle.SetBattleState(BattleState.Item);
