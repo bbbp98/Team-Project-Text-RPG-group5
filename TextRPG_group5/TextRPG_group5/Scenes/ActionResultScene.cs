@@ -29,7 +29,25 @@ namespace TextRPG_group5.Scenes
 
         public override void HandleInput(byte input)
         {
-            throw new NotImplementedException();
+            switch(input)
+            {
+                case 0:
+                    if (CurrentBattle.IsAllEnemyDead())
+                    {
+                        CurrentBattle.EndBattle(CurrentBattle.IsStageClear());
+                        return;
+                    }
+
+                    CurrentBattle.SetBattleState(BattleState.None);
+                    CurrentBattle.userChoice = 0;
+                    CurrentBattle.isPlayerTurn = !CurrentBattle.isPlayerTurn; // 턴 교체
+
+                    Program.SetScene(new BattleScene(CurrentBattle));
+                    break;
+                default:
+                    Console.WriteLine("잘못된 입력입니다.\n");
+                    break;
+            }
         }
 
         public override void Show()
