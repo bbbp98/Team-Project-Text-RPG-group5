@@ -65,12 +65,12 @@
   },
   {
     "QuestID": 4,
-    "QuestTitle": "오크의 위협",
-    "QuestDescription": "마을 근처 숲에 출몰하는 오크 3마리를 처치하라.",
+    "QuestTitle": "골렘 제거",
+    "QuestDescription": "버려졌던 골렘들이 누군가에 의해 폭주했다. 폭주한 골렘들을 파괴하라",
     "objectives": [
       {
         "Type": "토벌",
-        "Target": "오크",
+        "Target": "골렘",
         "Count": 4,
         "Current": 1
       }
