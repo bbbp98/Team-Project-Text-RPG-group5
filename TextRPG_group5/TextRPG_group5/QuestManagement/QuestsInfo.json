@@ -19,7 +19,7 @@
         "강철검"
       ]
     },
-    "Status": "NoProgress"
+    "Status": "InProgress"
   },
   {
     "QuestID": 2,
@@ -40,23 +40,23 @@
         "HP대형포션"
       ]
     },
-    "Status": "NoProgress"
+    "Status": "InProgress"
   },
   {
     "QuestID": 3,
     "QuestTitle": "오크의 위협",
-    "QuestDescription": "마을 근처 숲에 출몰하는 오크 3마리를 처치하라.",
+    "QuestDescription": "던전에 오크들이 매우 호전적으로 변이되어 던전에서 빠져나오는 고블린의 수가 늘어난 것으로 보인다. 오크의 개체수를 줄이면 줄어들 것이다.",
     "objectives": [
       {
         "Type": "토벌",
         "Target": "오크",
-        "Count": 4,
+        "Count": 5,
         "Current": 1
       }
     ],
     "Rewards": {
-      "Exp": 150,
-      "Gold": 200,
+      "Exp": 400,
+      "Gold": 1000,
       "Items": [
         "가죽갑옷"
       ]
