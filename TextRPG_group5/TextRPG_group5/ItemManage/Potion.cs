@@ -13,7 +13,6 @@ namespace TextRPG_group5.ItemManage
     {
         public int HealAmount { get; protected set; }
         public int MpAmount { get; protected set; }
-        public int CountItem { get; protected set; }
 
         public Potion(string name, string Description, int healAmount, int mpAmount, int price)
         {
