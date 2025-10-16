@@ -78,10 +78,10 @@ namespace TextRPG_group5
             }
 
             defenders[0].TakeDamage(attacker.Attack, attacker.Critical);
-            isPlayerTurn = !isPlayerTurn;
 
             ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
             result.Show();
+            Program.SetScene(result);
         }
 
         public void UseSkill()
