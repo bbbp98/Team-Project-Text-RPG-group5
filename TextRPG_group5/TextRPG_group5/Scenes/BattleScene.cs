@@ -8,79 +8,34 @@ namespace TextRPG_group5.Scenes
 {
     internal class BattleScene : Scene
     {
-        Battle bt;
-        Player player;
-        List<Monster> monsters;
+        public Battle CurrentBattle { get; private set; }
 
-        public BattleScene(Player player, List<Monster> monsters)
+        public Player Player { get { return CurrentBattle.Player;  } }
+        public List<Monster> Monsters { get { return CurrentBattle.Monsters; } }
+
+        public BattleScene(Battle currentBattle)
         {
-            this.player = player;
-            this.monsters = monsters;
-
-            // 전투 로직 로드
-            bt = new Battle(player, monsters);
-        }
-
-        // 화면에 보여줄 텍스트들(Console.Write관련)
-        public override void Show()
-        {
-            Console.WriteLine("Battle!!");
-            Console.WriteLine();
-
-            for (int i = 0; i < monsters.Count; i++)
-            {
-                monsters[i].ShowStatus();
-            }
-            Console.WriteLine();
-
-            Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{player.Level}\t{player.Name} ( {player.Job} )");
-            Console.WriteLine($"HP {player.NowHp} / {player.MaxHp}");
-            Console.WriteLine();
-
-            Console.WriteLine("==============================");
-            Console.WriteLine();
-
-            switch ((byte)bt.GetBattleState())
-            {
-                case 0:
-                    Console.WriteLine("1. 일반 공격");
-                    Console.WriteLine("2. 스킬 사용");
-                    Console.WriteLine("3. 아이템 사용");
-                    break;
-                case 1:
-                    bt.SelectTarget();
-                    //bt.HitNormalAttack();
-                    break;
-                case 2:
-                    bt.SelectSkill();
-                    break;
-                case 3:
-                    bt.SelectUsableItem();
-                    break;
-                default:
-                    break;
-            }
+            CurrentBattle = currentBattle;
         }
 
         // 입력 값 처리 메서드
         public override void HandleInput(byte input)
         {
-            if (bt.GetBattleState() == BattleState.None)
+            if (CurrentBattle.GetBattleState() == BattleState.None)
             {
                 switch (input)
                 {
                     case 0:
-                        bt.SetBattleState(BattleState.None);
+                        CurrentBattle.SetBattleState(BattleState.None);
                         break;
                     case 1:
-                        bt.SetBattleState(BattleState.NormalAttack);
+                        CurrentBattle.SetBattleState(BattleState.NormalAttack);
                         break;
                     case 2:
-                        bt.SetBattleState(BattleState.Skill);
+                        CurrentBattle.SetBattleState(BattleState.Skill);
                         break;
                     case 3:
-                        bt.SetBattleState(BattleState.Item);
+                        CurrentBattle.SetBattleState(BattleState.Item);
                         break;
                     default:
                         Console.WriteLine("잘못된 입력입니다.\n");
@@ -92,20 +47,20 @@ namespace TextRPG_group5.Scenes
             {
                 if (input == 0)
                 {
-                    bt.SetBattleState(BattleState.None);
-                    bt.userChoice = 0;
+                    CurrentBattle.SetBattleState(BattleState.None);
+                    CurrentBattle.userChoice = 0;
                     return;
                 }
 
-                if (bt.GetBattleState() == BattleState.NormalAttack)
+                if (CurrentBattle.GetBattleState() == BattleState.NormalAttack)
                 {
-                    if (input > monsters.Count)
+                    if (input > Monsters.Count)
                     {
                         Console.WriteLine("잘못된 입력입니다.\n");
                         return;
                     }
                 }
-                else if (bt.GetBattleState() == BattleState.Skill)
+                else if (CurrentBattle.GetBattleState() == BattleState.Skill)
                 {
                     int skillCount = 3; // player.Skills.Count;
 
@@ -115,7 +70,7 @@ namespace TextRPG_group5.Scenes
                         return;
                     }
                 }
-                else if (bt.GetBattleState() == BattleState.Item)
+                else if (CurrentBattle.GetBattleState() == BattleState.Item)
                 {
                     int itemCount = 3; // player.Inventory.Count;
 
@@ -126,8 +81,79 @@ namespace TextRPG_group5.Scenes
                     }
                 }
 
-                bt.userChoice = input;
+                CurrentBattle.userChoice = input;
             }
+        }
+
+        // 화면에 보여줄 텍스트들(Console.Write관련)
+        public override void Show()
+        {
+            Console.WriteLine("Battle!!");
+            Console.WriteLine();
+
+            /*if (bt.GetBattleState() == BattleState.ActionResult)
+            {
+                //ActionResultScene resultScene = new ActionResultScene(player, monsters, bt.isPlayerTurn, bt.userChoice);
+                //resultScene.Show();
+                return;
+            }*/
+
+            PrintEnemyInfo();
+
+            PrintPlayerInfo();
+
+            Console.WriteLine("==============================");
+            Console.WriteLine();
+
+            switch ((byte)CurrentBattle.GetBattleState())
+            {
+                case 0:
+                    PrintActionList();
+                    break;
+                case 1:
+                    if (CurrentBattle.userChoice != 0)
+                        CurrentBattle.HitNormalAttack();
+                    else
+                        CurrentBattle.SelectTarget();
+                    //bt.HitNormalAttack();
+                    break;
+                case 2:
+                    if (CurrentBattle.userChoice != 0)
+                        CurrentBattle.UseSkill();
+                    CurrentBattle.SelectSkill();
+                    break;
+                case 3:
+                    if (CurrentBattle.userChoice != 0)
+                        CurrentBattle.UseItem();
+                    CurrentBattle.SelectUsableItem();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        void PrintEnemyInfo()
+        {
+            for (int i = 0; i < Monsters.Count; i++)
+            {
+                Monsters[i].ShowStatus();
+            }
+            Console.WriteLine();
+        }
+
+        void PrintPlayerInfo()
+        {
+            Console.WriteLine("[내정보]");
+            Console.WriteLine($"Lv.{Player.Level}\t{Player.Name} ( {Player.Job} )");
+            Console.WriteLine($"HP {Player.NowHp} / {Player.MaxHp}");
+            Console.WriteLine();
+        }
+
+        void PrintActionList()
+        {
+            Console.WriteLine("1. 일반 공격");
+            Console.WriteLine("2. 스킬 사용");
+            Console.WriteLine("3. 아이템 사용");
         }
     }
 }
