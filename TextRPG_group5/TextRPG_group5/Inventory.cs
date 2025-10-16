@@ -44,7 +44,9 @@ namespace TextRPG_group5
                }
                else
                {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"{item.Name}을(를) 가지고 있지 않습니다.");
+                    Console.ForegroundColor = ConsoleColor.White;
                }
           }
 

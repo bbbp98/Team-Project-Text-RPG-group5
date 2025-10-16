@@ -31,14 +31,18 @@ namespace TextRPG_group5.Scenes
                          Program.SetScene(new EquipmentScene(player));
                          break;
                     default:
+                         Console.ForegroundColor = ConsoleColor.Red;
                          Console.WriteLine("잘못된 입력입니다.\n");
+                         Console.ForegroundColor = ConsoleColor.White;
                          break;
                }
           }
 
           public override void Show()
           {
+               Console.ForegroundColor = ConsoleColor.Yellow;
                Console.WriteLine("인벤토리");
+               Console.ForegroundColor = ConsoleColor.White;
 
                player.Inventory.Show();
 

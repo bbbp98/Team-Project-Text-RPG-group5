@@ -26,7 +26,9 @@ namespace TextRPG_group5.Scenes
                }
                else if (input > player.ReachedStage)
                {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("잘못된 입력입니다.\n");
+                    Console.ForegroundColor = ConsoleColor.White;
                }
                else
                {
@@ -42,7 +44,10 @@ namespace TextRPG_group5.Scenes
 
           public override void Show()
           {
+               Console.ForegroundColor = ConsoleColor.Yellow;
                Console.WriteLine("던전 입구\n");
+               Console.ForegroundColor = ConsoleColor.White;
+
                Console.WriteLine("그 누구도 끝까지 도달하지 못한 곳. 이제 당신이 그 전설이 될 차례다.");
                Console.WriteLine("탑의 꼭대기에는 전설의 보스가 잠들어 있다고 한다.");
                Console.WriteLine("한 층, 또 한 층. 당신의 용기만이 길을 밝혀줄 것이다.");

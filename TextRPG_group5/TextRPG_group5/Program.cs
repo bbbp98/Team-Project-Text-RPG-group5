@@ -10,7 +10,7 @@ namespace TextRPG_group5
           static private Player? player;
 
           public const int maxStage = 10;
-          static private GameProgress gameProgress = new GameProgress();
+          //static private GameProgress gameProgress = new GameProgress();
 
           static void Main(string[] args)
           {
@@ -53,9 +53,9 @@ namespace TextRPG_group5
                currentScene = scene;
           }
 
-          static public GameProgress GetGameProgress()
-          {
-               return gameProgress;
-          }
+          //static public GameProgress GetGameProgress()
+          //{
+          //     return gameProgress;
+          //}
      }
 }

@@ -30,7 +30,9 @@ namespace TextRPG_group5.Scenes
                }
                else
                {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("잘못된 입력입니다.\n");
+                    Console.ForegroundColor = ConsoleColor.White;
                     return;
                }
           }
@@ -38,7 +40,10 @@ namespace TextRPG_group5.Scenes
           public override void Show()
           {
                // 장착되어 있는 아이템 선택 시 해제
+               Console.ForegroundColor = ConsoleColor.Yellow;
                Console.WriteLine("인벤토리 - 아이템 장착/해제");
+               Console.ForegroundColor = ConsoleColor.White;
+
                Console.WriteLine("\n장착하려는 아이템을 선택하면 아이템이 장착됩니다.");
                Console.WriteLine("해제하려는 아이템을 선택하면 아이템이 해제됩니다.");
 
