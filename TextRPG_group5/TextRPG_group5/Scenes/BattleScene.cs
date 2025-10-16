@@ -111,21 +111,26 @@ namespace TextRPG_group5.Scenes
                     PrintActionList();
                     break;
                 case 1:
-                    if (CurrentBattle.userChoice != 0)
-                        CurrentBattle.HitNormalAttack();
+                    if (CurrentBattle.userChoice == 0)
+                        PrintTargetList();
+                        
                     else
-                        CurrentBattle.SelectTarget();
-                    //bt.HitNormalAttack();
+                        CurrentBattle.HitNormalAttack();
+
                     break;
                 case 2:
-                    if (CurrentBattle.userChoice != 0)
+                    if (CurrentBattle.userChoice == 0)
+                        PrintSkillList();
+
+                    else
                         CurrentBattle.UseSkill();
-                    CurrentBattle.SelectSkill();
                     break;
                 case 3:
-                    if (CurrentBattle.userChoice != 0)
+                    if (CurrentBattle.userChoice == 0)
+                        PrintUsableItemList();
+
+                    else
                         CurrentBattle.UseItem();
-                    CurrentBattle.SelectUsableItem();
                     break;
                 default:
                     break;
@@ -154,6 +159,37 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("1. 일반 공격");
             Console.WriteLine("2. 스킬 사용");
             Console.WriteLine("3. 아이템 사용");
+        }
+
+        void PrintTargetList()
+        {
+            for (int i = 0; i < Monsters.Count; i++)
+            {
+                Console.WriteLine($"[{i + 1}] {Monsters[i].Name}");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("0. 취소");
+        }
+
+        void PrintSkillList()
+        {
+            Console.WriteLine("[1] 스킬 1번");
+            Console.WriteLine("[2] 스킬 2번");
+            Console.WriteLine("[3] 스킬 3번");
+            Console.WriteLine();
+
+            Console.WriteLine("0. 취소");
+        }
+
+        void PrintUsableItemList()
+        {
+            Console.WriteLine("[1] 소비 아이템 1번");
+            Console.WriteLine("[2] 소비 아이템 2번");
+            Console.WriteLine("[3] 소비 아이템 3번");
+            Console.WriteLine();
+
+            Console.WriteLine("0. 취소");
         }
     }
 }
