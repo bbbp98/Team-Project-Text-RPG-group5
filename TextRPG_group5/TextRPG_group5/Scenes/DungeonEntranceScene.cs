@@ -33,7 +33,7 @@ namespace TextRPG_group5.Scenes
                     if (input == 9)
                          StageManager.Instance.SetPlayer(player);
                     // go to BattleScene
-                    Battle selectedStage = new Battle(player, StageManager.Instance.CreateMonsters(input));
+                    Battle selectedStage = new Battle(player, StageManager.Instance.CreateMonsters(input), input);
                     Program.SetScene(new BattleScene(selectedStage));
                     //Program.SetScene(new DungeonResultScene(player, stage: input, isClearStage: true)); // test
                     Console.WriteLine($"{input}층 던전에 입장했습니다.\n");   // log

@@ -20,16 +20,18 @@ namespace TextRPG_group5
     {
         public Player Player { get; private set; }
         public List<Monster> Monsters { get; private set; }
+        public byte CurrentStage { get; private set; }
 
         private BattleState state;
         public byte userChoice;
 
         public bool isPlayerTurn;
 
-        public Battle(Player player, List<Monster> monsters)
+        public Battle(Player player, List<Monster> monsters, byte currentStage)
         {
             Player = player;
             Monsters = monsters;
+            CurrentStage = currentStage;
 
             // Player 선공
             isPlayerTurn = true;
@@ -103,4 +105,10 @@ namespace TextRPG_group5
             Console.WriteLine("아이템 사용!");
         }
      }
+
+        public void EndBattle(bool isClear)
+        {
+            Program.SetScene(new DungeonResultScene(Player, CurrentStage, isClear));
+        }
+    }
 }
