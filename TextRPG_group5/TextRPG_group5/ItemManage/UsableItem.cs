@@ -11,7 +11,8 @@ namespace TextRPG_group5.ItemManage
     /// </summary>
     internal abstract class UsableItem : ItemManagement
     {
+
         // 추상클래스 선언
-        public abstract void UseItem(Player player);
+        public abstract void UseItem(Player player, Potion potion);
     }
 }
