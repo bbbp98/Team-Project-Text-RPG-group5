@@ -60,10 +60,8 @@ namespace TextRPG_group5.Scenes
 
             PrintDefendersInfo();
 
-            Console.WriteLine("계속하려면 아무 키나 누르세요...");
-            Console.Write(">> ");
-            Console.ReadKey();
-        }
+            Console.WriteLine("0. 다음");
+       }
 
         void PrintAttackerInfo()
         {
@@ -127,8 +125,6 @@ namespace TextRPG_group5.Scenes
                 default:
                     break;
             }
-
-            Console.WriteLine();
         }
     }
 }
