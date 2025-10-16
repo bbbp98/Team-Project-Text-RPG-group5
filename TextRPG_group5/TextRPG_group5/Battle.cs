@@ -113,7 +113,6 @@ namespace TextRPG_group5
 
         public void UseItem()
         {
-            // Attacker == Player (무조건)
             // Attacker == ItemUser == Player (무조건)
             Character attacker = Player;
             List<Character> defenders = new List<Character>();
