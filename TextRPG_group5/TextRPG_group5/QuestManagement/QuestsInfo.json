@@ -16,7 +16,7 @@
       "Gold": 150,
       "Items": [
         "HP소형포션",
-        "철검"
+        "강철검"
       ]
     },
     "Status": "NoProgress"
@@ -58,7 +58,7 @@
       "Exp": 150,
       "Gold": 200,
       "Items": [
-        "가죽 갑옷"
+        "가죽갑옷"
       ]
     },
     "Status": "NoProgress"
