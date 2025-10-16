@@ -21,8 +21,6 @@ namespace TextRPG_group5.QuestManagement
         {
             try
             {
-                string filePath = "C:\\TeamSparta\\GitHub_TP\\Team-Project-Text-RPG-group5\\TextRPG_group5\\TextRPG_group5\\QuestManagement\\QuestsInfo.json";
-
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true,
