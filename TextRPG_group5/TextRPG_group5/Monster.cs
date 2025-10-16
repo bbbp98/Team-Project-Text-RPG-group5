@@ -18,7 +18,7 @@ namespace TextRPG_group5
         public string Msg { get; set; } // 몬스터 공격 메시지 예: 슬라임이 말랑거린다. 고블린이 날카로운 칼날을 휘두른다!
         public int Exp { get; set; } // 처치 시 얻는 경험치
         public int Gold { get; set; } // 처치 시 얻는 골드
-        
+
         public Monster(string name, string msg, MonsterType type, int hp, int atk, int def, double critical, double evasion) : base(name, hp, atk, def)
         {
             Msg = msg;
@@ -54,7 +54,7 @@ namespace TextRPG_group5
         하지만 레벨이 올라가도 공격 방식은 크게 달라지지 않는다.
         */
         public Slime(int level) : base("슬라임", "슬라임이 말랑거린다.", MonsterType.normal, 15, 2, 5, 0, 0.1)
-        {   
+        {
             this.Level = level;
             MaxHp += (int)(Level * 5);          // 레벨에 비례    
             Attack += (int)(Level);             // 레벨에 비례
@@ -105,7 +105,7 @@ namespace TextRPG_group5
                     return Level * 2;
                 else if (Level <= 10)
                     return 20 + (Level * 2);
-                else if(Level <= 20)
+                else if (Level <= 20)
                     return 60 + (Level * 3);
                 else
                     return 120 + (Level * 4);
@@ -128,7 +128,7 @@ namespace TextRPG_group5
             NowHp = MaxHp;
             Attack += (int)(hobGoblinAttack);           // 레벨에 비례
             Defence += (int)(Level);                    // 레벨에 비례
-            Critical += (hobGoblinAttack*0.001);        // 공격력이 올라갈 수록 치명타 확률도 올라간다
+            Critical += (hobGoblinAttack * 0.001);        // 공격력이 올라갈 수록 치명타 확률도 올라간다
             Exp += (int)(Level * 2 + hobGoblinAttack);  // 레벨에 비례 + 공격력만큼의 보너스
             Gold += (int)(15 + hobGoblinAttack);        // 그 위험도에 비례해 돈을 가지고 있다.
             // 저레벨의 고블린은 위험하지 않은 잡몹이지만, 고레벨의 고블린은 까다로운 몬스터
@@ -305,9 +305,9 @@ namespace TextRPG_group5
             this.Level = targetPlayer.Level;
             this.MaxHp += (int)(targetPlayer.MaxHp * 0.8);
             NowHp = MaxHp;
-            this.Attack += (int)(targetPlayer.Attack * 0.8);            
-            this.Defence += (int)(targetPlayer.Defence * 0.8);            
-            this.Critical += (targetPlayer.Critical * 0.8);          
+            this.Attack += (int)(targetPlayer.Attack * 0.8);
+            this.Defence += (int)(targetPlayer.Defence * 0.8);
+            this.Critical += (targetPlayer.Critical * 0.8);
             this.Evasion += (targetPlayer.Evasion * 0.8);
             // 플레이어의 80% 능력치를 가진다.
             this.Exp += (int)(10 + targetPlayer.Level * 8);
