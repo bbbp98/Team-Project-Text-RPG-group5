@@ -102,6 +102,9 @@ namespace TextRPG_group5.Scenes
 
             PrintPlayerInfo();
 
+            Console.WriteLine("==============================");
+            Console.WriteLine();
+
             switch ((byte)CurrentBattle.GetBattleState())
             {
                 case 0:
