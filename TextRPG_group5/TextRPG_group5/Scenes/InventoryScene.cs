@@ -17,12 +17,22 @@ namespace TextRPG_group5.Scenes
 
           public override void HandleInput(byte input)
           {
-               throw new NotImplementedException();
+               switch (input)
+               {
+                    case 0:
+                         Program.SetScene(new MainScene(player)); 
+                         break;
+                    case 1:
+                         break;
+               }
           }
 
           public override void Show()
           {
-               throw new NotImplementedException();
+               Console.WriteLine("인벤토리");
+
+               Console.WriteLine("1. 장착 관리 메뉴");
+               Console.WriteLine("0. 돌아가기");
           }
      }
 }
