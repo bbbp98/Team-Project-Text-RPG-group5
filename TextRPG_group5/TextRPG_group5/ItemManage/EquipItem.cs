@@ -21,8 +21,8 @@ namespace TextRPG_group5.ItemManage
     /// <summary>
     /// 무기나 방어구의 능력치 초기화 및 동작 추상클래스화
     /// </summary>
-    internal abstract class EquipItem : ItemManagement
+    public class EquipItem : ItemManagement
     {
-        public abstract void YouEquipItem(Player player, Weapon weapon);
+        
     }
 }
