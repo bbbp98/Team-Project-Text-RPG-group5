@@ -40,102 +40,66 @@ namespace TextRPG_group5
         public void SetBattleState(BattleState currentState) => state = currentState;
         public BattleState GetBattleState() => state;
 
-        public void ShowCurrentState()
-        {
-            switch (state)
-            {
-                case BattleState.NormalAttack:
-                    SelectTarget();
-                    break;
-                case BattleState.Skill:
-                    SelectSkill();
-                    break;
-                case BattleState.Item:
-                    SelectUsableItem();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void SelectTarget()
-        {
-            for (int i = 0; i < Monsters.Count; i++)
-            {
-                Console.WriteLine($"[{i + 1}] {Monsters[i].Name}");
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("0. 취소");
-        }
-
-        public void SelectSkill()
-        {
-            Console.WriteLine("[1] 스킬 1번");
-            Console.WriteLine("[2] 스킬 2번");
-            Console.WriteLine("[3] 스킬 3번");
-
-            Console.WriteLine();
-            Console.WriteLine("0. 취소");
-        }
-
-        public void SelectUsableItem()
-        {
-            Console.WriteLine("[1] 소비 아이템 1번");
-            Console.WriteLine("[2] 소비 아이템 2번");
-            Console.WriteLine("[3] 소비 아이템 3번");
-
-            Console.WriteLine();
-            Console.WriteLine("0. 취소");
-        }
-
-        public void StartBattle()
-        {
-            Console.WriteLine("전투 시작!\n");
-        }
-
         public void HitNormalAttack()
         {
-            // Console.WriteLine("일반 공격 사용!");
-
             Character attacker;
-            Character defender;
+            List<Character> defenders = new List<Character>();
 
-            int attackerBeforeHp;
-            int defenderBeforeHp;
+            int attackerBeforeMp = 0;
+            List<int> defendersBeforeHp = new List<int>();
 
             if (isPlayerTurn)   // Player 턴
             {
                 attacker = Player;
-                defender = Monsters[userChoice - 1];
+                defenders.Add(Monsters[userChoice - 1]);
 
-                attackerBeforeHp = Player.NowHp;
-                defenderBeforeHp = Monsters[userChoice - 1].NowHp;
+                attackerBeforeMp = Player.NowMp;
+                defendersBeforeHp.Add(defenders[0].NowHp);
             }
             else    // Monster 턴
             {
                 // Monster 무리 중 Player 를 공격할 Monster 를 랜덤으로 하나 선택
                 attacker = Monsters[new Random().Next(0, Monsters.Count)];
-                defender = Player;
+                defenders.Add(Player);
 
-                attackerBeforeHp = attacker.NowHp;
-                defenderBeforeHp = Player.NowHp;
+                // attackerBeforeMp = attacker.NowMp;
+                defendersBeforeHp.Add(Player.NowHp);
             }
 
-            defender.TakeDamage(attacker.Attack, attacker.Critical);
+            defenders[0].TakeDamage(attacker.Attack, attacker.Critical);
             isPlayerTurn = !isPlayerTurn;
 
-            ActionResultScene result = new ActionResultScene(attacker, defender, attackerBeforeHp, defenderBeforeHp);
+            ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
             result.Show();
         }
 
         public void UseSkill()
         {
+            // Attacker == Player (무조건)
+            Character attacker = Player;
+            List<Character> defenders = new List<Character>();
+
+            int attackerBeforeMp = Player.NowMp;
+            List<int> defendersBeforeHp = new List<int>();
+
+            foreach (Monster mon in Monsters)
+            {
+                defenders.Add(mon);
+                defendersBeforeHp.Add(mon.NowHp);
+            }
+
             Console.WriteLine("스킬 사용!");
         }
 
         public void UseItem()
         {
+            // Attacker == Player (무조건)
+            Character attacker = Player;
+            List<Character> defenders = new List<Character>();
+
+            int attackerBeforeMp = Player.NowMp;
+            List<int> defendersBeforeHp = new List<int>();
+
             Console.WriteLine("아이템 사용!");
         }
      }
