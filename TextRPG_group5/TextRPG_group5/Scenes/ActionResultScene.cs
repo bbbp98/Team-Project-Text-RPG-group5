@@ -32,7 +32,7 @@ namespace TextRPG_group5.Scenes
             switch(input)
             {
                 case 0:
-                    if (CurrentBattle.IsAllEnemyDead())
+                    if (CurrentBattle.IsAllEnemyDead() || CurrentBattle.Player.IsDead)
                     {
                         CurrentBattle.EndBattle(CurrentBattle.IsStageClear());
                         return;
@@ -45,7 +45,9 @@ namespace TextRPG_group5.Scenes
                     Program.SetScene(new BattleScene(CurrentBattle));
                     break;
                 default:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("잘못된 입력입니다.\n");
+                    Console.ResetColor();
                     break;
             }
         }
@@ -54,7 +56,9 @@ namespace TextRPG_group5.Scenes
         {
             Console.Clear();
 
-            Console.WriteLine("Battle!!\n");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Battle!!");
+            Console.ResetColor();
 
             PrintAttackerInfo();
 
@@ -71,7 +75,11 @@ namespace TextRPG_group5.Scenes
                     if (Attacker is Player)
                         Console.WriteLine($"{Attacker.Name} 의 공격!");
                     else
+                    {
                         Console.WriteLine($"Lv.{Attacker.Level} {Attacker.Name} 의 공격!");
+                        Console.WriteLine(((Monster)Attacker).Msg);
+                    }
+                        
                     break;
                 case BattleState.Skill:
                     // Attacker == Player (무조건)

@@ -27,6 +27,8 @@ namespace TextRPG_group5
 
         public bool isPlayerTurn;
 
+        private Player preBattlePlayer;
+
         public Battle(Player player, List<Monster> monsters, byte currentStage)
         {
             Player = player;
@@ -37,7 +39,9 @@ namespace TextRPG_group5
             isPlayerTurn = true;
 
             state = BattleState.None;
-    }
+
+            //preBattlePlayer = Player.Clone();
+        }
 
         public void SetBattleState(BattleState currentState) => state = currentState;
         public BattleState GetBattleState() => state;
@@ -135,6 +139,7 @@ namespace TextRPG_group5
         public void EndBattle(bool isClear)
         {
             Program.SetScene(new DungeonResultScene(Player, CurrentStage, isClear));
+            //Program.SetScene(new DungeonResultScene(Player, preBattlePlayer, CurrentStage, isClear));
         }
     }
 }
