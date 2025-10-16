@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using TextRPG_group5.Managers;
-using static TextRPG_group5.Managers.GameProgress;
+//using static TextRPG_group5.Managers.GameProgress;
 
 namespace TextRPG_group5.Scenes
 {

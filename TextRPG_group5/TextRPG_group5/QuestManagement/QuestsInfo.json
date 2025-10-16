@@ -1,61 +1,66 @@
-{
-  "quests": [
-    {
-      "QuestID": 1,
-      "QuestTitle": "슬라임 토벌",
-      "QuestDescription": "슬라임을 토벌하세요.",
-      "objectives": [
-        {
-          "Type": "kill",
-          "Target": "Slime",
-          "Count": 5,
-          "Current": 0
-        }
-      ],
-      "Rewards": {
-        "Exp": 100,
-        "Gold": 50,
-        "Items": ["HP소형포션"]
-      },
-      "Status": 0
+[
+  {
+    "QuestID": 1,
+    "QuestTitle": "고블린 토벌",
+    "QuestDescription": "마을 근처를 어지럽히는 고블린 5마리를 처치하라.",
+    "objectives": [
+      {
+        "Type": "토벌",
+        "Target": "고블린",
+        "Count": 5,
+        "Current": 0
+      }
+    ],
+    "Rewards": {
+      "Exp": 100,
+      "Gold": 150,
+      "Items": [
+        "HP소형포션",
+        "철검"
+      ]
     },
-    {
-      "QuestID": 2,
-      "QuestTitle": "고블린 토벌",
-      "QuestDescription": "고블린을 퇴치하세요.",
-      "objectives": [
-        {
-          "Type": "kill",
-          "Target": "Goblin",
-          "Count": 5,
-          "Current": 0
-        }
-      ],
-      "Rewards": {
-        "Exp": 150,
-        "Gold": 100,
-        "Items": ["철검"]
-      },
-      "Status": 0
+    "Status": "NoProgress"
+  },
+  {
+    "QuestID": 2,
+    "QuestTitle": "홉고블린 토벌",
+    "QuestDescription": "마을 근처를 어지럽히는 홉고블린 2마리를 처치하라.",
+    "objectives": [
+      {
+        "Type": "토벌",
+        "Target": "홉고블린",
+        "Count": 2,
+        "Current": 0
+      }
+    ],
+    "Rewards": {
+      "Exp": 80,
+      "Gold": 100,
+      "Items": [
+        "HP대형포션"
+      ]
     },
-    {
-      "QuestID": 3,
-      "QuestTitle": "홉고블린 토벌",
-      "QuestDescription": "홉고블린을 퇴치하세요.",
-      "objectives": [
-        {
-          "Type": "kill",
-          "Target": "HobGoblin",
-          "Count": 2,
-          "Current": 0
-        }
-      ],
-      "Rewards": {
-        "Exp": 300,
-        "Gold": 200,
-        "Items": ["철검"]
-      },
-      "Status": 0
-    }
-  ]
-}
+    "Status": "NoProgress"
+  },
+  {
+    "QuestID": 3,
+    "QuestTitle": "오크의 위협",
+    "QuestDescription": "마을 근처 숲에 출몰하는 오크 3마리를 처치하라.",
+    "objectives": [
+      {
+        "Type": "토벌",
+        "Target": "오크",
+        "Count": 4,
+        "Current": 1
+      }
+    ],
+    "Rewards": {
+      "Exp": 150,
+      "Gold": 200,
+      "Items": [
+        "가죽 갑옷"
+      ]
+    },
+    "Status": "NoProgress"
+  }
+]
