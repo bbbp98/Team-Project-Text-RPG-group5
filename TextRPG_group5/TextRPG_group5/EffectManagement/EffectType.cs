@@ -65,7 +65,7 @@ namespace TextRPG_group5.EffectManagement
             if (TryFreeze())
             {
                 Console.WriteLine($"{target.Name}은(는) 빙결로 인해 행동 불능 상태에 빠졌습니다!");
-                // 행동 불능 상태 처리 로직 추가 필요
+                Stun freezeStun = new Stun(this.Caster, 1); // 1턴 동안 행동 불능
             }
 
             target.NowHp -= this.Value;
@@ -93,8 +93,12 @@ namespace TextRPG_group5.EffectManagement
         }
     }
 
-    //internal class Stun : Effect
-    //{
-
-    //}
+    internal class Stun : Effect // 행동불능 상태(IsStun)를 부여하는 효과
+    {
+        public Stun(Character caster, int duration) : base(caster, duration)
+        {
+            Type = EffectType.Stun;
+        }
+        // stun 효과는 OnTurnStart에서 처리할 필요 없이, Character 클래스의 IsStun 프로퍼티에서 체크(전투 중 체크 바람)
+    }
 }
