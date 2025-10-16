@@ -28,10 +28,11 @@ namespace TextRPG_group5.Scenes
           {
                switch (input)
                {
-                    case 0:
-                         Environment.Exit(0);
+                    case 0: 
+                         //Environment.Exit(0); 
                          //Exit.Show(Program.GetGameProgress());
-                         Console.WriteLine("게임을 종료합니다.");
+                         ExitScene exitScene = new ExitScene();
+                         exitScene.HandleExitAsync().Wait();
                          break;
                     case 1:
                          Program.SetScene(new PlayerInfoScene(player));

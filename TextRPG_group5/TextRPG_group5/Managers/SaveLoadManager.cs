@@ -22,7 +22,7 @@ namespace TextRPG_group5.Managers
         {
             try
             {
-        
+                // data.LastSaveTime = DateTime.Now;
 
                 if (!Directory.Exists(SaveDir))
                     Directory.CreateDirectory(SaveDir);
@@ -49,7 +49,7 @@ namespace TextRPG_group5.Managers
             {
                 if (!File.Exists(SaveFile))
                 {
-                    
+                    Console.WriteLine("세이브 파일이 없습니다.");
                     return null;
                 }
 
@@ -59,10 +59,11 @@ namespace TextRPG_group5.Managers
 
                 if (data == null)
                 {
-                    
+                    Console.WriteLine("불러오기 실패했습니다.");
                     return null;
                 }
 
+                Console.WriteLine("성공했습니다.");
                 return data;
             }
             catch (Exception ex)

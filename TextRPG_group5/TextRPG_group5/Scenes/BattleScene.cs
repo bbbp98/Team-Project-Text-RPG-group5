@@ -10,7 +10,7 @@ namespace TextRPG_group5.Scenes
     {
         public Battle CurrentBattle { get; private set; }
 
-        public Player Player { get { return CurrentBattle.Player;  } }
+        public Player Player { get { return CurrentBattle.Player; } }
         public List<Monster> Monsters { get { return CurrentBattle.Monsters; } }
 
         public BattleScene(Battle currentBattle)
@@ -74,7 +74,7 @@ namespace TextRPG_group5.Scenes
                 {
                     int itemCount = 3; // player.Inventory.Count;
 
-                    if ( input > itemCount)
+                    if (input > itemCount)
                     {
                         Console.WriteLine("잘못된 입력입니다.\n");
                         return;
@@ -105,27 +105,32 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("==============================");
             Console.WriteLine();
 
-            switch ((byte)CurrentBattle.GetBattleState())
+            switch (CurrentBattle.GetBattleState())
             {
-                case 0:
+                case BattleState.None:
                     PrintActionList();
                     break;
-                case 1:
-                    if (CurrentBattle.userChoice != 0)
-                        CurrentBattle.HitNormalAttack();
+                case BattleState.NormalAttack:
+                    if (CurrentBattle.userChoice == 0)
+                        PrintTargetList();
+                        
                     else
-                        CurrentBattle.SelectTarget();
-                    //bt.HitNormalAttack();
+                        CurrentBattle.HitNormalAttack();
+
                     break;
-                case 2:
-                    if (CurrentBattle.userChoice != 0)
+                case BattleState.Skill:
+                    if (CurrentBattle.userChoice == 0)
+                        PrintSkillList();
+
+                    else
                         CurrentBattle.UseSkill();
-                    CurrentBattle.SelectSkill();
                     break;
-                case 3:
-                    if (CurrentBattle.userChoice != 0)
+                case BattleState.Item:
+                    if (CurrentBattle.userChoice == 0)
+                        PrintUsableItemList();
+
+                    else
                         CurrentBattle.UseItem();
-                    CurrentBattle.SelectUsableItem();
                     break;
                 default:
                     break;
@@ -146,6 +151,7 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("[내정보]");
             Console.WriteLine($"Lv.{Player.Level}\t{Player.Name} ( {Player.Job} )");
             Console.WriteLine($"HP {Player.NowHp} / {Player.MaxHp}");
+            Console.WriteLine($"MP {Player.NowMp} / {Player.MaxMp}");
             Console.WriteLine();
         }
 
@@ -154,6 +160,37 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("1. 일반 공격");
             Console.WriteLine("2. 스킬 사용");
             Console.WriteLine("3. 아이템 사용");
+        }
+
+        void PrintTargetList()
+        {
+            for (int i = 0; i < Monsters.Count; i++)
+            {
+                Console.WriteLine($"[{i + 1}] {Monsters[i].Name}");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("0. 취소");
+        }
+
+        void PrintSkillList()
+        {
+            Console.WriteLine("[1] 스킬 1번");
+            Console.WriteLine("[2] 스킬 2번");
+            Console.WriteLine("[3] 스킬 3번");
+            Console.WriteLine();
+
+            Console.WriteLine("0. 취소");
+        }
+
+        void PrintUsableItemList()
+        {
+            Console.WriteLine("[1] 소비 아이템 1번");
+            Console.WriteLine("[2] 소비 아이템 2번");
+            Console.WriteLine("[3] 소비 아이템 3번");
+            Console.WriteLine();
+
+            Console.WriteLine("0. 취소");
         }
     }
 }
