@@ -10,7 +10,7 @@ namespace TextRPG_group5.Scenes
     {
         public Battle CurrentBattle { get; private set; }
 
-        public Player Player { get { return CurrentBattle.Player;  } }
+        public Player Player { get { return CurrentBattle.Player; } }
         public List<Monster> Monsters { get { return CurrentBattle.Monsters; } }
 
         public BattleScene(Battle currentBattle)
@@ -74,7 +74,7 @@ namespace TextRPG_group5.Scenes
                 {
                     int itemCount = 3; // player.Inventory.Count;
 
-                    if ( input > itemCount)
+                    if (input > itemCount)
                     {
                         Console.WriteLine("잘못된 입력입니다.\n");
                         return;
