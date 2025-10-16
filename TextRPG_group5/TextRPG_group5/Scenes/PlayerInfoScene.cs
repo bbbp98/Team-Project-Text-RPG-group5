@@ -23,7 +23,7 @@ namespace TextRPG_group5.Scenes
                          break;
                     default:
                          Console.ForegroundColor = ConsoleColor.Red;
-                         Console.WriteLine("잘못된 입력입니다.");
+                         Console.WriteLine("잘못된 입력입니다.\n");
                          Console.ForegroundColor = ConsoleColor.White;
                          break;
                }

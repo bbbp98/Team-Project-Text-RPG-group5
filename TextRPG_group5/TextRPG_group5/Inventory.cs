@@ -65,8 +65,26 @@ namespace TextRPG_group5
                for (int i = 0; i < items.Count; i++)
                {
                     string equipMark = items[i].IsEquip ? "[E]" : "";
-                    Console.Write($"- {i + 1}. {equipMark}{items[i].Name!.PadRight(10)} | ");
+                    Console.Write($"- {i + 1}. ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"{equipMark}");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    //if (items[i] is Weapon weapon)
+                    //{
+                    //     if (owner.Job != weapon.Job.ToString())
+                    //          Console.ForegroundColor = ConsoleColor.Blue;
+                    //}
+
+                    //if (items[i] is Armor armor)
+                    //{
+                    //     if (owner.Job != armor.Job.ToString())
+                    //          Console.ForegroundColor = ConsoleColor.Blue;
+                    //}
+
+                    Console.Write($"{items[i].Name!.PadRight(10)} | ");
                     Console.WriteLine(items[i].Description);
+                    Console.ForegroundColor = ConsoleColor.White;     
                }
           }
 

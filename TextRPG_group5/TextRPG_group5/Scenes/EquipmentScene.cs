@@ -26,6 +26,7 @@ namespace TextRPG_group5.Scenes
                else if (input > 0 && input <= player.Inventory.GetCount())
                {
                     player.Inventory.Equip(input);
+                    Console.WriteLine();
                     return;
                }
                else
