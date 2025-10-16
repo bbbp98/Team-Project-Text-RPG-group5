@@ -16,28 +16,28 @@ namespace TextRPG_group5.ItemManage
         private static Dictionary<string, EquipItem> EquipMentDB = new Dictionary<string, EquipItem>()
         {
             // 전사 무기
-            {"목검", new Weapon("목검", " ", 5, 1, 0.05d, 100, 1, false)},
-            {"강철검", new Weapon("강철검", " ", 10, 2, 0.1d, 300, 1, false)},
-            {"BF대검", new Weapon("BF대검", " ", 30, 5, 0.25d, 1500, 1, false)},
-            {"워해머", new Weapon("워해머", " ", 20, 3, 0.15d, 700, 1, false)},
+            {"목검", new Weapon("목검", " ", 5, 0.05d, 100, 1, false)},
+            {"강철검", new Weapon("강철검", " ", 10, 0.1d, 300, 1, false)},
+            {"BF대검", new Weapon("BF대검", " ", 30, 0.25d, 1500, 1, false)},
+            {"워해머", new Weapon("워해머", " ", 20, 0.15d, 700, 1, false)},
 
             // 법사 무기
-            {"나무스태프", new Weapon("나무스태프", " ", 1, 5, 0.05d, 100, 2, false)},
-            {"철제스태프", new Weapon("철제스태프", " ", 3, 10, 0.15d, 300, 2, false)},
-            {"아크스태프", new Weapon("아크스태프", "", 5, 30, 0.35d, 1500, 2, false)},
-            {"스페셜완드", new Weapon("스페셜완드", "", 4, 20, 0.25d, 700, 2, false)},
+            {"나무스태프", new Weapon("나무스태프", " ", 5, 0.05d, 100, 2, false)},
+            {"철제스태프", new Weapon("철제스태프", " ", 10, 0.15d, 300, 2, false)},
+            {"아크스태프", new Weapon("아크스태프", "", 30, 0.35d, 1500, 2, false)},
+            {"스페셜완드", new Weapon("스페셜완드", "", 20, 0.25d, 700, 2, false)},
 
             // 궁수 무기
-            {"나무 활", new Weapon("나무 활", " ", 5, 1, 0.2d, 100, 2, false)},
-            {"철제 활", new Weapon("철제 활", " ", 10, 2, 0.3d, 300, 2, false)},
-            {"에이전트 보우", new Weapon("에이전트 보우", "", 30, 5, 0.5d, 1500, 2, false)},
-            {"석궁", new Weapon("석궁", "", 20, 3, 0.4d, 700, 2, false)},
+            {"나무 활", new Weapon("나무 활", " ", 5, 0.2d, 100, 2, false)},
+            {"철제 활", new Weapon("철제 활", " ", 10, 0.3d, 300, 2, false)},
+            {"에이전트 보우", new Weapon("에이전트 보우", "", 30, 0.5d, 1500, 2, false)},
+            {"석궁", new Weapon("석궁", "", 20, 0.4d, 700, 2, false)},
 
             // 도적 무기
-            {"녹슨 단검", new Weapon("녹슨 단검", " ", 5, 1, 0.05d, 100, 2, false)},
-            {"강철 단검", new Weapon("강철 단검", " ", 10, 2, 0.15d, 300, 2, false)},
-            {"카람빗", new Weapon("카람빗", "", 30, 5, 0.35d, 1500, 2, false)},
-            {"쿠나이", new Weapon("쿠나이", "", 20, 3, 0.25d, 700, 2, false)},
+            {"녹슨 단검", new Weapon("녹슨 단검", " ", 5, 0.05d, 100, 2, false)},
+            {"강철 단검", new Weapon("강철 단검", " ", 10, 0.15d, 300, 2, false)},
+            {"카람빗", new Weapon("카람빗", "", 30, 0.35d, 1500, 2, false)},
+            {"쿠나이", new Weapon("쿠나이", "", 20, 0.25d, 700, 2, false)},
 
             //--------------------------------------------------------------------------//
 
@@ -62,7 +62,7 @@ namespace TextRPG_group5.ItemManage
             {"위장복", new Armor("위장복", " ", 30, 0.5d, 2000, 2, false)},
 
             // 테스트용 장비 (전직업 공용)
-            {"테스트용무기", new Weapon("테스트용무기", " ", 999, 999, 1.0d, 0, 5, false)},
+            {"테스트용무기", new Weapon("테스트용무기", " ", 999, 1.0d, 0, 5, false)},
             {"테스트용 방어구", new Armor("테스트용 방어구", " ", 3000, 1.0d, 0, 5, false)},
         };
 
