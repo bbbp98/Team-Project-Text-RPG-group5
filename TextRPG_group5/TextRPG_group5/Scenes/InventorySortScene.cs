@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using TextRPG_group5.ItemManage;
 
 namespace TextRPG_group5.Scenes
 {
-     internal class InventoryScene : Scene
+     internal class InventorySortScene : Scene
      {
           private Player player;
 
-          public InventoryScene(Player player)
+          public InventorySortScene(Player player)
           {
                this.player = player;
           }
@@ -21,14 +21,13 @@ namespace TextRPG_group5.Scenes
                switch (input)
                {
                     case 0:
-                         Program.SetScene(new MainScene(player)); 
+                         Program.SetScene(new InventoryScene(player));
                          break;
                     case 1:
-                         Program.SetScene(new MainScene(player));
-                         break;
                     case 2:
-                         // load InventoryEquipScene
-                         player.Inventory.Equip(input);
+                    case 3:
+                    case 4:
+                         player.Inventory.Sort(input);
                          break;
                     default:
                          Console.WriteLine("잘못된 입력입니다.\n");
@@ -38,12 +37,14 @@ namespace TextRPG_group5.Scenes
 
           public override void Show()
           {
-               Console.WriteLine("인벤토리");
+               Console.WriteLine("인벤토리-정렬");
 
                player.Inventory.Show();
 
-               Console.WriteLine("\n1. 인벤토리 정렬");
-               Console.WriteLine("\n2. 장착 관리 메뉴");
+               Console.WriteLine("\n1. 이름순");
+               Console.WriteLine("2. 장착순");
+               Console.WriteLine("3. 공격력");
+               Console.WriteLine("4. 방어력");
                Console.WriteLine("0. 돌아가기");
           }
      }

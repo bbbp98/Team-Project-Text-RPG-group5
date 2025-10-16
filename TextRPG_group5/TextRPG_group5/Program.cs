@@ -1,4 +1,5 @@
-﻿using TextRPG_group5.Managers;
+﻿using TextRPG_group5.ItemManage;
+using TextRPG_group5.Managers;
 using TextRPG_group5.Scenes;
 
 namespace TextRPG_group5
@@ -33,6 +34,13 @@ namespace TextRPG_group5
                // load player data OR create player data 
                player = new Player("group5", "전사"); // test player
                player.ReachedStage = 1;
+
+               player.Inventory.AddItem(ItemInfo.GetItem("목검"));
+               player.Inventory.AddItem(ItemInfo.GetItem("HP소형포션"));
+               player.Inventory.AddItem(ItemInfo.GetItem("나무 활"));
+               player.Inventory.AddItem(ItemInfo.GetItem("가죽갑옷"));
+               player.Inventory.AddItem(ItemInfo.GetItem("숙련자의 로브"));
+               player.Inventory.AddItem(ItemInfo.GetItem("MP소형포션"));
                //gameProgress = new GameProgress();
 
                // scene initialize
