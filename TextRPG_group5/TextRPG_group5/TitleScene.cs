@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_group5
 {
-    internal class Gamemanager
+    internal class TitleScene
     {
         public Player Player { get; set; }
         public int Stage { get; set; } = 1;
@@ -23,7 +23,7 @@ namespace TextRPG_group5
         }
 
 
-                private void CreatePlayer()
+        private void CreatePlayer()
         {
             Console.Clear();
             Console.Write("이름을 입력하시오:  ");
