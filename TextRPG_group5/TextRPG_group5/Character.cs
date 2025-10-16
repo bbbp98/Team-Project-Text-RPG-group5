@@ -25,6 +25,7 @@ namespace TextRPG_group5
           {
                Name = name;
                MaxHp = hp;
+               NowHp = MaxHp;
                Attack = atk;
                Defence = def;
                Critical = 0.1;
@@ -63,7 +64,7 @@ namespace TextRPG_group5
 
           public virtual void ShowStatus()
           {
-               Console.WriteLine($"Lv.{Level} {Name} HP: {NowHp}");
+               Console.WriteLine($"Lv.{Level} {Name} HP: {NowHp}/{MaxHp}");
           }
      }
 }
