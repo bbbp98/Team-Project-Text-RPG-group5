@@ -108,9 +108,7 @@ namespace TextRPG_group5.Scenes
             switch ((byte)CurrentBattle.GetBattleState())
             {
                 case 0:
-                    Console.WriteLine("1. 일반 공격");
-                    Console.WriteLine("2. 스킬 사용");
-                    Console.WriteLine("3. 아이템 사용");
+                    PrintActionList();
                     break;
                 case 1:
                     if (CurrentBattle.userChoice != 0)
@@ -149,6 +147,13 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine($"Lv.{Player.Level}\t{Player.Name} ( {Player.Job} )");
             Console.WriteLine($"HP {Player.NowHp} / {Player.MaxHp}");
             Console.WriteLine();
+        }
+
+        void PrintActionList()
+        {
+            Console.WriteLine("1. 일반 공격");
+            Console.WriteLine("2. 스킬 사용");
+            Console.WriteLine("3. 아이템 사용");
         }
     }
 }
