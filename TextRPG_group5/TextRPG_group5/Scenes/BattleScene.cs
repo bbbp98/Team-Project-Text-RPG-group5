@@ -8,37 +8,38 @@ namespace TextRPG_group5.Scenes
 {
     internal class BattleScene : Scene
     {
-        Battle bt;
-        Player player;
-        List<Monster> monsters;
+        public Battle CurrentBattle { get; private set; }
 
         public BattleScene(Player player, List<Monster> monsters)
         {
             this.player = player;
             this.monsters = monsters;
+        public Player Player { get { return CurrentBattle.Player;  } }
+        public List<Monster> Monsters { get { return CurrentBattle.Monsters; } }
 
-            // 전투 로직 로드
-            bt = new Battle(player, monsters);
+        public BattleScene(Battle currentBattle)
+        {
+            CurrentBattle = currentBattle;
         }
 
         // 입력 값 처리 메서드
         public override void HandleInput(byte input)
         {
-            if (bt.GetBattleState() == BattleState.None)
+            if (CurrentBattle.GetBattleState() == BattleState.None)
             {
                 switch (input)
                 {
                     case 0:
-                        bt.SetBattleState(BattleState.None);
+                        CurrentBattle.SetBattleState(BattleState.None);
                         break;
                     case 1:
-                        bt.SetBattleState(BattleState.NormalAttack);
+                        CurrentBattle.SetBattleState(BattleState.NormalAttack);
                         break;
                     case 2:
-                        bt.SetBattleState(BattleState.Skill);
+                        CurrentBattle.SetBattleState(BattleState.Skill);
                         break;
                     case 3:
-                        bt.SetBattleState(BattleState.Item);
+                        CurrentBattle.SetBattleState(BattleState.Item);
                         break;
                     default:
                         Console.WriteLine("잘못된 입력입니다.\n");
@@ -50,20 +51,20 @@ namespace TextRPG_group5.Scenes
             {
                 if (input == 0)
                 {
-                    bt.SetBattleState(BattleState.None);
-                    bt.userChoice = 0;
+                    CurrentBattle.SetBattleState(BattleState.None);
+                    CurrentBattle.userChoice = 0;
                     return;
                 }
 
-                if (bt.GetBattleState() == BattleState.NormalAttack)
+                if (CurrentBattle.GetBattleState() == BattleState.NormalAttack)
                 {
-                    if (input > monsters.Count)
+                    if (input > Monsters.Count)
                     {
                         Console.WriteLine("잘못된 입력입니다.\n");
                         return;
                     }
                 }
-                else if (bt.GetBattleState() == BattleState.Skill)
+                else if (CurrentBattle.GetBattleState() == BattleState.Skill)
                 {
                     int skillCount = 3; // player.Skills.Count;
 
@@ -73,7 +74,7 @@ namespace TextRPG_group5.Scenes
                         return;
                     }
                 }
-                else if (bt.GetBattleState() == BattleState.Item)
+                else if (CurrentBattle.GetBattleState() == BattleState.Item)
                 {
                     int itemCount = 3; // player.Inventory.Count;
 
@@ -84,7 +85,7 @@ namespace TextRPG_group5.Scenes
                     }
                 }
 
-                bt.userChoice = input;
+                CurrentBattle.userChoice = input;
             }
         }
 
