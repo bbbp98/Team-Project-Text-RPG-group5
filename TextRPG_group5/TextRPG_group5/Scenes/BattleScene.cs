@@ -54,8 +54,8 @@ namespace TextRPG_group5.Scenes
 
                 if (CurrentBattle.GetBattleState() == BattleState.NormalAttack)
                 {
-                    if (input > Monsters.Count)
-                    {
+                    if (input > Monsters.Count || Monsters[input - 1].IsDead)
+                    {   // 몬스터 번호 범위 밖이거나, 이미 죽은 몬스터 선택
                         Console.WriteLine("잘못된 입력입니다.\n");
                         return;
                     }
@@ -88,15 +88,16 @@ namespace TextRPG_group5.Scenes
         // 화면에 보여줄 텍스트들(Console.Write관련)
         public override void Show()
         {
+            if (!CurrentBattle.isPlayerTurn)
+            {
+                // 몬스터 턴
+                CurrentBattle.SetBattleState(BattleState.NormalAttack);
+                CurrentBattle.HitNormalAttack(); // 자동 공격 전환 -> 바로 결과창으로
+                return;
+            }
+
             Console.WriteLine("Battle!!");
             Console.WriteLine();
-
-            /*if (bt.GetBattleState() == BattleState.ActionResult)
-            {
-                //ActionResultScene resultScene = new ActionResultScene(player, monsters, bt.isPlayerTurn, bt.userChoice);
-                //resultScene.Show();
-                return;
-            }*/
 
             PrintEnemyInfo();
 
@@ -141,6 +142,15 @@ namespace TextRPG_group5.Scenes
         {
             for (int i = 0; i < Monsters.Count; i++)
             {
+                if (Monsters[i].IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Lv.{Monsters[i].Level} {Monsters[i].Name} DEAD");
+                    Console.ResetColor();
+
+                    continue;
+                }
+                
                 Monsters[i].ShowStatus();
             }
             Console.WriteLine();
@@ -166,7 +176,12 @@ namespace TextRPG_group5.Scenes
         {
             for (int i = 0; i < Monsters.Count; i++)
             {
+                if (Monsters[i].IsDead)
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+
                 Console.WriteLine($"[{i + 1}] {Monsters[i].Name}");
+                Console.ResetColor();
+
             }
             Console.WriteLine();
 

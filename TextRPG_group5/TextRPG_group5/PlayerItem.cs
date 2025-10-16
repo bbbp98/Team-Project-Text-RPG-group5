@@ -10,54 +10,63 @@ namespace TextRPG_group5
      internal class PlayerItem
      {
           private Player player;
+
+          public Weapon? EquippedWeapon { get; private set; }
+
+          public Armor? EquippedArmor { get; private set; }
+
+          public PlayerItem(Player player)
+          { this.player = player; }
+
           private bool IsJobMatch(Class job)
           {
                return (player.Job == "전사" && job == Class.Warrior)
                || (player.Job == "마법사" && job == Class.Magician)
-               || job == Class.All;
+               || (player.Job == "궁수" && job == Class.Archer)
+               || (player.Job == "도적" && job == Class.Thief);
+               //|| job == Class.All;
           }
-          public Weapon? EquippedWeapon { get; private set; }
-          public Armor? EquippedArmor { get; private set; }
-          public PlayerItem(Player player)
-          { this.player = player; }
+
           public void EquipItem(EquipItem item)
           {
                if (item is Weapon weapon)
                {
-                    if (EquippedWeapon != null)
-                    {
-                         Console.WriteLine($"{EquippedWeapon.Name}을(를) 해제합니다.");
-                         UnEquipItem(EquippedWeapon);
-                    }
+                    // 직업 확인 먼저
                     if (!IsJobMatch(weapon.Job))
                     {
                          Console.WriteLine($"[{weapon.Name}]은(는) {weapon.Job} 전용 무기 입니다.");
                          return;
                     }
+
+                    // 만약 장착된 장비가 있으면 기존의 장비 해제 -> 선택 장비 장착
+                    if (EquippedWeapon != null)
+                         UnEquipItem(EquippedWeapon);
+
                     EquippedWeapon = weapon;
                     player.Attack += weapon.AtkPower;
-                    player.AddCritical(weapon.CriPro / 100);
+                    player.AddCritical(weapon.CriPro);
                     weapon.IsEquip = true;
                     Console.WriteLine($"{weapon.Name}을(를) 장착했습니다.");
                }
                else if (item is Armor armor)
                {
-                    if (EquippedArmor != null)
-                    {
-                         Console.WriteLine($"{EquippedArmor.Name}을(를) 해제합니다.");
-                         UnEquipItem(EquippedArmor);
-                    }
                     if (!IsJobMatch(armor.Job))
                     {
                          Console.WriteLine($"[{armor.Name}]은(는) {armor.Job} 전용 방어구 입니다.");
                          return;
                     }
+
+                    // 만약 장착된 장비가 있으면 기존의 장비 해제 -> 선택 장비 장착
+                    if (EquippedArmor != null)
+                         UnEquipItem(EquippedArmor);
+
                     EquippedArmor = armor;
                     player.Defence += armor.DefPower;
                     armor.IsEquip = true;
                     Console.WriteLine($"{armor.Name}을(를) 장착했습니다.");
                }
           }
+
           public void UnEquipItem(EquipItem item)
           {
                if (item is Weapon weapon && EquippedWeapon == weapon)

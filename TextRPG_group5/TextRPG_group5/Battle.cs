@@ -20,16 +20,18 @@ namespace TextRPG_group5
     {
         public Player Player { get; private set; }
         public List<Monster> Monsters { get; private set; }
+        public byte CurrentStage { get; private set; }
 
         private BattleState state;
         public byte userChoice;
 
         public bool isPlayerTurn;
 
-        public Battle(Player player, List<Monster> monsters)
+        public Battle(Player player, List<Monster> monsters, byte currentStage)
         {
             Player = player;
             Monsters = monsters;
+            CurrentStage = currentStage;
 
             // Player 선공
             isPlayerTurn = true;
@@ -58,8 +60,17 @@ namespace TextRPG_group5
             }
             else    // Monster 턴
             {
+                // 살아있는 몬스터들만 공격 가능
+                List<Monster> aliveMons = Monsters.Where(m => !m.IsDead).ToList();
+
+                if (aliveMons.Count == 0)
+                {
+                    EndBattle(IsStageClear());
+                    return;
+                }
+
                 // Monster 무리 중 Player 를 공격할 Monster 를 랜덤으로 하나 선택
-                attacker = Monsters[new Random().Next(0, Monsters.Count)];
+                attacker = aliveMons[new Random().Next(0, aliveMons.Count)];
                 defenders.Add(Player);
 
                 // attackerBeforeMp = attacker.NowMp;
@@ -67,10 +78,10 @@ namespace TextRPG_group5
             }
 
             defenders[0].TakeDamage(attacker.Attack, attacker.Critical);
-            isPlayerTurn = !isPlayerTurn;
 
             ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
             result.Show();
+            Program.SetScene(result);
         }
 
         public void UseSkill()
@@ -102,5 +113,28 @@ namespace TextRPG_group5
 
             Console.WriteLine("아이템 사용!");
         }
-     }
+
+        public bool IsAllEnemyDead()
+        {
+            foreach (Monster mon in Monsters)
+            {
+                // 한 마리라도 살아있다면
+                if (!mon.IsDead)
+                    return false;
+            }
+            return true;
+        }
+
+        public bool IsStageClear()
+        {
+            if (IsAllEnemyDead())
+                return true;
+            return false;
+        }
+
+        public void EndBattle(bool isClear)
+        {
+            Program.SetScene(new DungeonResultScene(Player, CurrentStage, isClear));
+        }
+    }
 }

@@ -9,9 +9,16 @@ using TextRPG_group5.ItemManage;
 
 namespace TextRPG_group5
 {
-     //private Dictionary<Type, int> 
      internal class Inventory
      {
+          private Dictionary<Type, int> order = new Dictionary<Type, int>
+          {
+               { typeof(Weapon), 1 },
+               { typeof(Armor), 2 },
+               { typeof(Potion), 3 },
+               { typeof(EtcItem), 4 },
+          };
+
           private List<ItemManagement> items = new List<ItemManagement>();
           private Player owner;
 
@@ -37,7 +44,9 @@ namespace TextRPG_group5
                }
                else
                {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"{item.Name}을(를) 가지고 있지 않습니다.");
+                    Console.ForegroundColor = ConsoleColor.White;
                }
           }
 
@@ -56,8 +65,26 @@ namespace TextRPG_group5
                for (int i = 0; i < items.Count; i++)
                {
                     string equipMark = items[i].IsEquip ? "[E]" : "";
-                    Console.Write($"- {i + 1}. {equipMark}{items[i].Name!.PadRight(10)} | ");
+                    Console.Write($"- {i + 1}. ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"{equipMark}");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    //if (items[i] is Weapon weapon)
+                    //{
+                    //     if (owner.Job != weapon.Job.ToString())
+                    //          Console.ForegroundColor = ConsoleColor.Blue;
+                    //}
+
+                    //if (items[i] is Armor armor)
+                    //{
+                    //     if (owner.Job != armor.Job.ToString())
+                    //          Console.ForegroundColor = ConsoleColor.Blue;
+                    //}
+
+                    Console.Write($"{items[i].Name!.PadRight(10)} | ");
                     Console.WriteLine(items[i].Description);
+                    Console.ForegroundColor = ConsoleColor.White;     
                }
           }
 
@@ -81,12 +108,15 @@ namespace TextRPG_group5
 
                if (items[index] is EquipItem equipItem)
                {
-                    owner.Equipment.EquipItem(equipItem);
+                    if (items[index].IsEquip)
+                         owner.Equipment.UnEquipItem(equipItem);
+                    else
+                         owner.Equipment.EquipItem(equipItem);
                }
                else
                {
                     // 소비, 기타
-                    Console.WriteLine($"{items[index].Name}은(는) 장착할 수 없습니다.");
+                    Console.WriteLine($"{items[index].Name}은(는) 장착할 수 없습니다.\n");
                }
           }
 
@@ -95,18 +125,23 @@ namespace TextRPG_group5
                switch (input)
                {
                     case 1: // 이름순
-                         items.OrderBy(p => p.Name).ToList();
+                         items = items.OrderBy(p => p.Name).ToList();
                          break;
-                    case 2: // 장착순
-                         items.OrderBy(p => p.IsEquip).ToList(); 
+                    case 2: // 장착순(무기 -> 방어구)
+                         items = items.OrderByDescending(p => p.IsEquip).ThenBy(p => order[p.GetType()]).ToList();
                          break;
-                    case 3: // 공격력
-                         //items.OrderBy();
+                    case 3: // 장비 아이템순
+                         items = items.OrderBy(p => order[p.GetType()]).ToList();
                          break;
-                    case 4:
-                         //items.OrderBy();
+                    case 4: // 소비 아이템순
+                         items = items.OrderByDescending(p => order[p.GetType()]).ToList();
                          break;
                }
+          }
+
+          public ItemManagement GetItem(int index)
+          {
+               return items[index];
           }
      }
 }

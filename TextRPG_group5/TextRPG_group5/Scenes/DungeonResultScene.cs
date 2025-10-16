@@ -43,14 +43,18 @@ namespace TextRPG_group5.Scenes
                               Program.SetScene(new MainScene(player));
                          break;
                     default:
+                         Console.ForegroundColor = ConsoleColor.Red;
                          Console.WriteLine("잘못된 입력입니다.\n");
+                         Console.ForegroundColor = ConsoleColor.White;
                          break;
                }
           }
 
           public override void Show()
           {
+               Console.ForegroundColor = ConsoleColor.Yellow;
                Console.WriteLine("던전 결과\n");
+               Console.ForegroundColor = ConsoleColor.White;
 
                // 던전 클리어
                if (isClearStage)

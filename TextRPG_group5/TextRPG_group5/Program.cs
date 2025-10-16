@@ -10,7 +10,7 @@ namespace TextRPG_group5
           static private Player? player;
 
           public const int maxStage = 10;
-          static private GameProgress gameProgress = new GameProgress();
+          //static private GameProgress gameProgress = new GameProgress();
 
           static void Main(string[] args)
           {
@@ -36,6 +36,7 @@ namespace TextRPG_group5
                player.ReachedStage = 1;
 
                player.Inventory.AddItem(ItemInfo.GetItem("목검"));
+               player.Inventory.AddItem(ItemInfo.GetItem("워해머"));
                player.Inventory.AddItem(ItemInfo.GetItem("HP소형포션"));
                player.Inventory.AddItem(ItemInfo.GetItem("나무 활"));
                player.Inventory.AddItem(ItemInfo.GetItem("가죽갑옷"));
@@ -52,9 +53,9 @@ namespace TextRPG_group5
                currentScene = scene;
           }
 
-          static public GameProgress GetGameProgress()
-          {
-               return gameProgress;
-          }
+          //static public GameProgress GetGameProgress()
+          //{
+          //     return gameProgress;
+          //}
      }
 }

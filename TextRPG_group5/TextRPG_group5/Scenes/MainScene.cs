@@ -32,15 +32,12 @@ namespace TextRPG_group5.Scenes
                          break;
                     case 1:
                          Program.SetScene(new PlayerInfoScene(player));
-                         Console.WriteLine("캐릭터 정보를 확인합니다.");
                          break;
                     case 2:
                          Program.SetScene(new InventoryScene(player));
-                         Console.WriteLine("인벤토리를 확인합니다.");
                          break;
                     case 3:
                          Program.SetScene(new QuestScene(player));
-                         Console.WriteLine("퀘스트를 확인합니다.");
                          break;
                     case 4:
                          Program.SetScene(new DungeonEntranceScene(player));
@@ -49,13 +46,20 @@ namespace TextRPG_group5.Scenes
                          //Save();
                          Console.WriteLine("게임을 저장합니다.");
                          break;
+                    default:
+                         Console.ForegroundColor = ConsoleColor.Red;
+                         Console.WriteLine("잘못된 입력입니다.\n");
+                         Console.ForegroundColor = ConsoleColor.White;
+                         break;
                }
           }
 
           public override void Show()
           {
-               Console.Clear();
+               //Console.Clear();
+               Console.ForegroundColor = ConsoleColor.Yellow;
                Console.WriteLine("마을");
+               Console.ForegroundColor = ConsoleColor.White;
                Console.WriteLine();
                
                Console.WriteLine(welcomMessage);
