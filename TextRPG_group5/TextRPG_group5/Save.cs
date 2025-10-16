@@ -10,13 +10,17 @@ namespace Save
     {
         private static string SavePath = @"C:\Users\Public\Downloads";
         private static string SaveFile = Path.Combine(SavePath, "Savedata.json");
-
+        private Player player;
         private static readonly JsonSerializerOptions options = new JsonSerializerOptions
         {
             WriteIndented = true
         };
 
-       
+        public SaveData(Player player)
+        {
+            this.player = player;
+        }
+
         public static void Save(Character player)
         {
             try
