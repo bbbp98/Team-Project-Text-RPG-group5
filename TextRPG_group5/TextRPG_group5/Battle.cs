@@ -30,6 +30,8 @@ namespace TextRPG_group5
 
         private Player preBattlePlayer;
 
+        public List<UsableItem> UsableItemOnly { get; private set; }
+
         public Battle(Player player, List<Monster> monsters, byte currentStage)
         {
             Player = player;
@@ -42,6 +44,8 @@ namespace TextRPG_group5
             state = BattleState.None;
 
             preBattlePlayer = Player.Clone();
+
+            UsableItemOnly = GetUsableItemList(Player.Inventory);
         }
 
         public void SetBattleState(BattleState currentState) => state = currentState;
