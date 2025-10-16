@@ -60,8 +60,17 @@ namespace TextRPG_group5
             }
             else    // Monster 턴
             {
+                // 살아있는 몬스터들만 공격 가능
+                List<Monster> aliveMons = Monsters.Where(m => !m.IsDead).ToList();
+
+                if (aliveMons.Count == 0)
+                {
+                    EndBattle(IsStageClear());
+                    return;
+                }
+
                 // Monster 무리 중 Player 를 공격할 Monster 를 랜덤으로 하나 선택
-                attacker = Monsters[new Random().Next(0, Monsters.Count)];
+                attacker = aliveMons[new Random().Next(0, aliveMons.Count)];
                 defenders.Add(Player);
 
                 // attackerBeforeMp = attacker.NowMp;
