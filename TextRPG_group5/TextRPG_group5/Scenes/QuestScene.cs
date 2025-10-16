@@ -36,6 +36,8 @@ namespace TextRPG_group5.Scenes
 
             while (isActive)
             {
+                Console.WriteLine("--------- 퀘스트 내용 ---------");
+
                 if (questIdx == quests.Count) questIdx = 0;
                 else if (questIdx < 0) questIdx = 0;
 
