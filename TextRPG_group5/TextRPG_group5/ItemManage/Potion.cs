@@ -14,7 +14,7 @@ namespace TextRPG_group5.ItemManage
         public int HealAmount { get; protected set; }
         public int MpAmount { get; protected set; }
 
-        public Potion(string name, string Description, int healAmount, int mpAmount, int price)
+        public Potion(string name, string description, int healAmount, int mpAmount, int price)
         {
             Name = name;
             HealAmount = healAmount;
@@ -24,11 +24,11 @@ namespace TextRPG_group5.ItemManage
 
             if(HealAmount != 0)
             {
-                Description = $"{HealAmount}만큼 체력을 보충합니다.";
+                this.Description = $"{HealAmount}만큼 체력을 보충합니다.";
             }
             else
             {
-                Description = $"{MpAmount}만큼 마나를 보충합니다.";
+                this.Description = $"{MpAmount}만큼 마나를 보충합니다.";
             }
         }
 
