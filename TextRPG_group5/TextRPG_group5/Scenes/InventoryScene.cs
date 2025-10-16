@@ -4,17 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextRPG_group5.Scene
+namespace TextRPG_group5.Scenes
 {
-     internal class DungeonEntranceScene : Scene
+     internal class InventoryScene : Scene
      {
-          // 입력 값 처리 메서드
+          private Player player;
+
+          public InventoryScene(Player player)
+          {
+               this.player = player;
+          }
+
           public override void HandleInput(byte input)
           {
                throw new NotImplementedException();
           }
 
-          // 화면에 보여줄 텍스트들(Console.Write관련)
           public override void Show()
           {
                throw new NotImplementedException();
