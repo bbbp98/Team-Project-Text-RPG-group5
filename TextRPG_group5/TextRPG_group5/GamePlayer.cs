@@ -18,7 +18,7 @@ namespace TextRPG_group5
             public int ReachedStage { get; set; }
 
 
-        public Player(string name, string job)
+        internal Player(string name, string job)
                 : base(name, 0, 0, 0)
             {
             Level = 1;
@@ -54,11 +54,11 @@ namespace TextRPG_group5
                 switch (job)
                 {
                     case "전사":
-                        Attack = 30; Defence = 50; MaxHp = 120; MaxMp = 60; Critical = 0.1; Evasion = 0.1;
+                    MaxHp = 120; Attack = 30; Defence = 50; Critical = 0.1; Evasion = 0.1; MaxMp = 60;
                         return true;
                     case "궁수":
-                        Attack = 40; Defence = 30; MaxHp = 90; MaxMp = 80; Critical = 0.4; Evasion = 0.2;
-                        return true;
+                    MaxHp = 90; Attack = 40; Defence = 30; Critical = 0.4; Evasion = 0.2; MaxMp = 80;
+                    return true;
                     case "도적":
                         Attack = 50; Defence = 20; MaxHp = 80; MaxMp = 90; Critical = 0.3; Evasion = 0.3;
                         return true;
