@@ -71,7 +71,11 @@ namespace TextRPG_group5.Scenes
                     if (Attacker is Player)
                         Console.WriteLine($"{Attacker.Name} 의 공격!");
                     else
+                    {
                         Console.WriteLine($"Lv.{Attacker.Level} {Attacker.Name} 의 공격!");
+                        Console.WriteLine(((Monster)Attacker).Msg);
+                    }
+                        
                     break;
                 case BattleState.Skill:
                     // Attacker == Player (무조건)
