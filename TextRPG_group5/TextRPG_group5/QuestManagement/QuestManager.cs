@@ -196,7 +196,7 @@ namespace TextRPG_group5.QuestManagement
                     player.Inventory.AddItem(item);
                 }
                 
-                q.Status = QuestStatus.NoProgress; // 보상을 한번만 받을 수 있도록 설정
+                q.Status = QuestStatus.Done; // 보상을 한번만 받을 수 있도록 설정
             }
         }
 
