@@ -21,48 +21,6 @@ namespace TextRPG_group5.Scenes
             bt = new Battle(player, monsters);
         }
 
-        // 화면에 보여줄 텍스트들(Console.Write관련)
-        public override void Show()
-        {
-            Console.WriteLine("Battle!!");
-            Console.WriteLine();
-
-            for (int i = 0; i < monsters.Count; i++)
-            {
-                monsters[i].ShowStatus();
-            }
-            Console.WriteLine();
-
-            Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{player.Level}\t{player.Name} ( {player.Job} )");
-            Console.WriteLine($"HP {player.NowHp} / {player.MaxHp}");
-            Console.WriteLine();
-
-            Console.WriteLine("==============================");
-            Console.WriteLine();
-
-            switch ((byte)bt.GetBattleState())
-            {
-                case 0:
-                    Console.WriteLine("1. 일반 공격");
-                    Console.WriteLine("2. 스킬 사용");
-                    Console.WriteLine("3. 아이템 사용");
-                    break;
-                case 1:
-                    bt.SelectTarget();
-                    //bt.HitNormalAttack();
-                    break;
-                case 2:
-                    bt.SelectSkill();
-                    break;
-                case 3:
-                    bt.SelectUsableItem();
-                    break;
-                default:
-                    break;
-            }
-        }
-
         // 입력 값 처리 메서드
         public override void HandleInput(byte input)
         {
@@ -127,6 +85,62 @@ namespace TextRPG_group5.Scenes
                 }
 
                 bt.userChoice = input;
+            }
+        }
+
+        // 화면에 보여줄 텍스트들(Console.Write관련)
+        public override void Show()
+        {
+            Console.WriteLine("Battle!!");
+            Console.WriteLine();
+
+            /*if (bt.GetBattleState() == BattleState.ActionResult)
+            {
+                //ActionResultScene resultScene = new ActionResultScene(player, monsters, bt.isPlayerTurn, bt.userChoice);
+                //resultScene.Show();
+                return;
+            }*/
+
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                monsters[i].ShowStatus();
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("[내정보]");
+            Console.WriteLine($"Lv.{player.Level}\t{player.Name} ( {player.Job} )");
+            Console.WriteLine($"HP {player.NowHp} / {player.MaxHp}");
+            Console.WriteLine();
+
+            Console.WriteLine("==============================");
+            Console.WriteLine();
+
+            switch ((byte)bt.GetBattleState())
+            {
+                case 0:
+                    Console.WriteLine("1. 일반 공격");
+                    Console.WriteLine("2. 스킬 사용");
+                    Console.WriteLine("3. 아이템 사용");
+                    break;
+                case 1:
+                    if (bt.userChoice != 0)
+                        bt.HitNormalAttack();
+                    else
+                        bt.SelectTarget();
+                    //bt.HitNormalAttack();
+                    break;
+                case 2:
+                    if (bt.userChoice != 0)
+                        bt.UseSkill();
+                    bt.SelectSkill();
+                    break;
+                case 3:
+                    if (bt.userChoice != 0)
+                        bt.UseItem();
+                    bt.SelectUsableItem();
+                    break;
+                default:
+                    break;
             }
         }
     }
