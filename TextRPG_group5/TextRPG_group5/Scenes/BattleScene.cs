@@ -82,7 +82,6 @@ namespace TextRPG_group5.Scenes
                 }
                 else if (CurrentBattle.GetBattleState() == BattleState.Item)
                 {
-                    if (input > itemCount)
                     if (input > CurrentBattle.UsableItemOnly.Count)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
