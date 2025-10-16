@@ -89,6 +89,7 @@ namespace TextRPG_group5
         {
             this.Level = level;
             MaxHp += (int)(Level * 3);              // 레벨에 비례    
+            NowHp = MaxHp;
             Attack += (int)(goblinAttack);          // 레벨에 비례
             Defence += (int)(Level);                // 레벨에 비례
             Exp += (int)(Level * 2 + goblinAttack); // 레벨에 비례 + 공격력만큼의 보너스
@@ -124,6 +125,7 @@ namespace TextRPG_group5
         {
             this.Level = level;
             MaxHp += (int)(Level * 3);                  // 레벨에 비례    
+            NowHp = MaxHp;
             Attack += (int)(hobGoblinAttack);           // 레벨에 비례
             Defence += (int)(Level);                    // 레벨에 비례
             Critical += (hobGoblinAttack*0.001);        // 공격력이 올라갈 수록 치명타 확률도 올라간다
@@ -160,6 +162,7 @@ namespace TextRPG_group5
         {
             this.Level = level;
             MaxHp += (int)(Level * 1.5);            // 레벨에 비례    
+            NowHp = MaxHp;
             Attack += (int)(Level);                 // 레벨에 비례
             Defence += (int)(Level * 1.1);          // 레벨에 비례
             Exp += (int)(150 + Level * 4);          // 기본 많은 경험치, 레벨에 비례해 추가
@@ -179,6 +182,7 @@ namespace TextRPG_group5
         {
             this.Level = level;
             MaxHp += (int)(Level * 20);             // 레벨에 비례    
+            NowHp = MaxHp;
             Attack += 0;                            // 레벨이 늘어도 공격력은 그대로! 내 이름은 골렘, 돌벽이죠.
             Defence += (int)(Level * 10);           // 레벨에 비례
             Exp += (int)(10 + Level);               // 레벨이 늘어도 경험치를 많이 주지는 않는다.
@@ -198,6 +202,7 @@ namespace TextRPG_group5
         {
             this.Level = level;
             MaxHp += (int)(Level * 3);              // 레벨에 비례    
+            NowHp = MaxHp;
             Attack += (int)(Level * 1.5);           // 레벨에 비례
             Defence += (int)(Level * 1.5);          // 레벨에 비례
             Exp += (int)(Level * 4);                // 레벨에 비례
@@ -216,6 +221,7 @@ namespace TextRPG_group5
         {
             this.Level = level;
             MaxHp += (int)(Level);                  // 레벨에 비례    
+            NowHp = MaxHp;
             Attack += (int)(Level * 10);            // 레벨에 비례
             Defence += (int)(Level);                // 레벨에 비례
             Exp += (int)(Level * 6);                // 레벨에 비례
@@ -237,6 +243,7 @@ namespace TextRPG_group5
         {
             this.Level = level;
             MaxHp += (int)(Level * 4);              // 레벨에 비례    
+            NowHp = MaxHp;
             jesterAttack = (int)(10 + Level * 2);   // 레벨에 비례해 늘어나는 기본 공격력
             Defence += (int)(Level * 2);            // 레벨에 비례
             Exp += (int)(Level * 5);                // 레벨에 비례
@@ -271,6 +278,7 @@ namespace TextRPG_group5
         {
             this.Level = level;
             MaxHp += (int)(Level * 5);                  // 레벨에 비례
+            NowHp = MaxHp;
             Gold += (int)(Level * 15 + PresentGold);    // 레벨에 비례해 골드 증가 + 랜덤으로 골드 증가
         }
 
@@ -295,7 +303,8 @@ namespace TextRPG_group5
             플레이어가 강해질수록 더 강해지기 때문에, 까다롭다.
             */
             this.Level = targetPlayer.Level;
-            this.MaxHp += (int)(targetPlayer.MaxHp * 0.8);  
+            this.MaxHp += (int)(targetPlayer.MaxHp * 0.8);
+            NowHp = MaxHp;
             this.Attack += (int)(targetPlayer.Attack * 0.8);            
             this.Defence += (int)(targetPlayer.Defence * 0.8);            
             this.Critical += (targetPlayer.Critical * 0.8);          
@@ -318,6 +327,7 @@ namespace TextRPG_group5
         public Dragon(int level) : base("드래곤", "분노한 용의 숨결이 눈앞을 뒤덮는다.", MonsterType.boss, 500, 500, 500, 0.5, 0.1)
         {
             this.Level = level;                 // 레벨과 상관없이 절대적인 능력치를 가진다.
+            NowHp = MaxHp;
             Exp += (int)(500);                  // 많은 경험치
             Gold += (int)(500);                 // 많은 골드
         }
