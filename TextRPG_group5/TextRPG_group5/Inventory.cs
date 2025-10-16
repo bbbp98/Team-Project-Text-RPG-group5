@@ -9,9 +9,16 @@ using TextRPG_group5.ItemManage;
 
 namespace TextRPG_group5
 {
-     //private Dictionary<Type, int> 
      internal class Inventory
      {
+          private Dictionary<Type, int> order = new Dictionary<Type, int>
+          {
+               { typeof(Weapon), 1 },
+               { typeof(Armor), 2 },
+               { typeof(Potion), 3 },
+               { typeof(EtcItem), 4 },
+          };
+
           private List<ItemManagement> items = new List<ItemManagement>();
           private Player owner;
 
@@ -81,12 +88,15 @@ namespace TextRPG_group5
 
                if (items[index] is EquipItem equipItem)
                {
-                    owner.Equipment.EquipItem(equipItem);
+                    if (items[index].IsEquip)
+                         owner.Equipment.UnEquipItem(equipItem);
+                    else
+                         owner.Equipment.EquipItem(equipItem);
                }
                else
                {
                     // 소비, 기타
-                    Console.WriteLine($"{items[index].Name}은(는) 장착할 수 없습니다.");
+                    Console.WriteLine($"{items[index].Name}은(는) 장착할 수 없습니다.\n");
                }
           }
 
@@ -95,18 +105,23 @@ namespace TextRPG_group5
                switch (input)
                {
                     case 1: // 이름순
-                         items.OrderBy(p => p.Name).ToList();
+                         items = items.OrderBy(p => p.Name).ToList();
                          break;
-                    case 2: // 장착순
-                         items.OrderBy(p => p.IsEquip).ToList(); 
+                    case 2: // 장착순(무기 -> 방어구)
+                         items = items.OrderByDescending(p => p.IsEquip).ThenBy(p => order[p.GetType()]).ToList();
                          break;
-                    case 3: // 공격력
-                         //items.OrderBy();
+                    case 3: // 장비 아이템순
+                         items = items.OrderBy(p => order[p.GetType()]).ToList();
                          break;
-                    case 4:
-                         //items.OrderBy();
+                    case 4: // 소비 아이템순
+                         items = items.OrderByDescending(p => order[p.GetType()]).ToList();
                          break;
                }
+          }
+
+          public ItemManagement GetItem(int index)
+          {
+               return items[index];
           }
      }
 }

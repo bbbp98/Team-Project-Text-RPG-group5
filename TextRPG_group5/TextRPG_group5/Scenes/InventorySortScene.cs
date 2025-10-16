@@ -43,9 +43,9 @@ namespace TextRPG_group5.Scenes
 
                Console.WriteLine("\n1. 이름순");
                Console.WriteLine("2. 장착순");
-               Console.WriteLine("3. 공격력");
-               Console.WriteLine("4. 방어력");
-               Console.WriteLine("0. 돌아가기");
+               Console.WriteLine("3. 장비 아이템순");
+               Console.WriteLine("4. 소비 아이템순");
+               Console.WriteLine("0. 인벤토리로 돌아가기");
           }
      }
 }

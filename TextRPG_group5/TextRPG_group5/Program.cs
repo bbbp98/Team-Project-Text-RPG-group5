@@ -36,6 +36,7 @@ namespace TextRPG_group5
                player.ReachedStage = 1;
 
                player.Inventory.AddItem(ItemInfo.GetItem("목검"));
+               player.Inventory.AddItem(ItemInfo.GetItem("워해머"));
                player.Inventory.AddItem(ItemInfo.GetItem("HP소형포션"));
                player.Inventory.AddItem(ItemInfo.GetItem("나무 활"));
                player.Inventory.AddItem(ItemInfo.GetItem("가죽갑옷"));

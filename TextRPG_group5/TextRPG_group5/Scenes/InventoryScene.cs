@@ -24,11 +24,11 @@ namespace TextRPG_group5.Scenes
                          Program.SetScene(new MainScene(player)); 
                          break;
                     case 1:
-                         Program.SetScene(new MainScene(player));
+                         Program.SetScene(new InventorySortScene(player));
                          break;
                     case 2:
                          // load InventoryEquipScene
-                         player.Inventory.Equip(input);
+                         Program.SetScene(new EquipmentScene(player));
                          break;
                     default:
                          Console.WriteLine("잘못된 입력입니다.\n");
@@ -43,7 +43,7 @@ namespace TextRPG_group5.Scenes
                player.Inventory.Show();
 
                Console.WriteLine("\n1. 인벤토리 정렬");
-               Console.WriteLine("\n2. 장착 관리 메뉴");
+               Console.WriteLine("2. 장착 관리 메뉴");
                Console.WriteLine("0. 돌아가기");
           }
      }
