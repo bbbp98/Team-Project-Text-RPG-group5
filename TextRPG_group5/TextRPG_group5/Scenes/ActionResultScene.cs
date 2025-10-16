@@ -45,7 +45,9 @@ namespace TextRPG_group5.Scenes
                     Program.SetScene(new BattleScene(CurrentBattle));
                     break;
                 default:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("잘못된 입력입니다.\n");
+                    Console.ResetColor();
                     break;
             }
         }
@@ -54,7 +56,9 @@ namespace TextRPG_group5.Scenes
         {
             Console.Clear();
 
-            Console.WriteLine("Battle!!\n");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Battle!!");
+            Console.ResetColor();
 
             PrintAttackerInfo();
 
