@@ -91,12 +91,8 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("Battle!!");
             Console.WriteLine();
 
-            /*if (bt.GetBattleState() == BattleState.ActionResult)
             {
-                //ActionResultScene resultScene = new ActionResultScene(player, monsters, bt.isPlayerTurn, bt.userChoice);
-                //resultScene.Show();
                 return;
-            }*/
 
             PrintEnemyInfo();
 
