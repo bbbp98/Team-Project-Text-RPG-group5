@@ -99,14 +99,26 @@ namespace TextRPG_group5.Scenes
                 case BattleState.Skill:
                     for (int i = 0; i < Defenders.Count; i++)
                     {
+                        int damage = DefBeforeHp[i] - Defenders[i].NowHp;
+                        
                         if (Defenders[i] is Player)
                         {
-                            Console.WriteLine($"{Defenders[i].Name} 을(를) 공격하였습니다. [데미지 : {DefBeforeHp[i] - Defenders[i].NowHp}]");
+                            if (damage == 0)
+                                Console.WriteLine($"{Defenders[i].Name} 이(가) 공격을 회피하였습니다. [데미지 : {damage}]");
+                            
+                            else
+                                Console.WriteLine($"{Defenders[i].Name} 을(를) 공격하였습니다. [데미지 : {damage}]");
+
                             Console.WriteLine($"HP : {DefBeforeHp[i]} -> {Defenders[i].NowHp}");
                         }
                         else
                         {
-                            Console.WriteLine($"Lv.{Defenders[i].Level} {Defenders[i].Name} 을(를) 공격하였습니다. [데미지 : {DefBeforeHp[i] - Defenders[i].NowHp}]");
+                            if (damage == 0)
+                                Console.WriteLine($"Lv.{Defenders[i].Level} {Defenders[i].Name} 이(가) 공격을 회피하였습니다. [데미지 : {damage}]");
+                            else
+
+                                Console.WriteLine($"Lv.{Defenders[i].Level} {Defenders[i].Name} 을(를) 공격하였습니다. [데미지 : {damage}]");
+
                             Console.WriteLine($"HP : {DefBeforeHp[i]} -> {Defenders[i].NowHp}");
                         }
                         Console.WriteLine();
