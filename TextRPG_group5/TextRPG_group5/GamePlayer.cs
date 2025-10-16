@@ -60,11 +60,11 @@ namespace TextRPG_group5
                     MaxHp = 90; Attack = 40; Defence = 30; Critical = 0.4; Evasion = 0.2; MaxMp = 80;
                     return true;
                     case "도적":
-                        Attack = 50; Defence = 20; MaxHp = 80; MaxMp = 90; Critical = 0.3; Evasion = 0.3;
-                        return true;
+                    MaxHp = 80; Attack = 50; Defence = 20; Critical = 0.3; Evasion = 0.3; MaxMp = 90;
+                    return true;
                     case "법사":
-                        Attack = 20; Defence = 20; MaxHp = 60; MaxMp = 120; Critical = 0.2; Evasion = 0.1;
-                        return true;
+                    MaxHp = 60; Attack = 20; Defence = 20; Critical = 0.2; Evasion = 0.1; MaxMp = 120;
+                    return true;
                     default:
                         return false;
                 }
