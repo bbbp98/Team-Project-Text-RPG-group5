@@ -18,8 +18,8 @@ namespace TextRPG_group5
     
     internal class Battle
     {
-        Player player;
-        List<Monster> monsters;
+        public Player Player { get; private set; }
+        public List<Monster> Monsters { get; private set; }
 
         private BattleState state;
         public byte userChoice;
@@ -29,8 +29,8 @@ namespace TextRPG_group5
 
         public Battle(Player player, List<Monster> monsters)
         {
-            this.player = player;
-            this.monsters = monsters;
+            Player = player;
+            Monsters = monsters;
 
             // Player 선공
             isPlayerTurn = true;
@@ -62,9 +62,9 @@ namespace TextRPG_group5
 
         public void SelectTarget()
         {
-            for (int i = 0; i < monsters.Count; i++)
+            for (int i = 0; i < Monsters.Count; i++)
             {
-                Console.WriteLine($"[{i + 1}] {monsters[i].Name}");
+                Console.WriteLine($"[{i + 1}] {Monsters[i].Name}");
             }
 
             Console.WriteLine();
@@ -108,20 +108,20 @@ namespace TextRPG_group5
 
             if (isPlayerTurn)   // Player 턴
             {
-                attacker = player;
-                defender = monsters[userChoice - 1];
+                attacker = Player;
+                defender = Monsters[userChoice - 1];
 
-                attackerBeforeHp = player.NowHp;
-                defenderBeforeHp = monsters[userChoice - 1].NowHp;
+                attackerBeforeHp = Player.NowHp;
+                defenderBeforeHp = Monsters[userChoice - 1].NowHp;
             }
             else    // Monster 턴
             {
                 // Monster 무리 중 Player 를 공격할 Monster 를 랜덤으로 하나 선택
-                attacker = monsters[new Random().Next(0, monsters.Count)];
-                defender = player;
+                attacker = Monsters[new Random().Next(0, Monsters.Count)];
+                defender = Player;
 
                 attackerBeforeHp = attacker.NowHp;
-                defenderBeforeHp = player.NowHp;
+                defenderBeforeHp = Player.NowHp;
             }
 
             defender.TakeDamage(attacker.Attack, attacker.Critical);
