@@ -141,6 +141,15 @@ namespace TextRPG_group5.Scenes
         {
             for (int i = 0; i < Monsters.Count; i++)
             {
+                if (Monsters[i].IsDead)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine($"Lv.{Monsters[i].Level} {Monsters[i].Name} DEAD");
+                    Console.ResetColor();
+
+                    continue;
+                }
+                
                 Monsters[i].ShowStatus();
             }
             Console.WriteLine();
@@ -166,7 +175,12 @@ namespace TextRPG_group5.Scenes
         {
             for (int i = 0; i < Monsters.Count; i++)
             {
+                if (Monsters[i].IsDead)
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+
                 Console.WriteLine($"[{i + 1}] {Monsters[i].Name}");
+                Console.ResetColor();
+
             }
             Console.WriteLine();
 
