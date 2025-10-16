@@ -100,13 +100,7 @@ namespace TextRPG_group5.Scenes
 
             PrintEnemyInfo();
 
-            Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{Player.Level}\t{Player.Name} ( {Player.Job} )");
-            Console.WriteLine($"HP {Player.NowHp} / {Player.MaxHp}");
-            Console.WriteLine();
-
-            Console.WriteLine("==============================");
-            Console.WriteLine();
+            PrintPlayerInfo();
 
             switch ((byte)CurrentBattle.GetBattleState())
             {
