@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG_group5.ItemManage
 {
+    // ItemMangement를 상속받은 기타 아이템 클래스 
     public class EtcItem : ItemManagement
     {
         public EtcItem(string name, string description, string require)

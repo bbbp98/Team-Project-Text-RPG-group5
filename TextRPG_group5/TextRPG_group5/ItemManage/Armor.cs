@@ -41,9 +41,5 @@ namespace TextRPG_group5.ItemManage
                Description = $"스탯 증가량 => 방어력 : +{defPower}, 장착 가능 직업 : {jobLimits}";
                IsEquip = isEquip;
           }
-          public override void YouEquipItem() // ToDo : 플레이어 메서드 오브젝트를 매개변수로 추가 필요
-          {
-               // 장비 장착 후 능력치 상승 로직 추가
-          }
      }
 }
