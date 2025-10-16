@@ -82,9 +82,8 @@ namespace TextRPG_group5.Scenes
                 }
                 else if (CurrentBattle.GetBattleState() == BattleState.Item)
                 {
-                    int itemCount = 3; // player.Inventory.Count;
-
                     if (input > itemCount)
+                    if (input > CurrentBattle.UsableItemOnly.Count)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("잘못된 입력입니다.\n");
@@ -214,12 +213,15 @@ namespace TextRPG_group5.Scenes
 
         void PrintUsableItemList()
         {
-            List<UsableItem> usableItems = CurrentBattle.GetUsableItemList(Player.Inventory);
+            List<UsableItem> usableItems = CurrentBattle.UsableItemOnly;
 
             for (int i = 0; i < usableItems.Count; i++)
             {
+                // TODO : 일단 포션만, 나중에 버프/디버프 소비 아이템도 추가
+                Potion potion = (Potion)usableItems[i];
+                
                 // 소비 아이템만 출력
-                Console.WriteLine($"[{i + 1}] {usableItems[i].Name}");
+                Console.WriteLine($"[{i + 1}] {potion.Name} (회복량 : +{potion.HealAmount})");
             }
             Console.WriteLine();
 
