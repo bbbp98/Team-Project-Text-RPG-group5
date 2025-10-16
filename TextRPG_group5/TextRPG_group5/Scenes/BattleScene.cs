@@ -88,9 +88,6 @@ namespace TextRPG_group5.Scenes
         // 화면에 보여줄 텍스트들(Console.Write관련)
         public override void Show()
         {
-            Console.WriteLine("Battle!!");
-            Console.WriteLine();
-
             if (!CurrentBattle.isPlayerTurn)
             {
                 // 몬스터 턴
@@ -98,6 +95,9 @@ namespace TextRPG_group5.Scenes
                 CurrentBattle.HitNormalAttack(); // 자동 공격 전환 -> 바로 결과창으로
                 return;
             }
+
+            Console.WriteLine("Battle!!");
+            Console.WriteLine();
 
             PrintEnemyInfo();
 
