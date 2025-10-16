@@ -11,7 +11,8 @@ namespace TextRPG_group5.QuestManagement
     {
         NoProgress,
         InProgress,
-        Complete
+        Complete,
+        Done
     }
     public class Quest
     {

@@ -30,22 +30,26 @@ namespace TextRPG_group5.Scenes
                          player.Inventory.Sort(input);
                          break;
                     default:
+                         Console.ForegroundColor = ConsoleColor.Red;
                          Console.WriteLine("잘못된 입력입니다.\n");
+                         Console.ForegroundColor = ConsoleColor.White;
                          break;
                }
           }
 
           public override void Show()
           {
+               Console.ForegroundColor = ConsoleColor.Yellow;
                Console.WriteLine("인벤토리-정렬");
+               Console.ForegroundColor = ConsoleColor.White;
 
                player.Inventory.Show();
 
                Console.WriteLine("\n1. 이름순");
                Console.WriteLine("2. 장착순");
-               Console.WriteLine("3. 공격력");
-               Console.WriteLine("4. 방어력");
-               Console.WriteLine("0. 돌아가기");
+               Console.WriteLine("3. 장비 아이템순");
+               Console.WriteLine("4. 소비 아이템순");
+               Console.WriteLine("0. 인벤토리로 돌아가기");
           }
      }
 }

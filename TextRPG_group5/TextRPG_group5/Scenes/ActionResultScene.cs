@@ -29,23 +29,43 @@ namespace TextRPG_group5.Scenes
 
         public override void HandleInput(byte input)
         {
-            throw new NotImplementedException();
+            switch(input)
+            {
+                case 0:
+                    if (CurrentBattle.IsAllEnemyDead() || CurrentBattle.Player.IsDead)
+                    {
+                        CurrentBattle.EndBattle(CurrentBattle.IsStageClear());
+                        return;
+                    }
+
+                    CurrentBattle.SetBattleState(BattleState.None);
+                    CurrentBattle.userChoice = 0;
+                    CurrentBattle.isPlayerTurn = !CurrentBattle.isPlayerTurn; // 턴 교체
+
+                    Program.SetScene(new BattleScene(CurrentBattle));
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("잘못된 입력입니다.\n");
+                    Console.ResetColor();
+                    break;
+            }
         }
 
         public override void Show()
         {
             Console.Clear();
 
-            Console.WriteLine("Battle!!\n");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Battle!!");
+            Console.ResetColor();
 
             PrintAttackerInfo();
 
             PrintDefendersInfo();
 
-            Console.WriteLine("계속하려면 아무 키나 누르세요...");
-            Console.Write(">> ");
-            Console.ReadKey();
-        }
+            Console.WriteLine("0. 다음");
+       }
 
         void PrintAttackerInfo()
         {
@@ -55,7 +75,11 @@ namespace TextRPG_group5.Scenes
                     if (Attacker is Player)
                         Console.WriteLine($"{Attacker.Name} 의 공격!");
                     else
+                    {
                         Console.WriteLine($"Lv.{Attacker.Level} {Attacker.Name} 의 공격!");
+                        Console.WriteLine(((Monster)Attacker).Msg);
+                    }
+                        
                     break;
                 case BattleState.Skill:
                     // Attacker == Player (무조건)
@@ -81,14 +105,26 @@ namespace TextRPG_group5.Scenes
                 case BattleState.Skill:
                     for (int i = 0; i < Defenders.Count; i++)
                     {
+                        int damage = DefBeforeHp[i] - Defenders[i].NowHp;
+                        
                         if (Defenders[i] is Player)
                         {
-                            Console.WriteLine($"{Defenders[i].Name} 을(를) 공격하였습니다. [데미지 : {DefBeforeHp[i] - Defenders[i].NowHp}]");
+                            if (damage == 0)
+                                Console.WriteLine($"{Defenders[i].Name} 이(가) 공격을 회피하였습니다. [데미지 : {damage}]");
+                            
+                            else
+                                Console.WriteLine($"{Defenders[i].Name} 을(를) 공격하였습니다. [데미지 : {damage}]");
+
                             Console.WriteLine($"HP : {DefBeforeHp[i]} -> {Defenders[i].NowHp}");
                         }
                         else
                         {
-                            Console.WriteLine($"Lv.{Defenders[i].Level} {Defenders[i].Name} 을(를) 공격하였습니다. [데미지 : {DefBeforeHp[i] - Defenders[i].NowHp}]");
+                            if (damage == 0)
+                                Console.WriteLine($"Lv.{Defenders[i].Level} {Defenders[i].Name} 이(가) 공격을 회피하였습니다. [데미지 : {damage}]");
+                            else
+
+                                Console.WriteLine($"Lv.{Defenders[i].Level} {Defenders[i].Name} 을(를) 공격하였습니다. [데미지 : {damage}]");
+
                             Console.WriteLine($"HP : {DefBeforeHp[i]} -> {Defenders[i].NowHp}");
                         }
                         Console.WriteLine();
@@ -97,8 +133,6 @@ namespace TextRPG_group5.Scenes
                 default:
                     break;
             }
-
-            Console.WriteLine();
         }
     }
 }

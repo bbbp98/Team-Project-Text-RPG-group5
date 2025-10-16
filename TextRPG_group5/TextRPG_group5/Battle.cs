@@ -7,100 +7,139 @@ using TextRPG_group5.Scenes;
 
 namespace TextRPG_group5
 {
-    enum BattleState
-    {
-        None,
-        NormalAttack,
-        Skill,
-        Item,
-        ActionResult
-    }
-    
-    internal class Battle
-    {
-        public Player Player { get; private set; }
-        public List<Monster> Monsters { get; private set; }
+     enum BattleState
+     {
+          None,
+          NormalAttack,
+          Skill,
+          Item,
+          ActionResult
+     }
 
-        private BattleState state;
-        public byte userChoice;
+     internal class Battle
+     {
+          public Player Player { get; private set; }
+          public List<Monster> Monsters { get; private set; }
+          public byte CurrentStage { get; private set; }
 
-        public bool isPlayerTurn;
+          private BattleState state;
+          public byte userChoice;
 
-        public Battle(Player player, List<Monster> monsters)
-        {
-            Player = player;
-            Monsters = monsters;
+          public bool isPlayerTurn;
 
-            // Player 선공
-            isPlayerTurn = true;
+          private Player preBattlePlayer;
 
-            state = BattleState.None;
-    }
+          public Battle(Player player, List<Monster> monsters, byte currentStage)
+          {
+               Player = player;
+               Monsters = monsters;
+               CurrentStage = currentStage;
 
-        public void SetBattleState(BattleState currentState) => state = currentState;
-        public BattleState GetBattleState() => state;
+               // Player 선공
+               isPlayerTurn = true;
 
-        public void HitNormalAttack()
-        {
-            Character attacker;
-            List<Character> defenders = new List<Character>();
+               state = BattleState.None;
 
-            int attackerBeforeMp = 0;
-            List<int> defendersBeforeHp = new List<int>();
+               preBattlePlayer = Player.Clone();
+          }
 
-            if (isPlayerTurn)   // Player 턴
-            {
-                attacker = Player;
-                defenders.Add(Monsters[userChoice - 1]);
+          public void SetBattleState(BattleState currentState) => state = currentState;
+          public BattleState GetBattleState() => state;
 
-                attackerBeforeMp = Player.NowMp;
-                defendersBeforeHp.Add(defenders[0].NowHp);
-            }
-            else    // Monster 턴
-            {
-                // Monster 무리 중 Player 를 공격할 Monster 를 랜덤으로 하나 선택
-                attacker = Monsters[new Random().Next(0, Monsters.Count)];
-                defenders.Add(Player);
+          public void HitNormalAttack()
+          {
+               Character attacker;
+               List<Character> defenders = new List<Character>();
 
-                // attackerBeforeMp = attacker.NowMp;
-                defendersBeforeHp.Add(Player.NowHp);
-            }
+               int attackerBeforeMp = 0;
+               List<int> defendersBeforeHp = new List<int>();
 
-            defenders[0].TakeDamage(attacker.Attack, attacker.Critical);
-            isPlayerTurn = !isPlayerTurn;
+               if (isPlayerTurn)   // Player 턴
+               {
+                    attacker = Player;
+                    defenders.Add(Monsters[userChoice - 1]);
 
-            ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
-            result.Show();
-        }
+                    attackerBeforeMp = Player.NowMp;
+                    defendersBeforeHp.Add(defenders[0].NowHp);
+               }
+               else    // Monster 턴
+               {
+                    // 살아있는 몬스터들만 공격 가능
+                    List<Monster> aliveMons = Monsters.Where(m => !m.IsDead).ToList();
 
-        public void UseSkill()
-        {
-            // Attacker == Player (무조건)
-            Character attacker = Player;
-            List<Character> defenders = new List<Character>();
+                    if (aliveMons.Count == 0)
+                    {
+                         EndBattle(IsStageClear());
+                         return;
+                    }
 
-            int attackerBeforeMp = Player.NowMp;
-            List<int> defendersBeforeHp = new List<int>();
+                    // Monster 무리 중 Player 를 공격할 Monster 를 랜덤으로 하나 선택
+                    attacker = aliveMons[new Random().Next(0, aliveMons.Count)];
+                    defenders.Add(Player);
 
-            foreach (Monster mon in Monsters)
-            {
-                defenders.Add(mon);
-                defendersBeforeHp.Add(mon.NowHp);
-            }
+                    // attackerBeforeMp = attacker.NowMp;
+                    defendersBeforeHp.Add(Player.NowHp);
+               }
 
-            Console.WriteLine("스킬 사용!");
-        }
+               defenders[0].TakeDamage(attacker.Attack, attacker.Critical);
 
-        public void UseItem()
-        {
-            // Attacker == Player (무조건)
-            Character attacker = Player;
-            List<Character> defenders = new List<Character>();
+               ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
+               result.Show();
+               Program.SetScene(result);
+          }
 
-            int attackerBeforeMp = Player.NowMp;
-            List<int> defendersBeforeHp = new List<int>();
+          public void UseSkill()
+          {
+               // Attacker == Player (무조건)
+               Character attacker = Player;
+               List<Character> defenders = new List<Character>();
 
-            Console.WriteLine("아이템 사용!");
-        }
+               int attackerBeforeMp = Player.NowMp;
+               List<int> defendersBeforeHp = new List<int>();
+
+               foreach (Monster mon in Monsters)
+               {
+                    defenders.Add(mon);
+                    defendersBeforeHp.Add(mon.NowHp);
+               }
+
+               Console.WriteLine("스킬 사용!");
+          }
+
+          public void UseItem()
+          {
+               // Attacker == Player (무조건)
+               Character attacker = Player;
+               List<Character> defenders = new List<Character>();
+
+               int attackerBeforeMp = Player.NowMp;
+               List<int> defendersBeforeHp = new List<int>();
+
+               Console.WriteLine("아이템 사용!");
+          }
+
+          public bool IsAllEnemyDead()
+          {
+               foreach (Monster mon in Monsters)
+               {
+                    // 한 마리라도 살아있다면
+                    if (!mon.IsDead)
+                         return false;
+               }
+               return true;
+          }
+
+          public bool IsStageClear()
+          {
+               if (IsAllEnemyDead())
+                    return true;
+               return false;
+          }
+
+          public void EndBattle(bool isClear)
+          {
+               //Program.SetScene(new DungeonResultScene(Player, CurrentStage, isClear));
+               Program.SetScene(new DungeonResultScene(Player, preBattlePlayer, CurrentStage, isClear));
+          }
      }
 }
