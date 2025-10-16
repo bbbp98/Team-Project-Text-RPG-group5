@@ -42,7 +42,7 @@ namespace TextRPG_group5.ItemManage
             }
             else
             {
-                // player.NowMp += potion.MpAmount;  ToDo : 플레이어 클래스에 NowMp증가 메서드 추가 or private 접근제한자 해제
+                player.NowMp += potion.MpAmount;
                 player.Inventory.RemoveItem(potion);
             }
 
