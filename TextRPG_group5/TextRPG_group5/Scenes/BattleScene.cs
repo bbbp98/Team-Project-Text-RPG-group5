@@ -105,12 +105,12 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("==============================");
             Console.WriteLine();
 
-            switch ((byte)CurrentBattle.GetBattleState())
+            switch (CurrentBattle.GetBattleState())
             {
-                case 0:
+                case BattleState.None:
                     PrintActionList();
                     break;
-                case 1:
+                case BattleState.NormalAttack:
                     if (CurrentBattle.userChoice == 0)
                         PrintTargetList();
                         
@@ -118,14 +118,14 @@ namespace TextRPG_group5.Scenes
                         CurrentBattle.HitNormalAttack();
 
                     break;
-                case 2:
+                case BattleState.Skill:
                     if (CurrentBattle.userChoice == 0)
                         PrintSkillList();
 
                     else
                         CurrentBattle.UseSkill();
                     break;
-                case 3:
+                case BattleState.Item:
                     if (CurrentBattle.userChoice == 0)
                         PrintUsableItemList();
 
