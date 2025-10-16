@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using TextRPG_group5.ItemManage;
 
 
 namespace TextRPG_group5.QuestManagement
@@ -154,6 +155,7 @@ namespace TextRPG_group5.QuestManagement
         }
 
         // 처치한 몬스터 이름을 받아 진행 중 상태인 퀘스트에 반영하는 메서드
+        // ToDo : 몬스터가 죽을 때 이 메서드를 호출시켜야 함
         public void UpdateProgress(string target)
         {
             // 변수 q 에 진행중인 리스트를 순차적으로 저장 
@@ -186,8 +188,14 @@ namespace TextRPG_group5.QuestManagement
                 // 플레이어의 경험치, 돈 변경 로직 추가
                 player.GainExp(q.Rewards.Exp);
                 player.Gold += q.Rewards.Gold;
-                // Todo : 플레이어 인벤토리 추가 필요
-
+                // 보상 아이템을 순차적으로 인벤토리에 추가
+                ItemManagement item; // string배열 Rewards.Items의 멤버를 아이템형식으로 변환후 넣을 ItemManagement자료형
+                for(int i = 0; i < q.Rewards.Items.Count; i++)
+                {
+                    item = ItemInfo.GetItem(q.Rewards.Items[i]);
+                    player.Inventory.AddItem(item);
+                }
+                
                 q.Status = QuestStatus.NoProgress; // 보상을 한번만 받을 수 있도록 설정
             }
         }
@@ -200,12 +208,12 @@ namespace TextRPG_group5.QuestManagement
                 PropertyNameCaseInsensitive = true, // 대소문자 무시
                 ReadCommentHandling = JsonCommentHandling.Skip, // 주석 허용
                 AllowTrailingCommas = true, // 마지막 쉼표 허용
-                Converters = { new JsonStringEnumConverter() },
+                Converters = { new JsonStringEnumConverter() }, // enum허용
 
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.All)
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.All) // 영어 이외에도 출력할 수 있게
             };
-            string json = JsonSerializer.Serialize(quests, options);
-            File.WriteAllText(PATH, json, new UTF8Encoding(false));
+            string json = JsonSerializer.Serialize(quests, options); // 퀘스트 리스트를 시리얼화
+            File.WriteAllText(PATH, json, new UTF8Encoding(false)); // json파일작성 (순수 UTF8 형식)
         }
     }
 }
