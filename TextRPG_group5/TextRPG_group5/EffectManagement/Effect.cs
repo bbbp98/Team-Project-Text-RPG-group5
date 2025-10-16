@@ -12,7 +12,7 @@ namespace TextRPG_group5.EffectManagement
         public EffectType Type { get; protected set; }  // 효과 타입
         public int Duration { get; set; }               // 효과 지속 시간 (턴 단위)
         public int Value { get; protected set; }        // 효과 수치 (공격력 +10% 등)
-        protected Character Caster;                     // 효과를 건 시전자 (현재 코드 상으로는 무조건 유저)
+        protected Character Caster;                     // 효과를 건 시전자
 
         public Effect(Character caster, int duration)
         {
