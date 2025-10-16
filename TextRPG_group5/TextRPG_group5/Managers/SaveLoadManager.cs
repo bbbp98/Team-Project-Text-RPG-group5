@@ -34,7 +34,6 @@ namespace TextRPG_group5.Managers
                 File.Copy(tmp, SaveFile, true);
                 File.Delete(tmp);
 
-                Console.WriteLine("저장 되었습니다.");
                 return true;
             }
             catch (Exception ex)
