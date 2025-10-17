@@ -70,7 +70,30 @@ namespace TextRPG_group5.Scenes
                 }
                 else if (CurrentBattle.GetBattleState() == BattleState.Skill)
                 {
-                    if (input > Player.Skill.skillBook.Count)
+                    if (CurrentBattle.userSkillChoice == 0)
+                    {
+                        CurrentBattle.userSkillChoice = input;
+                        return;
+                    }
+
+                    if (CurrentBattle.userTargetChoice == 0)
+                    {
+                        // 잘못된 입력 방지: 대상 범위, 생존 여부 모두 체크
+                        if (input > Monsters.Count || Monsters[input - 1].IsDead)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("잘못된 입력입니다.\n");
+                            Console.ResetColor();
+                            return;
+                        }
+
+                        CurrentBattle.userTargetChoice = input;
+                        return;
+                    }
+
+                    // 마지막 유효성 검사: 스킬/대상 범위 초과 시 방지
+                    if (CurrentBattle.userSkillChoice > Player.Skill.skillBook.Count ||
+                        CurrentBattle.userTargetChoice > Monsters.Count)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("잘못된 입력입니다.\n");
