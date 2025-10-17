@@ -100,6 +100,9 @@ namespace TextRPG_group5.Scenes
                 case BattleState.Item:
                     // Attacker == Player (무조건)
                     Console.WriteLine($"{Attacker.Name} 의 {CurrentBattle.UsableItemOnly[CurrentBattle.userChoice - 1].Name} 사용");
+
+                    // TODO : 일단은 HP 만, 나중에 MP, 상태이상 등도 추가
+                    Console.WriteLine($"HP : {AttBeforeHp} -> {Attacker.NowHp}");
                     break;
                 default:
                     break;
@@ -140,11 +143,6 @@ namespace TextRPG_group5.Scenes
                         }
                         Console.WriteLine();
                     }
-                    break;
-                case BattleState.Item:
-                    // TODO : 일단은 HP 만, 나중에 MP, 상태이상 등도 추가
-                    Console.WriteLine($"HP : {AttBeforeHp} -> {Attacker.NowHp}");
-                    Console.WriteLine();
                     break;
                 default:
                     break;
