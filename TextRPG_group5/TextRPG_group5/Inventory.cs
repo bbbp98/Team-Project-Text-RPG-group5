@@ -29,10 +29,6 @@ namespace TextRPG_group5
                Items = new List<ItemManagement>();
           }
 
-          public Inventory()
-          {
-
-          }
           public Inventory(Player owner)
           {
                Items = new List<ItemManagement>();
@@ -75,20 +71,20 @@ namespace TextRPG_group5
           /// <summary>
           /// 소비, 기타 아이템 같이 개수가 여러 개인 아이템 추가
           /// </summary>
-          public void AddItem(UsableItem item, int amount)
+          public void AddItem(ItemManagement item, int quantity)
           {
                ItemManagement? existing = CheckItemExist(item);
 
                // 인벤토리에 아이템이 존재하지 않으면 인벤토리에 추가
                if (existing == null)
                {
-                    //item.Quantity = amount;
+                    item.ItemCounts = quantity;
                     Items.Add(item);
                }
                // 인벤토리에 아이템이 존재한다면 개수만 추가
                else
                {
-                    //existing.Quantity += amount;
+                    existing.ItemCounts += quantity;
                }
           }
 
@@ -107,11 +103,11 @@ namespace TextRPG_group5
 
                if (item is Potion potion)
                {
-                    //potion.UseItem(owner, potion);
-                    //existing.ItemCount--; // 1개 줄이기
+                    potion.UseItem(Owner, potion);
+                    potion.ItemCounts--; // 1개 줄이기
                     // 개수가 0개면 Remove
-                    //if (existing.Quantity < 0)
-                    //     RemoveItem(existing);
+                    if (existing.ItemCounts <= 0)
+                         RemoveItem(potion);
                }
           }
 
@@ -137,7 +133,6 @@ namespace TextRPG_group5
           {
                Items.OrderBy(x => x.Name).ToList();
 
-               //Console.WriteLine("인벤토리");
                Console.WriteLine();
                if (Items.Count == 0)
                {
@@ -152,18 +147,6 @@ namespace TextRPG_group5
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"{equipMark}");
                     Console.ForegroundColor = ConsoleColor.White;
-
-                    //if (items[i] is Weapon weapon)
-                    //{
-                    //     if (owner.Job != weapon.Job.ToString())
-                    //          Console.ForegroundColor = ConsoleColor.Blue;
-                    //}
-
-                    //if (items[i] is Armor armor)
-                    //{
-                    //     if (owner.Job != armor.Job.ToString())
-                    //          Console.ForegroundColor = ConsoleColor.Blue;
-                    //}
 
                     Console.Write($"{Items[i].Name!.PadRight(10)} | ");
                     Console.WriteLine(Items[i].Description);
@@ -236,5 +219,20 @@ namespace TextRPG_group5
                return Items[index];
           }
 
+          /// <returns>인벤토리 안의 모든 UsableItem 반환</returns>
+          public List<UsableItem> GetUsableItems()
+          {
+               List<UsableItem> usableItems = new List<UsableItem>();
+
+               foreach (var item in Items)
+               {
+                    if (item is UsableItem usableItem)
+                    {
+                         usableItems.Add(usableItem);
+                    }
+               }
+
+               return usableItems;
+          }
      }
 }
