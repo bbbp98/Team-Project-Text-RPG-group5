@@ -45,7 +45,7 @@ namespace TextRPG_group5
 
             preBattlePlayer = Player.Clone();
 
-            UsableItemOnly = GetUsableItemList(Player.Inventory);
+            UsableItemOnly = Player.Inventory.GetUsableItems();
         }
 
         public void SetBattleState(BattleState currentState) => state = currentState;
@@ -70,8 +70,7 @@ namespace TextRPG_group5
             else    // Monster 턴
             {
                 /* LJH 로부터 요청받은 로직 : 살아있고, 기절하지 않은 몬스터들만 공격 가능 */
-                /* TODO : IsStun 구현 후, 주석 해제 */
-                List<Monster> aliveMons = Monsters.Where(m => !m.IsDead /*&& !m.IsStun*/).ToList();
+                List<Monster> aliveMons = Monsters.Where(m => !m.IsDead && !m.IsStun).ToList();
 
                 if (aliveMons.Count == 0)
                 {
@@ -89,10 +88,7 @@ namespace TextRPG_group5
             }
 
             /* LJH 로부터 요청받은 로직 */
-            /* TODO : Character 클래스에 GetFinal~() 구현 후, 주석 해제 */
-            /* defenders[0].TakeDamage(attacker.GetFinalAttack(), attacker.GetFinalCritical());*/
-
-            defenders[0].TakeDamage(attacker.Attack, attacker.Critical);
+            defenders[0].TakeDamage(attacker.GetFinalAttack(), attacker.GetFinalCritical());
 
             ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
             result.Show();
@@ -104,12 +100,11 @@ namespace TextRPG_group5
         {
             Console.WriteLine("--- 턴 시작 ---");
 
-            /* TODO : Character 클래스 업데이트 후 주석 해제
             Player.UpdateEffect();
             foreach (var monster in Monsters.Where(m => !m.IsDead))
             {
                 monster.UpdateEffect();
-            }*/
+            }
             Thread.Sleep(1000); // 1초 대기
 
             // 효과 처리 후 전투 종료 조건 확인
@@ -160,30 +155,14 @@ namespace TextRPG_group5
             int attackerBeforeHp = Player.NowHp;
             int attackerBeforeMp = Player.NowMp;
 
-            List<UsableItem> usableItems = GetUsableItemList(Player.Inventory);
+            List<UsableItem> usableItems = Player.Inventory.GetUsableItems();
             
-            ///* Inventory 클래스에 구현 예정 (범근님 작업)
             UsableItem selectedItem = usableItems[userChoice - 1];
             Player.Inventory.UseItem(selectedItem);
-
-            //UsableItemOnly[userChoice - 1].UseItem(Player);    // UsableItem 클래스 내 함수 (민근님 작업)
 
             ActionResultScene result = new ActionResultScene(this, attackerBeforeHp, attackerBeforeMp);
             result.Show();
             Program.SetScene(result);
-        }
-
-        public List<UsableItem> GetUsableItemList(Inventory playerInventory)
-        {
-            List<UsableItem> usableItems = new List<UsableItem>();
-
-            for (int i = 0; i < playerInventory.GetCount(); i++)
-            {
-                if (playerInventory.GetItem(i) is UsableItem)
-                    usableItems.Add((UsableItem)playerInventory.GetItem(i));
-            }
-
-            return usableItems;
         }
 
         public bool IsAllEnemyDead()
@@ -206,7 +185,6 @@ namespace TextRPG_group5
 
         public void EndBattle(bool isClear)
         {
-            //Program.SetScene(new DungeonResultScene(Player, CurrentStage, isClear));
             Program.SetScene(new DungeonResultScene(Player, preBattlePlayer, CurrentStage, isClear));
         }
 

@@ -36,10 +36,7 @@ namespace TextRPG_group5.Scenes
                         CurrentBattle.SetBattleState(BattleState.NormalAttack);
                         break;
                     case 2:
-                        //CurrentBattle.SetBattleState(BattleState.Skill);
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("아직은 사용할 수 없습니다.\n");
-                        Console.ResetColor();
+                        CurrentBattle.SetBattleState(BattleState.Skill);
                         break;
                     case 3:
                         CurrentBattle.SetBattleState(BattleState.Item);
@@ -73,9 +70,7 @@ namespace TextRPG_group5.Scenes
                 }
                 else if (CurrentBattle.GetBattleState() == BattleState.Skill)
                 {
-                    int skillCount = 3; // player.Skills.Count;
-
-                    if (input > skillCount)
+                    if (input > Player.Skill.skillBook.Count)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("잘못된 입력입니다.\n");
@@ -133,9 +128,8 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("==============================");
             Console.WriteLine();
 
-            /* LJH 로부터 요청받은 로직
-            /* TODO : IsStun 구현 후 주석 해제
-            /*if (Player.IsStun)
+            /* LJH 로부터 요청받은 로직 */
+            if (Player.IsStun)
             {
                 Console.WriteLine($"{Player.Name}은(는) 움직일 수 없습니다!");
                 Console.WriteLine("\n아무 키나 눌러 턴을 넘깁니다...");
@@ -143,7 +137,7 @@ namespace TextRPG_group5.Scenes
                 CurrentBattle.isPlayerTurn = false;
                 Program.SetScene(new BattleScene(CurrentBattle)); // 새 씬을 만들어 효과 처리 플래그 초기화
                 return;
-            }*/
+            }
 
             switch (CurrentBattle.GetBattleState())
             {
@@ -229,9 +223,14 @@ namespace TextRPG_group5.Scenes
 
         void PrintSkillList()
         {
-            Console.WriteLine("[1] 스킬 1번");
-            Console.WriteLine("[2] 스킬 2번");
-            Console.WriteLine("[3] 스킬 3번");
+            Dictionary<string, Action<Character>> skills = Player.Skill.skillBook;
+
+            for (int i = 0; i < skills.Count; i++)
+            {
+                string skillName = skills.Keys.ElementAt(i);
+                Console.WriteLine($"[{i + 1}] {skillName}");
+            }
+
             Console.WriteLine();
 
             Console.WriteLine("0. 취소");
@@ -245,9 +244,11 @@ namespace TextRPG_group5.Scenes
             {
                 // TODO : 일단 포션만, 나중에 버프/디버프 소비 아이템도 추가
                 Potion potion = (Potion)usableItems[i];
-                
+                PotionType type = potion.Type;
+                string typeStr = (type == PotionType.HealthPotion) ? "HP" : "MP";
+
                 // 소비 아이템만 출력
-                Console.WriteLine($"[{i + 1}] {potion.Name} (회복량 : +{potion.Amount})");
+                Console.WriteLine($"[{i + 1}] {potion.Name} ({typeStr} +{potion.Amount})");
             }
             Console.WriteLine();
 
