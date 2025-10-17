@@ -26,6 +26,10 @@ namespace TextRPG_group5
         private BattleState state;
         public byte userChoice;
 
+        // 스킬 사용 시, 사용자 입력용
+        public byte userSkillChoice;
+        public byte userTargetChoice;
+
         public bool isPlayerTurn;
 
         private Player preBattlePlayer;
@@ -136,13 +140,23 @@ namespace TextRPG_group5
             int attackerBeforeMp = Player.NowMp;
             List<int> defendersBeforeHp = new List<int>();
 
+            /* TODO : 일단 단일 target 만 공격하도록 구현됨
             foreach (Monster mon in Monsters)
             {
                 defenders.Add(mon);
                 defendersBeforeHp.Add(mon.NowHp);
-            }
+            }*/
 
-            Console.WriteLine("스킬 사용!");
+            defenders.Add(Monsters[userTargetChoice - 1]);
+            defendersBeforeHp.Add(defenders[0].NowHp);
+
+            var selectedSkill = Player.Skill.skillBook[userSkillChoice - 1];
+            PlayerSkill skills = Player.Skill;
+            skills.UseSkill(userSkillChoice - 1, defenders[0]);
+
+            ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
+            result.Show();
+            Program.SetScene(result);
         }
 
         public void UseItem()
