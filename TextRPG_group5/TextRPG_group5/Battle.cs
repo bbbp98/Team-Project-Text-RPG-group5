@@ -69,11 +69,13 @@ namespace TextRPG_group5
             }
             else    // Monster 턴
             {
-                // 살아있는 몬스터들만 공격 가능
-                List<Monster> aliveMons = Monsters.Where(m => !m.IsDead).ToList();
+                /* LJH 로부터 요청받은 로직 : 살아있고, 기절하지 않은 몬스터들만 공격 가능 */
+                /* TODO : IsStun 구현 후, 주석 해제 */
+                List<Monster> aliveMons = Monsters.Where(m => !m.IsDead /*&& !m.IsStun*/).ToList();
 
                 if (aliveMons.Count == 0)
                 {
+                    /* TODO : 모든 몬스터를 처치하였는지, 행동불능 상태 몬스터가 남아있는지 확인하는 로직 추가 */
                     EndBattle(IsStageClear());
                     return;
                 }
@@ -86,11 +88,48 @@ namespace TextRPG_group5
                 defendersBeforeHp.Add(Player.NowHp);
             }
 
+            /* LJH 로부터 요청받은 로직 */
+            /* TODO : Character 클래스에 GetFinal~() 구현 후, 주석 해제 */
+            /* defenders[0].TakeDamage(attacker.GetFinalAttack(), attacker.GetFinalCritical());*/
+
             defenders[0].TakeDamage(attacker.Attack, attacker.Critical);
 
             ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
             result.Show();
             Program.SetScene(result);
+        }
+
+        /* LJH 로부터 요청받은 로직 : 플레이어와 모든 몬스터의 효과를 업데이트 */
+        public bool ProcessStartOfTurnEffects()
+        {
+            Console.WriteLine("--- 턴 시작 ---");
+
+            /* TODO : Character 클래스 업데이트 후 주석 해제
+            Player.UpdateEffect();
+            foreach (var monster in Monsters.Where(m => !m.IsDead))
+            {
+                monster.UpdateEffect();
+            }*/
+            Thread.Sleep(1000); // 1초 대기
+
+            // 효과 처리 후 전투 종료 조건 확인
+            if (Player.IsDead)
+            {
+                Console.WriteLine($"\n{Player.Name}이(가) 지속 효과로 쓰러졌습니다...");
+                Thread.Sleep(1500);
+                EndBattle(false); // 플레이어가 죽으면 무조건 패배
+                return false; // 전투 종료
+            }
+
+            if (IsAllEnemyDead()) // 플레이어 생존 시 처리
+            {
+                Console.WriteLine("\n모든 몬스터가 지속 효과로 쓰러졌습니다!");
+                Thread.Sleep(1500);
+                EndBattle(true); // 몬스터만 모두 죽었으면 승리
+                return false; // 전투 종료
+            }
+
+            return true; // 전투 계속
         }
 
         public void UseSkill()
@@ -169,6 +208,15 @@ namespace TextRPG_group5
         {
             //Program.SetScene(new DungeonResultScene(Player, CurrentStage, isClear));
             Program.SetScene(new DungeonResultScene(Player, preBattlePlayer, CurrentStage, isClear));
+        }
+
+        /* LJH 로부터 요청받은 로직 : 상태 이상으로 인한 전투 종료 로직 */
+        public void EndBattleAsDefeat()
+        {
+            // TODO : 나중에 필요 없으면 삭제해도 OK
+            Console.WriteLine("\n전투 상황이 종료되었습니다.");
+            Thread.Sleep(1500);
+            EndBattle(false); // 효과로 인해 전투가 끝나면 무조건 패배(클리어 실패) 처리
         }
     }
 }
