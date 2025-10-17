@@ -181,7 +181,7 @@ namespace TextRPG_group5.QuestManagement
         /// <summary>
         /// 퀘스트 보상을 player클래스 오브젝트에 반영
         /// </summary>
-        internal void GiveReward(Player player)// Todo : 매개변수에 Player오브젝트 추가
+        internal void GiveReward(Player player)
         {
             foreach (var q in Quests.Where(x => x.Status == QuestStatus.Complete))
             {
@@ -200,6 +200,10 @@ namespace TextRPG_group5.QuestManagement
             }
         }
 
+        /// <summary>
+        /// 퀘스트 저장
+        /// </summary>
+        /// <param name="quests"></param>
         public static void SaveQuestProgress(List<Quest> quests)
         {
             var options = new JsonSerializerOptions
