@@ -19,6 +19,7 @@ namespace TextRPG_group5
         public int Exp { get; set; } // 처치 시 얻는 경험치
         public int Gold { get; set; } // 처치 시 얻는 골드
 
+        public int expEvent = 10; // 원활한 테스트를 위해 경험치 10배로 상승
         public Monster(string name, string msg, MonsterType type, int hp, int atk, int def, double critical, double evasion) : base(name, hp, atk, def)
         {
             Msg = msg;
@@ -54,6 +55,7 @@ namespace TextRPG_group5
         레벨이 비례해 덩치가 커진다(체력과 방어력이 증가)
         하지만 레벨이 올라가도 공격 방식은 크게 달라지지 않는다.
         */
+
         public Slime(int level) : base("슬라임", "슬라임이 말랑거린다.", MonsterType.normal, 15, 2, 5, 0, 0.1)
         {
             this.Level = level;
@@ -61,7 +63,7 @@ namespace TextRPG_group5
             NowHp = MaxHp;
             Attack += (int)(Level);             // 레벨에 비례
             Defence += (int)(Level * 2);        // 레벨에 비례
-            Exp += (int)(slimeExp);             // 레벨 구간에 따라 결정
+            Exp += (int)(slimeExp) * expEvent;  // 레벨 구간에 따라 결정
             Gold += (int)(Level * 3);           // 슬라임은 돈 잘 안 주는 잡몹
         }
 
@@ -92,7 +94,7 @@ namespace TextRPG_group5
             NowHp = MaxHp;
             Attack += (int)(goblinAttack);          // 레벨에 비례, 단계 별로 급격히 증가
             Defence += (int)(Level);                // 레벨에 비례
-            Exp += (int)(goblinAttack);             // 공격에 비례
+            Exp += (int)(goblinAttack) * expEvent;  // 공격에 비례
             Gold += (int)(10 + goblinAttack);       // 고블린은 그 위험도에 비례해 돈을 가지고 있다.
             // 저레벨의 고블린은 위험하지 않은 잡몹이지만, 고레벨의 고블린은 까다로운 몬스터
         }
@@ -129,7 +131,7 @@ namespace TextRPG_group5
             Attack += (int)(hobGoblinAttack);           // 레벨에 비례
             Defence += (int)(Level);                    // 레벨에 비례
             Critical += (hobGoblinAttack * 0.001);      // 공격력이 올라갈 수록 치명타 확률도 올라간다
-            Exp += (int)(hobGoblinAttack);              // 공격력에 비례
+            Exp += (int)(hobGoblinAttack) * expEvent;   // 공격력에 비례
             Gold += (int)(15 + hobGoblinAttack);        // 그 위험도에 비례해 돈을 가지고 있다.
             // 저레벨의 고블린은 위험하지 않은 잡몹이지만, 고레벨의 고블린은 까다로운 몬스터
         }
@@ -163,12 +165,12 @@ namespace TextRPG_group5
         public Orc(int level) : base("오크", "오크가 거대한 도끼를 휘두른다!", MonsterType.unique, 250, 60, 40, 0.08, 0.05)
         {
             this.Level = level;
-            MaxHp += (int)(Level * orcGrow);            // 레벨에 비례    
+            MaxHp += (int)(Level * orcGrow);                // 레벨에 비례    
             NowHp = MaxHp;
-            Attack += (int)(Level * orcGrow);           // 레벨에 비례
-            Defence += (int)(Level * orcGrow);          // 레벨에 비례
-            Exp += (int)(150 + Level * orcGrow);        // 기본 많은 경험치, 레벨에 비례해 추가
-            Gold += (int)(150 + Level * 2);             // 기본 많은 골드, 레벨에 비례해 추가
+            Attack += (int)(Level * orcGrow);               // 레벨에 비례
+            Defence += (int)(Level * orcGrow);              // 레벨에 비례
+            Exp += (int)(150 + Level * orcGrow) * expEvent; // 기본 많은 경험치, 레벨에 비례해 추가
+            Gold += (int)(150 + Level * 2);                 // 기본 많은 골드, 레벨에 비례해 추가
         }
         // 초반부에 마주치면 두려운 존재지만, 고레벨 때 마주치면 크게 무서울 것은 없다.
     }
@@ -187,7 +189,7 @@ namespace TextRPG_group5
             NowHp = MaxHp;
             Attack += 0;                                // 레벨이 늘어도 공격력은 그대로! 내 이름은 골렘, 돌벽이죠.
             Defence += (int)(Level * 5);                // 레벨에 비례
-            Exp += (int)(10 + Level * 1.5);             // 레벨이 늘어도 경험치를 많이 주지는 않는다.
+            Exp += (int)(10 + Level * 1.5) * expEvent;  // 레벨이 늘어도 경험치를 많이 주지는 않는다.
             Gold += (int)(35 + Level * 5);              // 기본 많은 골드, 레벨에 비례해 추가
         }
         // 잘 안 부서지지만, 마법 생물이다 보니 무력화시키면 돈을 짭잘하게 벌 수 있다.
@@ -207,7 +209,7 @@ namespace TextRPG_group5
             NowHp = MaxHp;
             Attack += (int)(Level * 1.5);               // 레벨에 비례
             Defence += (int)(Level * 1.5);              // 레벨에 비례
-            Exp += (int)(Level * 3);                    // 레벨에 비례
+            Exp += (int)(Level * 3) * expEvent;         // 레벨에 비례
             Gold += (int)(Level * 4);                   // 레벨에 비례
         }
     }
@@ -224,12 +226,12 @@ namespace TextRPG_group5
         public ShadowAssassin(int level) : base("그림자어쌔신", "그림자 속에서 피하기 힘든 공격이 다가온다", MonsterType.unique, 10, 15, 1, 0.9, 0.9)
         {
             this.Level = level;
-            MaxHp += (int)(Level);                  // 레벨에 비례    
+            MaxHp += (int)(Level);                          // 레벨에 비례    
             NowHp = MaxHp;
-            Attack += (int)(Level * shadowGrow);             // 레벨에 비례
-            Defence += (int)(Level);                // 레벨에 비례
-            Exp += (int)(Level * shadowGrow);                // 레벨에 비례
-            Gold += (int)(Level * shadowGrow);               // 레벨에 비례
+            Attack += (int)(Level * shadowGrow);            // 레벨에 비례
+            Defence += (int)(Level);                        // 레벨에 비례
+            Exp += (int)(Level * shadowGrow) * expEvent;    // 레벨에 비례
+            Gold += (int)(Level * shadowGrow);              // 레벨에 비례
         }
     }
 
@@ -250,7 +252,7 @@ namespace TextRPG_group5
             NowHp = MaxHp;
             jesterAttack = (int)(10 + Level * 2);   // 레벨에 비례해 늘어나는 기본 공격력
             Defence += (int)(Level * 2);            // 레벨에 비례
-            Exp += (int)(Level * 5);                // 레벨에 비례
+            Exp += (int)(Level * 5) * expEvent;     // 레벨에 비례
             Gold += (int)(Level * 5);               // 레벨에 비례
         }
         public override int Attack                  // 공격할 때마다 공격력이 랜덤으로 증가
@@ -316,7 +318,7 @@ namespace TextRPG_group5
             this.Critical += (targetPlayer.Critical * dopleRate);
             this.Evasion += (targetPlayer.Evasion * dopleRate);
             // 플레이어의 80% 능력치를 가진다.
-            this.Exp += (int)(10 + targetPlayer.Level * dopleRate * 10);
+            this.Exp += (int)(10 + targetPlayer.Level * dopleRate * 10) * expEvent;
             this.Gold += (int)(15 + targetPlayer.Level * dopleRate * 10);
             // 플레이어의 레벨에 따라 보상이 달라진다.
         }
