@@ -94,7 +94,8 @@ namespace TextRPG_group5.Scenes
                     break;
                 case BattleState.Skill:
                     // Attacker == Player (무조건)
-                    Console.WriteLine($"{Attacker.Name} 의 스킬 {CurrentBattle.userChoice} 번");
+                    string selectedSkillName = ((Player)Attacker).Skill.skillBook[CurrentBattle.userSkillChoice - 1].Name;
+                    Console.WriteLine($"{Attacker.Name} 의 {selectedSkillName} 사용!");
                     Console.WriteLine($"MP {AttBeforeMp} -> {((Player)Attacker).NowMp}");
                     break;
                 case BattleState.Item:
