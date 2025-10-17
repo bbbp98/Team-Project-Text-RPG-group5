@@ -10,6 +10,7 @@ namespace TextRPG_group5.Scenes
 {
     internal class QuestScene : Scene
     {
+        const int WAIT_SEE = 2000;
         const int REQUIRED = 0;
         private Player player;
 
@@ -21,8 +22,19 @@ namespace TextRPG_group5.Scenes
         {
             if (input != byte.MaxValue)
             {
-                QuestManager.AcceptQuest(input);
-                Program.SetScene(new MainScene(player));
+                if (input != 0)
+                {
+                    QuestManager.AcceptQuest(input);
+                    Console.Clear();
+                    Program.SetScene(new MainScene(player));
+                }
+                else
+                {
+                    Console.WriteLine("메인으로 돌아갑니다.");
+                    Thread.Sleep(WAIT_SEE);
+                    Console.Clear();
+                    Program.SetScene(new MainScene(player));
+                }
             }
             else
             {
@@ -61,6 +73,8 @@ namespace TextRPG_group5.Scenes
                     Console.WriteLine("완료 (진행 불가)");
                 }
             }
+
+            Console.WriteLine("\n 마을로 돌아가기 : 숫자 '0' 입력");
         }
     }
 }

@@ -12,19 +12,40 @@ namespace TextRPG_group5.ItemManage
     internal class Potion : UsableItem
     {
         public int HealAmount { get; protected set; }
+        public int MpAmount { get; protected set; }
 
-        public Potion(string name, string Description, int healAmount, int price)
+        public Potion(string name, string description, int healAmount, int mpAmount, int price)
         {
             Name = name;
             HealAmount = healAmount;
+            MpAmount = mpAmount;
             Price = price;
-            Description = $"{HealAmount}만큼 체력을 보충합니다.";
+            
+
+            if(HealAmount != 0)
+            {
+                this.Description = $"{HealAmount}만큼 체력을 보충합니다.";
+            }
+            else
+            {
+                this.Description = $"{MpAmount}만큼 마나를 보충합니다.";
+            }
         }
 
-        public override void UseItem(Player player)
+        public override void UseItem(Player player, Potion potion)
         {
+            if(potion.HealAmount != 0)
+            {
+                player.NowHp += potion.HealAmount;
+                player.Inventory.RemoveItem(potion);
+            }
+            else
+            {
+                player.NowMp += potion.MpAmount;
+                player.Inventory.RemoveItem(potion);
+            }
+
             Console.WriteLine(Description);
-            player.NowHp += HealAmount;
         }
     }
 }

@@ -9,9 +9,12 @@ namespace TextRPG_group5.ItemManage
     /// <summary>
     /// 1회성 소모품의 추상클래스
     /// </summary>
-    internal abstract class UsableItem : ItemManagement
+    internal class UsableItem : ItemManagement
     {
         // 추상클래스 선언
-        public abstract void UseItem(Player player);
+        public virtual void UseItem(Player player, Potion potion)
+        {
+
+        }
     }
 }

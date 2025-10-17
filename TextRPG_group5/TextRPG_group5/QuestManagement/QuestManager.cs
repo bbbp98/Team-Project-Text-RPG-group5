@@ -92,7 +92,7 @@ namespace TextRPG_group5.QuestManagement
 
                     Console.Write("   ");
                 }
-                Console.WriteLine("\n 좌우방향키로 포인터이동, 엔터 입력시 선택");
+                Console.WriteLine("\n * 좌우방향키로 포인터이동, 엔터 입력시 선택");
 
                 key = Console.ReadKey(true);
 
@@ -127,7 +127,7 @@ namespace TextRPG_group5.QuestManagement
             {
                 q.Status = QuestStatus.InProgress;
                 Console.WriteLine($"[퀘스트를 수락하셨습니다.] {q.QuestTitle}");
-                Console.WriteLine("퀘스트 메뉴로 돌아갑니다.");
+                Console.WriteLine("메인으로 돌아갑니다.");
 
                 return true;
             }
