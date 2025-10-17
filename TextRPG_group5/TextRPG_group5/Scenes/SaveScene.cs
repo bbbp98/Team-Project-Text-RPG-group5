@@ -18,13 +18,13 @@ namespace TextRPG_group5.Scenes
         };
 
         private Player player;
+
         public SaveScene(Player player)
         {
             this.player = player;   
-
         }
 
-        public static void Save(Character player)
+        public static void Save(Player player)
         {
 
             try
