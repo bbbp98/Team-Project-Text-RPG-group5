@@ -72,7 +72,7 @@ namespace TextRPG_group5
                if (item is Weapon weapon && EquippedWeapon == weapon)
                {
                     player.Attack -= weapon.AtkPower;
-                    player.AddCritical(-weapon.CriPro / 100);
+                    player.AddCritical(-weapon.CriPro);
                     weapon.IsEquip = false;
                     EquippedWeapon = null;
                     Console.WriteLine($"{weapon.Name}을(를) 해제했습니다.");

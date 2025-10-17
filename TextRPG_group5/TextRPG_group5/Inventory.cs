@@ -94,8 +94,8 @@ namespace TextRPG_group5
 
                if (item is Potion potion)
                {
-                    potion.UseItem(owner);
-                    //existing.Quantity--;   1개 줄이기
+                    //potion.UseItem(owner, potion);
+                    //existing.ItemCount--; // 1개 줄이기
                     // 개수가 0개면 Remove
                     //if (existing.Quantity < 0)
                     //     RemoveItem(existing);

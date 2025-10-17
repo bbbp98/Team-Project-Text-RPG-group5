@@ -162,11 +162,11 @@ namespace TextRPG_group5
 
             List<UsableItem> usableItems = GetUsableItemList(Player.Inventory);
             
-            /* Inventory 클래스에 구현 예정 (범근님 작업)
+            ///* Inventory 클래스에 구현 예정 (범근님 작업)
             UsableItem selectedItem = usableItems[userChoice - 1];
-            Player.Inventory.UseItem(selectedItem);*/
+            Player.Inventory.UseItem(selectedItem);
 
-            UsableItemOnly[userChoice - 1].UseItem(Player);    // UsableItem 클래스 내 함수 (민근님 작업)
+            //UsableItemOnly[userChoice - 1].UseItem(Player);    // UsableItem 클래스 내 함수 (민근님 작업)
 
             ActionResultScene result = new ActionResultScene(this, attackerBeforeHp, attackerBeforeMp);
             result.Show();

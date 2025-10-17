@@ -53,10 +53,5 @@ namespace TextRPG_group5
           {
                currentScene = scene;
           }
-
-          //static public GameProgress GetGameProgress()
-          //{
-          //     return gameProgress;
-          //}
      }
 }

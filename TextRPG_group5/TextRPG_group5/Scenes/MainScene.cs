@@ -41,8 +41,7 @@ namespace TextRPG_group5.Scenes
                          Program.SetScene(new DungeonEntranceScene(player));
                          break;
                     case 5:
-                         //Save();
-                         Console.WriteLine("게임을 저장합니다.");
+                         Program.SetScene(new SaveScene(player));
                          break;
                     default:
                          Console.ForegroundColor = ConsoleColor.Red;
