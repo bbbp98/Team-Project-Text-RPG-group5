@@ -42,7 +42,7 @@ namespace TextRPG_group5.EffectManagement
             target.NowHp -= this.Value;
             if (target.NowHp < 0)
                 target.NowHp = 0;
-            Console.WriteLine($"{target.Name}은(는) 화상으로 인해 {Value}의 피해를 입었습니다.");
+            Console.WriteLine($"{target.Name}은(는) 타들어가는 고통을 느낍니다. {Value}의 피해!");
         }
     }
 
@@ -66,14 +66,14 @@ namespace TextRPG_group5.EffectManagement
         {
             if (TryFreeze())
             {
-                Console.WriteLine($"{target.Name}은(는) 빙결로 인해 행동 불능 상태에 빠졌습니다!");
+                Console.WriteLine($"{target.Name}의 온몸이 얼어붙습니다.");
                 target.ApplyEffect(new Stun(this.Caster, 1)); // 1턴 동안 행동 불능
             }
 
             target.NowHp -= this.Value;
             if (target.NowHp < 0)
                 target.NowHp = 0;
-            Console.WriteLine($"{target.Name}은(는) 빙결로 인해 {Value}의 피해를 입었습니다.");
+            Console.WriteLine($"{target.Name}은(는) 온몸을 감싸는 추위를 느낍니다. {Value}의 피해.");
         }
     }
 
@@ -93,7 +93,7 @@ namespace TextRPG_group5.EffectManagement
             target.NowHp -= this.Value;
             if (target.NowHp < 0)
                 target.NowHp = 0;
-            Console.WriteLine($"{target.Name}은(는) 독으로 인해 {Value}의 피해를 입었습니다.");
+            Console.WriteLine($"{target.Name}은(는) 영 속이 좋지 않습니다. {Value}의 피해.");
         }
     }
 
