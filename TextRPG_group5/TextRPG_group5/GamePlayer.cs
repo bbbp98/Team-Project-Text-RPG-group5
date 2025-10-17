@@ -83,7 +83,7 @@ namespace TextRPG_group5
                     MaxHp = 80; Attack = 50; Defence = 20; Critical = 0.3; Evasion = 0.3; MaxMp = 90;
                     return true;
                 case "법사":
-                    MaxHp = 60; Attack = 20; Defence = 20; Critical = 0.2; Evasion = 0.1; MaxMp = 120;
+                    MaxHp = 60; Attack = 20; Defence = 20; Critical = 0.5; Evasion = 0.1; MaxMp = 120;
                     return true;
                 default:
                     return false;
@@ -141,8 +141,8 @@ namespace TextRPG_group5
                     MaxMp += 15;
                     break;
                 case "법사":
-                    Attack += 5;
-                    Defence += 3;
+                    Attack += 7;
+                    Defence += 2;
                     MaxHp += 5;
                     MaxMp += 20;
                     break;
