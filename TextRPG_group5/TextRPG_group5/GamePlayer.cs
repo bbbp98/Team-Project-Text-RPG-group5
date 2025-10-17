@@ -9,13 +9,13 @@ namespace TextRPG_group5
 {
     internal class Player : Character
     {
-        public string Job { get; private set; }
+        public string Job { get; set; }
         public int Gold { get; set; }
-        public int Exp { get; private set; }
-        public int MaxExp { get; private set; }
+        public int Exp { get; set; }
+        public int MaxExp { get; set; }
         public int ReachedStage { get; set; }
 
-        public Inventory Inventory { get; private set; }
+        public Inventory Inventory { get; set; }
 
         internal Player(string name, string job)
               : base(name, 0, 0, 0)
@@ -83,7 +83,7 @@ namespace TextRPG_group5
                     MaxHp = 80; Attack = 50; Defence = 20; Critical = 0.3; Evasion = 0.3; MaxMp = 90;
                     return true;
                 case "법사":
-                    MaxHp = 60; Attack = 20; Defence = 20; Critical = 0.2; Evasion = 0.1; MaxMp = 120;
+                    MaxHp = 60; Attack = 20; Defence = 20; Critical = 0.5; Evasion = 0.1; MaxMp = 120;
                     return true;
                 default:
                     return false;
@@ -119,12 +119,12 @@ namespace TextRPG_group5
         public void LevelUp()
         {
             Level++;
-            MaxExp = (int)(MaxExp * 1.2);
+            MaxExp = (int)(MaxExp * 1.05);
             switch (Job)
             {
                 case "전사":
-                    Attack += 3;
-                    Defence += 5;
+                    Attack += 4;
+                    Defence += 4;
                     MaxHp += 20;
                     MaxMp += 5;
                     break;
@@ -141,8 +141,8 @@ namespace TextRPG_group5
                     MaxMp += 15;
                     break;
                 case "법사":
-                    Attack += 5;
-                    Defence += 3;
+                    Attack += 7;
+                    Defence += 2;
                     MaxHp += 5;
                     MaxMp += 20;
                     break;
@@ -150,7 +150,7 @@ namespace TextRPG_group5
             NowHp = MaxHp; NowMp = MaxMp;
             Console.WriteLine($"레벨 업 하였습니다.\n 현재 레벨 : {Level} 입니다.");
         }
-        public PlayerItem Equipment { get; private set; }
+        public PlayerItem Equipment { get; set; }
         public void AddCritical(double amount)
         {
             Critical += amount;
