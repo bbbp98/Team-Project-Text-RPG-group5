@@ -20,30 +20,35 @@ namespace TextRPG_group5
           };
 
           // 소비, 기타 아이템용
-          public int Quanitity { get; private set; } = 1;
-          private List<ItemManagement> items = new List<ItemManagement>();
-          private Player owner;
+          public int Quanitity { get; set; } = 1;
+          public List<ItemManagement> Items { get; set; }
+          private Player Owner { get; set; }
 
           public Inventory()
           {
-
+               Items = new List<ItemManagement>();
           }
+
           public Inventory(Player owner)
           {
-               this.owner = owner;
+               Items = new List<ItemManagement>();
+               this.Owner = owner;
           }
+
+          public void SetOwner(Player owner)
+          { this.Owner = owner; }
 
           /// <summary>
           /// 인벤토리에 해당 아이템이 존재하는지 확인
           /// </summary>
           /// <param name="item"></param>
           /// <returns>존재하면 item을 return, null: 존재X</returns>
-          private ItemManagement? CheckItemExist(ItemManagement item) => items.FirstOrDefault(i => i.Name == item.Name);
+          private ItemManagement? CheckItemExist(ItemManagement item) => Items.FirstOrDefault(i => i.Name == item.Name);
 
           /// <summary>
           /// Inventory의 아이템 종류 개수 받아오기
           /// </summary>
-          public int GetCount() => items.Count;
+          public int GetCount() => Items.Count;
 
           /// <summary>
           /// Inventory에 장비 아이템 추가
@@ -53,7 +58,7 @@ namespace TextRPG_group5
                ItemManagement? existing = CheckItemExist(item);
                if (existing == null)
                {
-                    items.Add(item);
+                    Items.Add(item);
                }
                else
                {
@@ -74,7 +79,7 @@ namespace TextRPG_group5
                if (existing == null)
                {
                     //item.Quantity = amount;
-                    items.Add(item);
+                    Items.Add(item);
                }
                // 인벤토리에 아이템이 존재한다면 개수만 추가
                else
@@ -112,7 +117,7 @@ namespace TextRPG_group5
           /// </summary>
           public void RemoveItem(ItemManagement item)
           {
-               if (items.Remove(item))
+               if (Items.Remove(item))
                {
                     Console.WriteLine($"{item.Name}이(가) 삭제되었습니다.");
                }
@@ -126,19 +131,19 @@ namespace TextRPG_group5
 
           public void Show()
           {
-               items.OrderBy(x => x.Name).ToList();
+               Items.OrderBy(x => x.Name).ToList();
 
                //Console.WriteLine("인벤토리");
                Console.WriteLine();
-               if (items.Count == 0)
+               if (Items.Count == 0)
                {
                     Console.WriteLine("인벤토리가 비어있습니다.");
                     return;
                }
 
-               for (int i = 0; i < items.Count; i++)
+               for (int i = 0; i < Items.Count; i++)
                {
-                    string equipMark = items[i].IsEquip ? "[E]" : "";
+                    string equipMark = Items[i].IsEquip ? "[E]" : "";
                     Console.Write($"- {i + 1}. ");
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"{equipMark}");
@@ -156,8 +161,8 @@ namespace TextRPG_group5
                     //          Console.ForegroundColor = ConsoleColor.Blue;
                     //}
 
-                    Console.Write($"{items[i].Name!.PadRight(10)} | ");
-                    Console.WriteLine(items[i].Description);
+                    Console.Write($"{Items[i].Name!.PadRight(10)} | ");
+                    Console.WriteLine(Items[i].Description);
                     Console.ForegroundColor = ConsoleColor.White;
                }
           }
@@ -168,10 +173,10 @@ namespace TextRPG_group5
           public void Equip(int index)
           {
                index--;
-               if (index < 0 && index > items.Count)
+               if (index < 0 && index > Items.Count)
                     return;
 
-               if (items[index] == null)
+               if (Items[index] == null)
                {
                     Console.WriteLine("장착할 수 있는 아이템이 없습니다.");
                     return;
@@ -183,17 +188,17 @@ namespace TextRPG_group5
                //     return;
                //}
 
-               if (items[index] is EquipItem equipItem)
+               if (Items[index] is EquipItem equipItem)
                {
-                    if (items[index].IsEquip)
-                         owner.Equipment.UnEquipItem(equipItem);
+                    if (Items[index].IsEquip)
+                         Owner.Equipment.UnEquipItem(equipItem);
                     else
-                         owner.Equipment.EquipItem(equipItem);
+                         Owner.Equipment.EquipItem(equipItem);
                }
                else
                {
                     // 소비, 기타
-                    Console.WriteLine($"{items[index].Name}은(는) 장착할 수 없습니다.\n");
+                    Console.WriteLine($"{Items[index].Name}은(는) 장착할 수 없습니다.\n");
                }
           }
 
@@ -205,16 +210,16 @@ namespace TextRPG_group5
                switch (input)
                {
                     case 1: // 이름순
-                         items = items.OrderBy(p => p.Name).ToList();
+                         Items = Items.OrderBy(p => p.Name).ToList();
                          break;
                     case 2: // 장착순(무기 -> 방어구)
-                         items = items.OrderByDescending(p => p.IsEquip).ThenBy(p => order[p.GetType()]).ToList();
+                         Items = Items.OrderByDescending(p => p.IsEquip).ThenBy(p => order[p.GetType()]).ToList();
                          break;
                     case 3: // 장비 아이템순
-                         items = items.OrderBy(p => order[p.GetType()]).ToList();
+                         Items = Items.OrderBy(p => order[p.GetType()]).ToList();
                          break;
                     case 4: // 소비 아이템순
-                         items = items.OrderByDescending(p => order[p.GetType()]).ToList();
+                         Items = Items.OrderByDescending(p => order[p.GetType()]).ToList();
                          break;
                }
           }
@@ -224,7 +229,7 @@ namespace TextRPG_group5
           /// </summary>
           public ItemManagement GetItem(int index)
           {
-               return items[index];
+               return Items[index];
           }
 
      }

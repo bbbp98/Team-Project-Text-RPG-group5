@@ -247,7 +247,7 @@ namespace TextRPG_group5.Scenes
                 Potion potion = (Potion)usableItems[i];
                 
                 // 소비 아이템만 출력
-                Console.WriteLine($"[{i + 1}] {potion.Name} (회복량 : +{potion.HealAmount})");
+                Console.WriteLine($"[{i + 1}] {potion.Name} (회복량 : +{potion.Amount})");
             }
             Console.WriteLine();
 
