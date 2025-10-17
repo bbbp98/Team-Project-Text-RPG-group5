@@ -10,9 +10,9 @@ namespace TextRPG_group5.ItemManage
     // 장비아이템 중 무기류를 관리할 메서드에 추상클래스 EquipItem 상속 후 재정의
     internal class Weapon : EquipItem
     {
-        public int AtkPower { get; protected set; }
-        public double CriPro { get; protected set; }
-        public JobClass Job { get; protected set; }
+        public int AtkPower { get; set; }
+        public double CriPro { get; set; }
+        public JobClass Job { get; set; }
 
         public Weapon(string name, string description, int atkPower, double criPro, int price, int job, bool isEquip)
         {

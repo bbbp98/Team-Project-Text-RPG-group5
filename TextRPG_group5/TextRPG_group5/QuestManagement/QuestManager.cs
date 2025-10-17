@@ -20,7 +20,7 @@ namespace TextRPG_group5.QuestManagement
             "QuestManagement",
             "QuestsInfo.json");
 
-        public static List<Quest>? Quests { get; private set; }
+        public static List<Quest>? Quests { get; set; }
 
 
         public static List<Quest> Load()

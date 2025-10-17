@@ -11,53 +11,54 @@ namespace TextRPG_group5.ItemManage
     /// </summary>
     internal class Potion : UsableItem
     {
-        private static Dictionary<string, int> potionCounts = new();
-        public int HealAmount { get; protected set; }
-        public int MpAmount { get; protected set; }
+        public int Amount { get; set; }
+        public PotionType Type { get; set; }
 
-        public Potion(string name, string description, int healAmount, int mpAmount, int price)
+        public Potion(string name, string description, int amount, int type, int price)
         {
             Name = name;
-            HealAmount = healAmount;
-            MpAmount = mpAmount;
-            Price = price;
-            if(HealAmount != 0)
-            {
-                this.Description = $"{HealAmount}만큼 체력을 보충합니다.";
-            }
-            else
-            {
-                this.Description = $"{MpAmount}만큼 마나를 보충합니다.";
-            }
+            Amount = amount;
+            Type = (PotionType)type;
 
-            if(potionCounts.ContainsKey(name))
+
+            Price = price;
+            if(Type == PotionType.HealthPotion)
             {
-                potionCounts[name]++;
+                this.Description = $"{Amount}만큼 체력을 보충합니다.";
             }
             else
             {
-                potionCounts[name] = 1;
+                this.Description = $"{Amount}만큼 마나를 보충합니다.";
             }
         }
-
-        public static int GetPotionCount(string name) => potionCounts.GetValueOrDefault(name, 0);
-
-        public override void UseItem(Player player, string name)
+        public override void UseItem(Player player, Potion potion)
         {
-            Potion potion = ItemInfo.GetPotionData(name);
-
-            if (potion.HealAmount != 0)
+            if (potion.Type == PotionType.HealthPotion)
             {
-                player.NowHp += potion.HealAmount;
+                if(player.MaxHp < player.NowHp + potion.Amount)
+                {
+                    player.NowHp = player.MaxHp;
+                    Console.WriteLine("HP를 완전히 회복했습니다.");
+                    return;
+                }
+                player.NowHp += potion.Amount;
                 player.Inventory.RemoveItem(potion);
+                Console.WriteLine($"{Description} | 현재 MP : {player.NowMp}");
             }
             else
             {
-                player.NowMp += potion.MpAmount;
+                if (player.MaxMp < player.NowMp + potion.Amount)
+                {
+                    player.NowHp = player.MaxHp;
+                    Console.WriteLine("MP를 완전히 회복했습니다.");
+                    return;
+                }
+                player.NowMp += potion.Amount;
                 player.Inventory.RemoveItem(potion);
+                Console.WriteLine($"{Description} | 현재 MP : {player.NowMp}");
             }
 
-            Console.WriteLine(Description);
+            
         }
     }
 }

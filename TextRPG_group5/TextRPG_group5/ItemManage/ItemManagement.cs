@@ -10,11 +10,10 @@ namespace TextRPG_group5.ItemManage
     // 아이템 전체의 관리하는 클래스
     public class ItemManagement
     {
-        public string? Name { get; protected set; } 
-        public string? Description { get; protected set; }
-        public int Price { get; protected set; }
+        public string? Name { get; set; } 
+        public string? Description { get; set; }
+        public int Price { get; set; }
         public bool IsEquip { get; set; }
-
-        public int ItemCounts { get; protected set; }
+        public int ItemCounts { get; set; }
     }
 }

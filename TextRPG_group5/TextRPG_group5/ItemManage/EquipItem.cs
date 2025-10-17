@@ -7,18 +7,6 @@ using System.Threading.Tasks;
 namespace TextRPG_group5.ItemManage
 {
      /// <summary>
-     /// 이거 말고 JobClass로 사용 바랍니다
-     /// </summary>
-     public enum Class
-     {
-          Warrior = 1,
-          Magician,
-          Archer,
-          Thief,
-          All
-     }
-
-     /// <summary>
      /// 직업 간 차별성을 두기위해 직업별 장착가능한 무기나, 방어구를 구분하기 위한 열거형
      /// </summary>
      public enum JobClass
