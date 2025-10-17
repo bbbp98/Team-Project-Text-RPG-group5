@@ -223,11 +223,11 @@ namespace TextRPG_group5.Scenes
 
         void PrintSkillList()
         {
-            Dictionary<string, Action<Character>> skills = Player.Skill.skillBook;
+            List<SkillData> skills = Player.Skill.skillBook;
 
             for (int i = 0; i < skills.Count; i++)
             {
-                string skillName = skills.Keys.ElementAt(i);
+                string skillName = skills[i].Name;
                 Console.WriteLine($"[{i + 1}] {skillName}");
             }
 
