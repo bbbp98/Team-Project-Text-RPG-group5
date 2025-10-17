@@ -29,6 +29,10 @@ namespace TextRPG_group5
                Items = new List<ItemManagement>();
           }
 
+          public Inventory()
+          {
+
+          }
           public Inventory(Player owner)
           {
                Items = new List<ItemManagement>();
