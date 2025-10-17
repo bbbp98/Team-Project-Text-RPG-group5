@@ -153,8 +153,11 @@ namespace TextRPG_group5.Scenes
 
                     break;
                 case BattleState.Skill:
-                    if (CurrentBattle.userChoice == 0)
+                    if (CurrentBattle.userSkillChoice == 0)
                         PrintSkillList();
+
+                    else if (CurrentBattle.userTargetChoice == 0)
+                        PrintTargetList();
 
                     else
                         CurrentBattle.UseSkill();
