@@ -123,8 +123,8 @@ namespace TextRPG_group5
             switch (Job)
             {
                 case "전사":
-                    Attack += 3;
-                    Defence += 5;
+                    Attack += 4;
+                    Defence += 4;
                     MaxHp += 20;
                     MaxMp += 5;
                     break;
