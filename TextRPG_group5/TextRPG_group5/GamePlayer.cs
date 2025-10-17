@@ -119,7 +119,7 @@ namespace TextRPG_group5
         public void LevelUp()
         {
             Level++;
-            MaxExp = (int)(MaxExp * 1.2);
+            MaxExp = (int)(MaxExp * 1.05);
             switch (Job)
             {
                 case "전사":
