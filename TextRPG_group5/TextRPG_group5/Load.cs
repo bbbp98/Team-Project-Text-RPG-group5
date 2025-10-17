@@ -9,12 +9,13 @@ namespace Save
     {
         private static string SavePath = @"C:\Users\Public\Downloads";
         private static string SaveFile = Path.Combine(SavePath, "Savedata.json");
+
         private static readonly JsonSerializerOptions options = new JsonSerializerOptions
         {
             WriteIndented = true
         };
            
-        public static Character Load()
+        public Character Load()
         {
             if (!File.Exists(SaveFile)) 
             {
@@ -24,7 +25,6 @@ namespace Save
 
             try
             {
-                // 2. 파일에서 JSON 문자열을 읽어옵니다.
                 string json = File.ReadAllText(SaveFile);
 
                 Character? loadedPlayer = JsonSerializer.Deserialize<Character>(json, options);

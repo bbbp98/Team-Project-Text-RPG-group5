@@ -39,6 +39,7 @@ namespace TextRPG_group5
                 case '2':
                     Console.WriteLine("메인 메뉴로 돌아갑니다.");
                     await Pause();
+                    Console.Clear();
                     return ExitAction.ReturnToMainMenu;
 
                 default:
