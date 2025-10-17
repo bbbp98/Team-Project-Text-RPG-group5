@@ -19,7 +19,7 @@
         "강철검"
       ]
     },
-    "Status": "InProgress"
+    "Status": "NoProgress"
   },
   {
     "QuestID": 2,
@@ -37,10 +37,11 @@
       "Exp": 200,
       "Gold": 500,
       "Items": [
-        "HP대형포션"
+        "HP대형포션",
+        "가죽갑옷"
       ]
     },
-    "Status": "InProgress"
+    "Status": "NoProgress"
   },
   {
     "QuestID": 3,
@@ -58,7 +59,7 @@
       "Exp": 400,
       "Gold": 1000,
       "Items": [
-        "가죽갑옷"
+        "가죽보호구"
       ]
     },
     "Status": "NoProgress"
@@ -76,52 +77,54 @@
       }
     ],
     "Rewards": {
-      "Exp": 150,
-      "Gold": 200,
+      "Exp": 500,
+      "Gold": 2000,
       "Items": [
-        "가죽갑옷"
+        "강철갑옷"
       ]
     },
     "Status": "NoProgress"
   },
   {
     "QuestID": 5,
-    "QuestTitle": "오크의 위협",
-    "QuestDescription": "마을 근처 숲에 출몰하는 오크 3마리를 처치하라.",
+    "QuestTitle": "광대 공포증",
+    "QuestDescription": "던전에 출몰하는 어릿광대를 토벌하라.",
     "objectives": [
       {
         "Type": "토벌",
-        "Target": "오크",
-        "Count": 4,
+        "Target": "어릿광대",
+        "Count": 3,
         "Current": 1
       }
     ],
     "Rewards": {
-      "Exp": 150,
-      "Gold": 200,
+      "Exp": 600,
+      "Gold": 2500,
       "Items": [
-        "가죽갑옷"
+        "카람빗",
+        "암행복"
       ]
     },
     "Status": "NoProgress"
   },
   {
     "QuestID": 6,
-    "QuestTitle": "오크의 위협",
-    "QuestDescription": "마을 근처 숲에 출몰하는 오크 3마리를 처치하라.",
+    "QuestTitle": "드래곤 슬레이어",
+    "QuestDescription": "하늘 아래 두 개의 태양은 없다. 드래곤을 무찌르고 유일한 최강자로 군림하라.",
     "objectives": [
       {
         "Type": "토벌",
-        "Target": "오크",
-        "Count": 4,
-        "Current": 1
+        "Target": "드래곤",
+        "Count": 1,
+        "Current": 0
       }
     ],
     "Rewards": {
-      "Exp": 150,
-      "Gold": 200,
+      "Exp": 2000,
+      "Gold": 10000,
       "Items": [
-        "가죽갑옷"
+        "창세신의 무구",
+        "창세신의 가호"
       ]
     },
     "Status": "NoProgress"
