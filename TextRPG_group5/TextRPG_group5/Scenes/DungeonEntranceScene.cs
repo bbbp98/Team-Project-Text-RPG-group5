@@ -31,8 +31,7 @@ namespace TextRPG_group5.Scenes
                }
                else
                {
-                    if (input == 9)
-                         StageManager.Instance.SetPlayer(player);
+                    StageManager.Instance.SetPlayer(player);
                     // go to BattleScene
                     Battle selectedStage = new Battle(player, StageManager.Instance.CreateMonsters(input), input);
                     Program.SetScene(new BattleScene(selectedStage));

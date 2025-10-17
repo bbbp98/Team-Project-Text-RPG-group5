@@ -9,7 +9,7 @@ namespace TextRPG_group5.Managers
      internal class StageManager
      {
           static private StageManager? _instance;
-
+          private readonly Dictionary<int, IStageFactory> stageFactories = new();
           // singleton
           public static StageManager Instance
           {
@@ -21,6 +21,11 @@ namespace TextRPG_group5.Managers
                }
           }
 
+          private StageManager()
+          {
+               RegisterStages();
+          }
+
           private Player? player;
 
           public void SetPlayer(Player player)
@@ -28,52 +33,33 @@ namespace TextRPG_group5.Managers
                this.player = player;
           }
 
-          public List<Monster> CreateMonsters(int stage)
+          public List<Monster> CreateMonsters(int currentStage)
           {
-               List<Monster> monsters = new List<Monster>();
-
-               // 이런 방식으로 생각 중입니다. or switch(더 촘촘하게 하려면)
-               if (stage <= 2)
+               if (stageFactories.TryGetValue(currentStage, out IStageFactory? factory))
                {
-                    // 슬라임1, 고블린1
-                    monsters.Add(new Slime(stage));
-                    monsters.Add(new Goblin(stage));
-               }
-               else if (stage <= 4)
-               {
-                    // 고블린1, 홉 고블린1, 오크1
-                    monsters.Add(new Goblin(stage));
-                    monsters.Add(new HobGoblin(stage));
-                    monsters.Add(new Orc(stage));
-               }
-               else if (stage <= 6)
-               {
-                    monsters.Add(new Golem(stage));
-                    monsters.Add(new Skeleton(stage));
-                    monsters.Add(new ShadowAssassin(stage));
-               }
-               else if (stage <= 8)
-               {
-                    double rand = new Random().NextDouble();
-                    if (rand < 0.05)
-                         monsters.Add(new PresentBox(stage));
-                    monsters.Add(new Golem(stage));
-                    monsters.Add(new Jester(stage));
-                    monsters.Add(new Jester(stage));
-               }
-               else if (stage == 9)
-               {
-                    monsters.Add(new Dople(player!));
-                    monsters.Add(new Slime(stage));
-                    monsters.Add(new Slime(stage));
-               }
-               else if (stage == 10)
-               {
-                    // boss
-                    monsters.Add(new Dragon(stage));
+                    return factory.Create(player!, currentStage);
                }
 
-               return monsters;
+               return new List<Monster>();
+          }
+
+          private void RegisterStages()
+          {
+               stageFactories.Add(1, new Stage1Factory());
+               stageFactories.Add(2, new Stage2Factory());
+               stageFactories.Add(3, new Stage3Factory());
+               stageFactories.Add(4, new Stage4Factory());
+               stageFactories.Add(5, new Stage5Factory());
+               stageFactories.Add(6, new Stage6Factory());
+               stageFactories.Add(7, new Stage7Factory());
+               stageFactories.Add(8, new Stage8Factory());
+               stageFactories.Add(9, new Stage9Factory());
+               stageFactories.Add(10, new Stage10Factory());
+               stageFactories.Add(11, new Stage11Factory());
+               stageFactories.Add(12, new Stage12Factory());
+               stageFactories.Add(13, new Stage13Factory());
+               stageFactories.Add(14, new Stage14Factory());
+               stageFactories.Add(15, new Stage15Factory());
           }
      }
 }
