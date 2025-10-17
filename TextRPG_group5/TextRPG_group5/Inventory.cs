@@ -219,6 +219,7 @@ namespace TextRPG_group5
                return Items[index];
           }
 
+          /// <returns>인벤토리 안의 모든 UsableItem 반환</returns>
           public List<UsableItem> GetUsableItems()
           {
                List<UsableItem> usableItems = new List<UsableItem>();
