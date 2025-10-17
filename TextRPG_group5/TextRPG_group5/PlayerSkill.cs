@@ -40,7 +40,7 @@ namespace TextRPG_group5
         {
             Console.WriteLine("====  보유 스킬  ====");
             foreach(var skill in skillBook)
-                Console.WriteLine($"={skill}=");
+                Console.WriteLine($"={skill.Name}=");
             Console.WriteLine("====================");
         }
         public void UseSkill(int index, Character target)
