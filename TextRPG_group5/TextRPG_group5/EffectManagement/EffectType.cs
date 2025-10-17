@@ -9,11 +9,13 @@ namespace TextRPG_group5.EffectManagement
     public enum EffectType  // 효과 타입
     {
         // 긍정적 효과
-        AtkUp, DefUp, CriticalUp, EvasionUp,
+        AtkUp, DefUp, CriticalUp, EvasionUp,            // 버프 계열(미구현)
+        Shield,                                         // 보호막 계열(미구현)
 
         // 부정적 효과
-        AtkDown, DefDown, CriticalDown, EvasionDown,    // 디버프 계열
-        Burn, Freeze, Poison, Stun                                       // 상태이상 계열
+        AtkDown, DefDown, CriticalDown, EvasionDown,    // 디버프 계열(미구현)
+        Burn, Freeze, Poison,                           // 지속 피해 계열
+        Stun                                            // 상태이상 계열
     }
 
     /*
@@ -33,14 +35,14 @@ namespace TextRPG_group5.EffectManagement
         public Burn(Character caster, int duration) : base(caster, duration)
         {
             Type = EffectType.Burn;
-            this.Value = (int)(5 + caster.NowMp * burnRate);    // 매 턴 5 + 시전자의 시전 당시 마나의 10% 만큼 피해
+            this.Value = (int)(7 + caster.NowMp * burnRate);    // 매 턴 7 + 시전자의 시전 당시 마나의 10% 만큼 피해
         }
         public override void OnTurnStart(Character target)
         {
             target.NowHp -= this.Value;
             if (target.NowHp < 0)
                 target.NowHp = 0;
-            Console.WriteLine($"{target.Name}은(는) 화상으로 인해 {Value}의 피해를 입었습니다.");
+            Console.WriteLine($"{target.Name}은(는) 타들어가는 고통을 느낍니다. {Value}의 피해!");
         }
     }
 
@@ -64,24 +66,26 @@ namespace TextRPG_group5.EffectManagement
         {
             if (TryFreeze())
             {
-                Console.WriteLine($"{target.Name}은(는) 빙결로 인해 행동 불능 상태에 빠졌습니다!");
-                Stun freezeStun = new Stun(this.Caster, 1); // 1턴 동안 행동 불능
+                Console.WriteLine($"{target.Name}의 온몸이 얼어붙습니다.");
+                target.ApplyEffect(new Stun(this.Caster, 1)); // 1턴 동안 행동 불능
             }
 
             target.NowHp -= this.Value;
             if (target.NowHp < 0)
                 target.NowHp = 0;
-            Console.WriteLine($"{target.Name}은(는) 빙결로 인해 {Value}의 피해를 입었습니다.");
+            Console.WriteLine($"{target.Name}은(는) 온몸을 감싸는 추위를 느낍니다. {Value}의 피해.");
         }
     }
 
     internal class Poison : Effect
     {
         // 시전자의 레벨에 비례하여 지속적인 피해를 입히는 효과
+        public double poisonRate = 0.05; // 독 피해 비율
+
         public Poison(Character caster, int duration) : base(caster, duration)
         {
             Type = EffectType.Poison;
-            this.Value = (int)(5 + caster.Attack * 0.1);    // 매 턴 5 + 시전자의 공격력 10% 만큼 피해
+            this.Value = (int)(3 + caster.Attack * poisonRate);    // 매 턴 3 + 시전자의 공격력 5% 만큼 피해
         }
 
         public override void OnTurnStart(Character target)
@@ -89,7 +93,7 @@ namespace TextRPG_group5.EffectManagement
             target.NowHp -= this.Value;
             if (target.NowHp < 0)
                 target.NowHp = 0;
-            Console.WriteLine($"{target.Name}은(는) 독으로 인해 {Value}의 피해를 입었습니다.");
+            Console.WriteLine($"{target.Name}은(는) 영 속이 좋지 않습니다. {Value}의 피해.");
         }
     }
 

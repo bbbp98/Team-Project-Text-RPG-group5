@@ -22,11 +22,5 @@ namespace TextRPG_group5.EffectManagement
 
         public virtual void OnTurnStart(Character target) { }
         // 턴 시작 시 발동하는 효과 (독, 화상 등). 아무 효과가 없으면 빈 메서드
-
-        public virtual int GetAttackModifier() { return 0; }
-        public virtual int GetDefenceModifier() { return 0; }
-        public virtual double GetCriticalModifier() { return 0; }
-        public virtual double GetEvasionModifier() { return 0; }
-        // 스탯에 적용되는 효과들. 기본값은 0
     }
 }
