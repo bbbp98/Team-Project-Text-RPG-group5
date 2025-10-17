@@ -68,7 +68,7 @@ namespace TextRPG_group5
             target.TakeDamage(damage, 0);
             Console.WriteLine($"파워 슬래시 사용.{target.Name} 에게 {damage} 의 피해를 입힘");
         }
-        private void HeadShot(Character target)
+        private void HeadShot(Character target) // 크리 터짐
         {
             int mpCost = 20;
             if (player.NowMp < mpCost)
@@ -78,7 +78,7 @@ namespace TextRPG_group5
             }
             player.NowMp -= mpCost;
             int damage = player.Attack * 3;
-            target.TakeDamage(damage, 0);
+            target.TakeDamage(damage, player.Critical);
             Console.WriteLine($"헤드 샷 사용.{target.Name} 에게 {damage} 의 피해를 입힘");
         }
         private void DoubleStep(Character target) // 2회공격 크리터짐
