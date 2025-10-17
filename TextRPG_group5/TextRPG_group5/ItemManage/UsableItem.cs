@@ -12,7 +12,7 @@ namespace TextRPG_group5.ItemManage
     internal class UsableItem : ItemManagement
     {
         // 추상클래스 선언
-        public virtual void UseItem(Player player, Potion potion)
+        public virtual void UseItem(Player player, string name)
         {
 
         }

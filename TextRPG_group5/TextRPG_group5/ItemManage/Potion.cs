@@ -11,6 +11,7 @@ namespace TextRPG_group5.ItemManage
     /// </summary>
     internal class Potion : UsableItem
     {
+        private static Dictionary<string, int> potionCounts = new();
         public int HealAmount { get; protected set; }
         public int MpAmount { get; protected set; }
 
@@ -20,8 +21,6 @@ namespace TextRPG_group5.ItemManage
             HealAmount = healAmount;
             MpAmount = mpAmount;
             Price = price;
-            
-
             if(HealAmount != 0)
             {
                 this.Description = $"{HealAmount}만큼 체력을 보충합니다.";
@@ -30,11 +29,24 @@ namespace TextRPG_group5.ItemManage
             {
                 this.Description = $"{MpAmount}만큼 마나를 보충합니다.";
             }
+
+            if(potionCounts.ContainsKey(name))
+            {
+                potionCounts[name]++;
+            }
+            else
+            {
+                potionCounts[name] = 1;
+            }
         }
 
-        public override void UseItem(Player player, Potion potion)
+        public static int GetPotionCount(string name) => potionCounts.GetValueOrDefault(name, 0);
+
+        public override void UseItem(Player player, string name)
         {
-            if(potion.HealAmount != 0)
+            Potion potion = ItemInfo.GetPotionData(name);
+
+            if (potion.HealAmount != 0)
             {
                 player.NowHp += potion.HealAmount;
                 player.Inventory.RemoveItem(potion);
