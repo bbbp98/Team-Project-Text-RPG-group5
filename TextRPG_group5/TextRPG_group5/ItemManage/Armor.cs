@@ -11,12 +11,10 @@ namespace TextRPG_group5.ItemManage
 {
      public class Armor : EquipItem
      {
-          public int DefPower { get; protected set; }
-
-          public JobClass Job { get; protected set; }
-
-          public bool isCorrect { get; protected set; }
-          public double EvadePro { get; protected set; }
+          public int DefPower { get; set; }
+          public JobClass Job { get; set; }
+          public bool isCorrect { get; set; }
+          public double EvadePro { get; set; }
           public Armor(string name, string description, int defPower, double evadePro, int price, int job, bool isEquip)
           {
                string jobLimits;
