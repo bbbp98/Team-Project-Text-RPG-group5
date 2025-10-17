@@ -51,6 +51,8 @@ namespace TextRPG_group5.Scenes
 
                     CurrentBattle.SetBattleState(BattleState.None);
                     CurrentBattle.userChoice = 0;
+                    CurrentBattle.userTargetChoice = 0;
+                    CurrentBattle.userSkillChoice = 0;
                     CurrentBattle.isPlayerTurn = !CurrentBattle.isPlayerTurn; // 턴 교체
 
                     Program.SetScene(new BattleScene(CurrentBattle));
