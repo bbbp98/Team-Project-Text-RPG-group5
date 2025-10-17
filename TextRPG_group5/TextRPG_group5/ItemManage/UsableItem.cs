@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace TextRPG_group5.ItemManage
 {
+    public enum PotionType
+    {
+        HealthPotion = 1,
+        ManaPotion
+    }
     /// <summary>
     /// 1회성 소모품의 추상클래스
     /// </summary>
     internal class UsableItem : ItemManagement
     {
         // 추상클래스 선언
-        public virtual void UseItem(Player player, string name)
+        public virtual void UseItem(Player player, Potion potion)
         {
 
         }
