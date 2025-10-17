@@ -11,8 +11,8 @@ namespace TextRPG_group5.ItemManage
     /// </summary>
     internal class Potion : UsableItem
     {
-        public int Amount { get; protected set; }
-        public PotionType Type { get; protected set; }
+        public int Amount { get; set; }
+        public PotionType Type { get; set; }
 
         public Potion(string name, string description, int amount, int type, int price)
         {
