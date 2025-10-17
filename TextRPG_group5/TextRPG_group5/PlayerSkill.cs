@@ -9,7 +9,9 @@ namespace TextRPG_group5
     internal class PlayerSkill
     {
         private Player player;
-        public Dictionary<string, Action<Character>> skillBook = new Dictionary<string, Action<Character>>();
+        
+            public List<SkillData> skillBook { get; set; } = new List<SkillData>();
+        
         public PlayerSkill(Player player)
         {
             this.player = player;
@@ -20,16 +22,16 @@ namespace TextRPG_group5
             switch (player.Job)
             {
                 case "전사":
-                    skillBook.Add("파워 슬래시", PowerSlash);
+                    skillBook.Add(new SkillData("파워 슬래시", 20, PowerSlash));
                     break;
                 case "궁수":
-                    skillBook.Add("헤드 샷", HeadShot);
+                    skillBook.Add(new SkillData("헤드 샷", 20, HeadShot));
                     break;
                 case "도적":
-                    skillBook.Add("더블 스텝", DoubleStep);
+                    skillBook.Add(new SkillData("더블 스텝", 15, DoubleStep));
                     break;
                 case "법사":
-                    skillBook.Add("파이어 볼", FireBall);
+                    skillBook.Add(new SkillData("파이어 볼", 30, FireBall));
                     break;
 
             }
@@ -37,23 +39,25 @@ namespace TextRPG_group5
         public void ShowSkill()
         {
             Console.WriteLine("====  보유 스킬  ====");
-            foreach(var skill in skillBook.Keys)
+            foreach(var skill in skillBook)
                 Console.WriteLine($"={skill}=");
             Console.WriteLine("====================");
         }
-        public void UseSkill(string skillName, Character target)
+        public void UseSkill(int index, Character target)
         {
-            if(!skillBook.ContainsKey(skillName))
+            if (index < 0 || index >= skillBook.Count)
             {
-                Console.WriteLine("존재하지 않는 스킬입니다.");
+                Console.WriteLine("잘못된 스킬 선택입니다.");
                 return;
             }
-            if(target == null)
+
+            if (target == null)
             {
-                Console.WriteLine("타겟이 존재하지 않습니다");
+                Console.WriteLine("타겟이 존재하지 않습니다.");
                 return;
             }
-            skillBook[skillName](target);
+
+            skillBook[index].Action(target);
             }
         private void PowerSlash(Character target)
         {
@@ -109,6 +113,19 @@ namespace TextRPG_group5
             int damage = player.Attack * 4;
             target.TakeDamage(damage, 0);
             Console.WriteLine($"파이어 볼 사용. {target.Name}에게 {damage} 의 피해를 입힘");
+        }
+    }
+    internal class SkillData //UseSkill(int index, Character target)로도 가능
+    {
+        public string Name { get; }
+        public Action<Character> Action { get; }
+        public int MpCost { get; }
+
+        public SkillData(string name, int mpCost, Action<Character> action)
+        {
+            Name = name;
+            Action = action;
+            MpCost = mpCost;
         }
     }
 }
