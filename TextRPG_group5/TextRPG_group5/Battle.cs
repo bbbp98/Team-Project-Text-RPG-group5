@@ -45,7 +45,7 @@ namespace TextRPG_group5
 
             preBattlePlayer = Player.Clone();
 
-            UsableItemOnly = GetUsableItemList(Player.Inventory);
+            UsableItemOnly = Player.Inventory.GetUsableItems();
         }
 
         public void SetBattleState(BattleState currentState) => state = currentState;
@@ -155,7 +155,7 @@ namespace TextRPG_group5
             int attackerBeforeHp = Player.NowHp;
             int attackerBeforeMp = Player.NowMp;
 
-            List<UsableItem> usableItems = GetUsableItemList(Player.Inventory);
+            List<UsableItem> usableItems = Player.Inventory.GetUsableItems();
             
             UsableItem selectedItem = usableItems[userChoice - 1];
             Player.Inventory.UseItem(selectedItem);
@@ -163,19 +163,6 @@ namespace TextRPG_group5
             ActionResultScene result = new ActionResultScene(this, attackerBeforeHp, attackerBeforeMp);
             result.Show();
             Program.SetScene(result);
-        }
-
-        public List<UsableItem> GetUsableItemList(Inventory playerInventory)
-        {
-            List<UsableItem> usableItems = new List<UsableItem>();
-
-            for (int i = 0; i < playerInventory.GetCount(); i++)
-            {
-                if (playerInventory.GetItem(i) is UsableItem)
-                    usableItems.Add((UsableItem)playerInventory.GetItem(i));
-            }
-
-            return usableItems;
         }
 
         public bool IsAllEnemyDead()
