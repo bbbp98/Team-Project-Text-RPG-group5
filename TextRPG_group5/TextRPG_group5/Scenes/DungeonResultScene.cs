@@ -51,13 +51,16 @@ namespace TextRPG_group5.Scenes
 
           public override void HandleInput(byte input)
           {
+               if (!isClearStage)
+                    return;
+
                switch (input)
                {
                     case 0:
                          if (isClearStage)
                               Program.SetScene(new DungeonEntranceScene(player));
-                         else
-                              Program.SetScene(new MainScene(player));
+                         //else
+                         //     Program.SetScene(new MainScene(player));
                          break;
                     default:
                          Console.ForegroundColor = ConsoleColor.Red;
@@ -76,24 +79,35 @@ namespace TextRPG_group5.Scenes
                // 던전 클리어
                if (isClearStage)
                {
-                    Console.WriteLine("Victory\n");
-
-                    Console.WriteLine("적이 쓰러지자 탑의 문이 천천히 열린다.");
-                    Console.WriteLine("새로운 층이 모습을 드러냈다");
-                    Console.WriteLine("당신의 용기는 탑의 정점을 향해 한 걸음 더 나아간다.");
+                    Console.WriteLine("===========================================");
+                    Console.WriteLine("           던전 클리어 성공!!!");
+                    Console.WriteLine("===========================================\n");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("던전을 클리어했다!");
+                    Console.WriteLine("적들의 흔적이 사라지고, 승리의 기운이 감돈다.");
                     Console.WriteLine();
                }
                else
                {
-                    Console.WriteLine("이번엔 패배했지만, 모험은 끝나지 않았다.");
-                    Console.WriteLine("누군가는 포기하겠지만, 진정한 모험가는 다시 돌아온다.");
-                    Console.WriteLine("실패는 또 다른 시작일 뿐이다. 준비를 마치고 다시 도전하라.");
-                    Console.WriteLine();
+                    Console.WriteLine("===========================================");
+                    Console.WriteLine("               던전 클리어 실패...");
+                    Console.WriteLine("===========================================\n");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("몸이 무겁다. 시야가 흐려진다.");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("[당신은 정신을 잃었습니다...]\n");
+                    Thread.Sleep(2000);
+                    Console.WriteLine("하지만, 포기하지 마라.");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("다시 일어나 도전할 시간이다.");
+                    Thread.Sleep(1000);
+                    Program.SetScene(new MainScene(player));
                }
 
                Result();
 
-               Console.WriteLine("0. 돌아가기");
+               if (isClearStage)
+                    Console.WriteLine("0. 돌아가기");
           }
 
           private void Result()
@@ -105,6 +119,7 @@ namespace TextRPG_group5.Scenes
                     player.Gold += reward.Gold; // Player에서 Exp처럼 Gold를 더할 수 있는 메서드 필요
                     player.GainExp(reward.Exp);
 
+                    Thread.Sleep(1000);
                     Console.WriteLine("[캐릭터 정보]");
                     string levelStr = preBattlePlayer.Level.ToString();
                     string atkStr = preBattlePlayer.Attack.ToString();
@@ -129,18 +144,19 @@ namespace TextRPG_group5.Scenes
 
                     if (stage == player.ReachedStage) // update player stage
                     {
+                         Thread.Sleep(1000);
                          Console.WriteLine("\n최고 층이 갱신되었습니다.");
                          if (player.ReachedStage < Program.maxStage)
                               player.ReachedStage++;
                     }
+                    Console.WriteLine();
                }
                else
                {
-                    Console.WriteLine("[캐릭터 정보]");
-                    Console.WriteLine($"Lv: {player.Level} {player.Name}");
-                    Console.WriteLine($"HP: {preBattlePlayer.NowHp} -> {player.NowHp}");
+                    player.NowHp = player.MaxHp;
+                    Program.SetSkipInput(true);
+                    Console.Clear();
                }
-               Console.WriteLine();
           }
      }
 }

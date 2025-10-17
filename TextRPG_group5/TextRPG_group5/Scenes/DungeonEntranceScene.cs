@@ -45,9 +45,8 @@ namespace TextRPG_group5.Scenes
                Console.WriteLine("던전 입구\n");
                Console.ForegroundColor = ConsoleColor.White;
 
-               Console.WriteLine("그 누구도 끝까지 도달하지 못한 곳. 이제 당신이 그 전설이 될 차례다.");
-               Console.WriteLine("탑의 꼭대기에는 전설의 보스가 잠들어 있다고 한다.");
-               Console.WriteLine("한 층, 또 한 층. 당신의 용기만이 길을 밝혀줄 것이다.");
+               Console.WriteLine("던전의 문이 다시 열렸다.");
+               Console.WriteLine("용기를 내어 발걸음을 내딛어라.");
 
                Console.WriteLine();
                int stage = player.ReachedStage;

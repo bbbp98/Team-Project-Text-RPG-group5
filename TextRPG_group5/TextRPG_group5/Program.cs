@@ -10,7 +10,7 @@ namespace TextRPG_group5
      {
           static private Scene? currentScene = new NewTitleScene();
           static private Player? player;
-
+          static private bool isSkipInput = false;
           public const int maxStage = 10;
 
           static void Main(string[] args)
@@ -25,6 +25,11 @@ namespace TextRPG_group5
                     else
                     {
                          currentScene!.Show();
+                         if (isSkipInput)
+                         {
+                              isSkipInput = false;
+                              continue;
+                         }
                          Console.WriteLine();
                          Console.WriteLine("원하시는 행동을 입력해주세요.");
                          Console.Write(">> ");
@@ -77,6 +82,11 @@ namespace TextRPG_group5
           static public void SetScene(Scene scene)
           {
                currentScene = scene;
+          }
+
+          static public void SetSkipInput(bool isSkip)
+          {
+               isSkipInput = isSkip;
           }
      }
 }
