@@ -13,7 +13,7 @@ namespace TextRPG_group5.ItemManage
      {
           public int DefPower { get; protected set; }
 
-          public Class Job { get; protected set; }
+          public JobClass Job { get; protected set; }
 
           public bool isCorrect { get; protected set; }
           public double EvadePro { get; protected set; }
@@ -22,7 +22,7 @@ namespace TextRPG_group5.ItemManage
                string jobLimits;
 
                Name = name;
-               Job = (Class)job;
+               Job = (JobClass)job;
                if ((int)Job == 1)
                {
                     jobLimits = "전사";

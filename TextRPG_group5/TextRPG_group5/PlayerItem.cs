@@ -18,12 +18,12 @@ namespace TextRPG_group5
           public PlayerItem(Player player)
           { this.player = player; }
 
-          private bool IsJobMatch(Class job)
+          private bool IsJobMatch(JobClass job)
           {
-               return (player.Job == "전사" && job == Class.Warrior)
-               || (player.Job == "마법사" && job == Class.Magician)
-               || (player.Job == "궁수" && job == Class.Archer)
-               || (player.Job == "도적" && job == Class.Thief);
+               return (player.Job == "전사" && job == JobClass.Warrior)
+               || (player.Job == "마법사" && job == JobClass.Magician)
+               || (player.Job == "궁수" && job == JobClass.Archer)
+               || (player.Job == "도적" && job == JobClass.Thief);
                //|| job == Class.All;
           }
 

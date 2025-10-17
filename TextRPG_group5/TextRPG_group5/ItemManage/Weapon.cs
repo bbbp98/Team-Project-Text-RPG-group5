@@ -12,14 +12,14 @@ namespace TextRPG_group5.ItemManage
     {
         public int AtkPower { get; protected set; }
         public double CriPro { get; protected set; }
-        public Class Job { get; protected set; }
+        public JobClass Job { get; protected set; }
 
         public Weapon(string name, string description, int atkPower, double criPro, int price, int job, bool isEquip)
         {
             string jobLimits;
 
             Name = name;
-            Job = (Class)job;
+            Job = (JobClass)job;
             AtkPower = atkPower;
             CriPro = criPro;
 

@@ -97,5 +97,34 @@ namespace TextRPG_group5
                     }
                }
           }
+
+          // 모든 버프/디버프가 적용된 최종 스탯을 계산하는 메서드들
+          public int GetFinalAttack()
+          {
+               int modifier = effects.Sum(e => e.GetAttackModifier());
+               return Attack + modifier;
+               //return Attack; // 아직 GetAttackModifier가 없으므로 임시로 기본값 반환
+          }
+
+          public int GetFinalDefence()
+          {
+               int modifier = effects.Sum(e => e.GetDefenceModifier());
+               return Defence + modifier;
+               //return Defence; // 아직 GetDefenceModifier가 없으므로 임시로 기본값 반환
+          }
+
+          public double GetFinalCritical()
+          {
+               double modifier = effects.Sum(e => e.GetCriticalModifier());
+               return Critical + modifier;
+               //return Critical; // 아직 GetCriticalModifier가 없으므로 임시로 기본값 반환
+          }
+
+          public double GetFinalEvasion()
+          {
+               double modifier = effects.Sum(e => e.GetEvasionModifier());
+               return Evasion + modifier;
+               //return Evasion; // 아직 GetEvasionModifier가 없으므로 임시로 기본값 반환
+          }
      }
 }
