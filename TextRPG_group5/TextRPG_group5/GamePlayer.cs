@@ -9,13 +9,13 @@ namespace TextRPG_group5
 {
     internal class Player : Character
     {
-        public string Job { get; private set; }
+        public string Job { get; set; }
         public int Gold { get; set; }
-        public int Exp { get; private set; }
-        public int MaxExp { get; private set; }
+        public int Exp { get; set; }
+        public int MaxExp { get; set; }
         public int ReachedStage { get; set; }
 
-        public Inventory Inventory { get; private set; }
+        public Inventory Inventory { get; set; }
 
         internal Player(string name, string job)
               : base(name, 0, 0, 0)
@@ -150,7 +150,7 @@ namespace TextRPG_group5
             NowHp = MaxHp; NowMp = MaxMp;
             Console.WriteLine($"레벨 업 하였습니다.\n 현재 레벨 : {Level} 입니다.");
         }
-        public PlayerItem Equipment { get; private set; }
+        public PlayerItem Equipment { get; set; }
         public void AddCritical(double amount)
         {
             Critical += amount;

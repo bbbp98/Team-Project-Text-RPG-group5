@@ -11,9 +11,9 @@ namespace TextRPG_group5
      {
           private Player player;
 
-          public Weapon? EquippedWeapon { get; private set; }
+          public Weapon? EquippedWeapon { get; set; }
 
-          public Armor? EquippedArmor { get; private set; }
+          public Armor? EquippedArmor { get; set; }
 
           public PlayerItem(Player player)
           { this.player = player; }
