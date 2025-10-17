@@ -43,11 +43,11 @@ namespace TextRPG_group5
                // test items initialize
                player.Inventory.AddItem(ItemInfo.GetItem("목검"));
                player.Inventory.AddItem(ItemInfo.GetItem("워해머"));
-               player.Inventory.AddItem(ItemInfo.GetItem("HP소형포션"));
                player.Inventory.AddItem(ItemInfo.GetItem("나무 활"));
                player.Inventory.AddItem(ItemInfo.GetItem("가죽갑옷"));
                player.Inventory.AddItem(ItemInfo.GetItem("숙련자의 로브"));
-               player.Inventory.AddItem(ItemInfo.GetItem("MP소형포션"));
+               player.Inventory.AddItem(ItemInfo.GetItem("HP소형포션"), 3);
+               player.Inventory.AddItem(ItemInfo.GetItem("MP소형포션"), 3);
 
                // scene initialize
                currentScene = new MainScene(player); // startScene
