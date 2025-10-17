@@ -24,6 +24,10 @@ namespace TextRPG_group5
           private List<ItemManagement> items = new List<ItemManagement>();
           private Player owner;
 
+          public Inventory()
+          {
+
+          }
           public Inventory(Player owner)
           {
                this.owner = owner;
