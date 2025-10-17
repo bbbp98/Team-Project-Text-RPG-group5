@@ -70,9 +70,7 @@ namespace TextRPG_group5.Scenes
                 }
                 else if (CurrentBattle.GetBattleState() == BattleState.Skill)
                 {
-                    int skillCount = 3; // player.Skills.Count;
-
-                    if (input > skillCount)
+                    if (input > Player.Skill.skillBook.Count)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("잘못된 입력입니다.\n");
