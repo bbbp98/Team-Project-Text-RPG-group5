@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.Json;
 using TextRPG_group5;
 
-namespace Save
+namespace Load
 {
     internal class LoadData
     {
