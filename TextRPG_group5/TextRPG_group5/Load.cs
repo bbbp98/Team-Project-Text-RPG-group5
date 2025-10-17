@@ -7,15 +7,14 @@ namespace Save
 {
     internal class LoadData
     {
-        private static string SavePath = @"C:\Users\Public\Downloads";
-        private static string SaveFile = Path.Combine(SavePath, "Savedata.json");
-
+        //private static string SavePath = @"C:\Users\Public\Downloads";
+        private static string SaveFile = Path.Combine("Savedata.json");
         private static readonly JsonSerializerOptions options = new JsonSerializerOptions
         {
             WriteIndented = true
         };
            
-        public Character Load()
+        public Player Load()
         {
             if (!File.Exists(SaveFile)) 
             {
@@ -26,9 +25,7 @@ namespace Save
             try
             {
                 string json = File.ReadAllText(SaveFile);
-
-                Character? loadedPlayer = JsonSerializer.Deserialize<Character>(json, options);
-
+                Player? loadedPlayer = JsonSerializer.Deserialize<Player>(json, options);
                 Console.WriteLine($"데이터를 성공적으로 불러왔습니다.");
 
                 return loadedPlayer;
