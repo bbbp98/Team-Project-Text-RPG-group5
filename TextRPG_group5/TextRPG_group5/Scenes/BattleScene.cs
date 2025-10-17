@@ -244,9 +244,11 @@ namespace TextRPG_group5.Scenes
             {
                 // TODO : 일단 포션만, 나중에 버프/디버프 소비 아이템도 추가
                 Potion potion = (Potion)usableItems[i];
-                
+                PotionType type = potion.Type;
+                string typeStr = (type == PotionType.HealthPotion) ? "HP" : "MP";
+
                 // 소비 아이템만 출력
-                Console.WriteLine($"[{i + 1}] {potion.Name} (회복량 : +{potion.Amount})");
+                Console.WriteLine($"[{i + 1}] {potion.Name} ({typeStr} +{potion.Amount})");
             }
             Console.WriteLine();
 
