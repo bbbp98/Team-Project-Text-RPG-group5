@@ -14,7 +14,6 @@ namespace TextRPG_group5.ItemManage
         public string? Description { get; protected set; }
         public int Price { get; protected set; }
         public bool IsEquip { get; set; }
-
-        public int ItemCounts { get; protected set; }
+        public int ItemCounts { get; set; }
     }
 }
