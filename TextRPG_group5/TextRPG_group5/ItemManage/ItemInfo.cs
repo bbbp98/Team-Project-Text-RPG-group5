@@ -70,10 +70,10 @@ namespace TextRPG_group5.ItemManage
         // 모든 소비아이템 정보를 딕셔너리에 보존
         private static Dictionary<string, UsableItem> UsableDB = new Dictionary<string, UsableItem>()
         {
-            { "HP소형포션", new Potion("HP소형포션", "", 50, 0, 1, 50)},
-            { "HP대형포션", new Potion("HP대형포션", "", 300, 0, 1, 150)},
-            { "MP소형포션", new Potion("MP소형포션", "", 0, 50, 2, 70)},
-            { "MP대형포션", new Potion("MP대형포션", "", 0, 200, 2, 200)},
+            { "HP소형포션", new Potion("HP소형포션", "", 50, 1, 50)},
+            { "HP대형포션", new Potion("HP대형포션", "", 300, 1, 150)},
+            { "MP소형포션", new Potion("MP소형포션", "", 50, 2, 70)},
+            { "MP대형포션", new Potion("MP대형포션", "", 200, 2, 200)},
         };
 
 
@@ -95,16 +95,6 @@ namespace TextRPG_group5.ItemManage
             {
                 return null; // 없을 시 null 반환
             }
-        }
-
-        // 포션의 특정 데이터를 반환
-        internal static Potion GetPotionData(string name)
-        {
-            if (UsableDB.ContainsKey(name))
-            {
-                return ((Potion)UsableDB[name]);
-            }
-            else return null;
         }
     }
 }
