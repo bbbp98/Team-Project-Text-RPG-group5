@@ -95,33 +95,14 @@ namespace TextRPG_group5.ItemManage
             }
         }
 
-        public static List<ItemManagement> CountItem(List<ItemManagement> items)
+        // 포션의 특정 데이터를 반환
+        internal static Potion GetPotionData(string name)
         {
-            string comparisonName; // 비교할 아이템이름
-            string controlName; // 대조할 아이템이름
-
-
-
-            // 리스트의 한 항목을 비교할 아이템으로서 고정 비교가 끝나면 다음 항목도 같은 방법으로 고정
-            for(int i = 0; i < items.Count; i++)
+            if (UsableDB.ContainsKey(name))
             {
-                comparisonName = items[i].Name; // 리스트의 한항목을 비교군에 할당
-                for(int j = (items.Count - 1); j >= 0; j--) // 리스트를 끝에서부터 순회하며 비교
-                {
-                    if (i != j) // 같은 인덱스의 항목인지 아닌지 체크
-                    {
-                        controlName = items[j].Name; // 리스트의 다른 항목을 대조군에 할당
-                        if(controlName == comparisonName) // 비교군과 대조군이 같은지 체크
-                        {
-                            items[i].pluralItem.Add(comparisonName); // 비교군의ItemManagement오브젝트의 pluralItem리스트에 이름을 추가
-                            items[i].countItem++; // 비교군의ItemManagement오브젝트의 카운트 증가
-                            items.Remove(items[j]); // 대조군이 존재하는 인덱스를 삭제(중복 표시 및 카운트 방지)
-                        }
-                    }
-                }
+                return ((Potion)UsableDB[name]);
             }
-
-            return items; // 완료되면 변경한 리스트를 반환
+            else return null;
         }
     }
 }
