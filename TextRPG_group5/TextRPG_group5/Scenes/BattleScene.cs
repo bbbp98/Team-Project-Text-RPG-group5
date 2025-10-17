@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.ItemManage;
 
 namespace TextRPG_group5.Scenes
 {
@@ -12,6 +13,9 @@ namespace TextRPG_group5.Scenes
 
         public Player Player { get { return CurrentBattle.Player; } }
         public List<Monster> Monsters { get { return CurrentBattle.Monsters; } }
+
+        /* LJH 로부터 요청받은 프로퍼티 : 효과가 처리되었는지 여부 확인용 */
+        public bool effectsProcessed = false;
 
         public BattleScene(Battle currentBattle)
         {
@@ -32,7 +36,10 @@ namespace TextRPG_group5.Scenes
                         CurrentBattle.SetBattleState(BattleState.NormalAttack);
                         break;
                     case 2:
-                        CurrentBattle.SetBattleState(BattleState.Skill);
+                        //CurrentBattle.SetBattleState(BattleState.Skill);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("아직은 사용할 수 없습니다.\n");
+                        Console.ResetColor();
                         break;
                     case 3:
                         CurrentBattle.SetBattleState(BattleState.Item);
@@ -78,9 +85,7 @@ namespace TextRPG_group5.Scenes
                 }
                 else if (CurrentBattle.GetBattleState() == BattleState.Item)
                 {
-                    int itemCount = 3; // player.Inventory.Count;
-
-                    if (input > itemCount)
+                    if (input > CurrentBattle.UsableItemOnly.Count)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("잘못된 입력입니다.\n");
@@ -96,6 +101,18 @@ namespace TextRPG_group5.Scenes
         // 화면에 보여줄 텍스트들(Console.Write관련)
         public override void Show()
         {
+            /* LJH 로부터 요청받은 로직 : 턴 시작 시 단 한 번만 모든 캐릭터(플레이어/몬스터)에게 걸려있는 효과를 처리 */
+            /* TODO : Battle.ProcessStart~() 내에서 바로 결과창 로드되기 때문에 정상 작동 확인 필요 */
+            if (!effectsProcessed)
+            {
+                bool battleContinues = CurrentBattle.ProcessStartOfTurnEffects();
+                effectsProcessed = true; // 효과 처리 끝
+                if (!battleContinues)
+                {
+                    return; // 효과 처리로 전투가 종료되었으면 여기서 중단
+                }
+            }
+
             if (!CurrentBattle.isPlayerTurn)
             {
                 // 몬스터 턴
@@ -115,6 +132,18 @@ namespace TextRPG_group5.Scenes
 
             Console.WriteLine("==============================");
             Console.WriteLine();
+
+            /* LJH 로부터 요청받은 로직
+            /* TODO : IsStun 구현 후 주석 해제
+            /*if (Player.IsStun)
+            {
+                Console.WriteLine($"{Player.Name}은(는) 움직일 수 없습니다!");
+                Console.WriteLine("\n아무 키나 눌러 턴을 넘깁니다...");
+                Console.ReadKey(true);
+                CurrentBattle.isPlayerTurn = false;
+                Program.SetScene(new BattleScene(CurrentBattle)); // 새 씬을 만들어 효과 처리 플래그 초기화
+                return;
+            }*/
 
             switch (CurrentBattle.GetBattleState())
             {
@@ -210,9 +239,16 @@ namespace TextRPG_group5.Scenes
 
         void PrintUsableItemList()
         {
-            Console.WriteLine("[1] 소비 아이템 1번");
-            Console.WriteLine("[2] 소비 아이템 2번");
-            Console.WriteLine("[3] 소비 아이템 3번");
+            List<UsableItem> usableItems = CurrentBattle.UsableItemOnly;
+
+            for (int i = 0; i < usableItems.Count; i++)
+            {
+                // TODO : 일단 포션만, 나중에 버프/디버프 소비 아이템도 추가
+                Potion potion = (Potion)usableItems[i];
+                
+                // 소비 아이템만 출력
+                Console.WriteLine($"[{i + 1}] {potion.Name} (회복량 : +{potion.HealAmount})");
+            }
             Console.WriteLine();
 
             Console.WriteLine("0. 취소");
