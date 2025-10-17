@@ -133,9 +133,8 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("==============================");
             Console.WriteLine();
 
-            /* LJH 로부터 요청받은 로직
-            /* TODO : IsStun 구현 후 주석 해제
-            /*if (Player.IsStun)
+            /* LJH 로부터 요청받은 로직 */
+            if (Player.IsStun)
             {
                 Console.WriteLine($"{Player.Name}은(는) 움직일 수 없습니다!");
                 Console.WriteLine("\n아무 키나 눌러 턴을 넘깁니다...");
@@ -143,7 +142,7 @@ namespace TextRPG_group5.Scenes
                 CurrentBattle.isPlayerTurn = false;
                 Program.SetScene(new BattleScene(CurrentBattle)); // 새 씬을 만들어 효과 처리 플래그 초기화
                 return;
-            }*/
+            }
 
             switch (CurrentBattle.GetBattleState())
             {
