@@ -9,7 +9,7 @@ namespace TextRPG_group5
     internal class PlayerSkill
     {
         private Player player;
-        private Dictionary<string, Action<Character>> skillBook = new Dictionary<string, Action<Character>>();
+        public Dictionary<string, Action<Character>> skillBook = new Dictionary<string, Action<Character>>();
         public PlayerSkill(Player player)
         {
             this.player = player;
