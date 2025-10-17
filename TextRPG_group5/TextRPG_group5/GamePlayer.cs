@@ -38,7 +38,7 @@ namespace TextRPG_group5
                 }
                 else
                 {
-                    Console.WriteLine("전사, 궁수, 도적, 법사 중 하나를 선택하시오");
+                    Console.WriteLine("전사, 궁수, 도적, 마법사 중 하나를 선택하시오");
                     job = Console.ReadLine();
                 }
             }
@@ -84,7 +84,7 @@ namespace TextRPG_group5
                 case "도적":
                     MaxHp = 80; Attack = 50; Defence = 20; Critical = 0.3; Evasion = 0.3; MaxMp = 90;
                     return true;
-                case "법사":
+                case "마법사":
                     MaxHp = 60; Attack = 20; Defence = 20; Critical = 0.5; Evasion = 0.1; MaxMp = 120;
                     return true;
                 default:
@@ -142,7 +142,7 @@ namespace TextRPG_group5
                     MaxHp += 10;
                     MaxMp += 15;
                     break;
-                case "법사":
+                case "마법사":
                     Attack += 7;
                     Defence += 2;
                     MaxHp += 5;
