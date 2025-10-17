@@ -36,10 +36,7 @@ namespace TextRPG_group5.Scenes
                         CurrentBattle.SetBattleState(BattleState.NormalAttack);
                         break;
                     case 2:
-                        //CurrentBattle.SetBattleState(BattleState.Skill);
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("아직은 사용할 수 없습니다.\n");
-                        Console.ResetColor();
+                        CurrentBattle.SetBattleState(BattleState.Skill);
                         break;
                     case 3:
                         CurrentBattle.SetBattleState(BattleState.Item);
@@ -228,9 +225,14 @@ namespace TextRPG_group5.Scenes
 
         void PrintSkillList()
         {
-            Console.WriteLine("[1] 스킬 1번");
-            Console.WriteLine("[2] 스킬 2번");
-            Console.WriteLine("[3] 스킬 3번");
+            Dictionary<string, Action<Character>> skills = Player.Skill.skillBook;
+
+            for (int i = 0; i < skills.Count; i++)
+            {
+                string skillName = skills.Keys.ElementAt(i);
+                Console.WriteLine($"[{i + 1}] {skillName}");
+            }
+
             Console.WriteLine();
 
             Console.WriteLine("0. 취소");
