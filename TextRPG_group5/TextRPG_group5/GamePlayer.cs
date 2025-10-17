@@ -15,6 +15,7 @@ namespace TextRPG_group5
         public int MaxExp { get; set; }
         public int ReachedStage { get; set; }
 
+        public PlayerSkill Skill { get; set; }
         public Inventory Inventory { get; set; }
 
         internal Player(string name, string job)
@@ -27,6 +28,7 @@ namespace TextRPG_group5
             Exp = 0;
             MaxExp = 100;
             Equipment = new PlayerItem(this);
+            Skill = new PlayerSkill(this);
             while (true)
             {
                 if (StatbyJob(job))
