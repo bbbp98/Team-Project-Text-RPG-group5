@@ -10,6 +10,7 @@ namespace TextRPG_group5.Scenes
      {
           Player player;
           Load.LoadData load = new Load.LoadData();
+
           public override void HandleInput(byte input)
           {
                switch (input)

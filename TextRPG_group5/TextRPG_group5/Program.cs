@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using TextRPG_group5.ItemManage;
 using TextRPG_group5.Managers;
 using TextRPG_group5.Scenes;
@@ -40,12 +41,32 @@ namespace TextRPG_group5
                player = newPlayer;
                player.ReachedStage = 1;
 
-               // test items initialize
-               player.Inventory.AddItem(ItemInfo.GetItem("목검"));
-               player.Inventory.AddItem(ItemInfo.GetItem("워해머"));
-               player.Inventory.AddItem(ItemInfo.GetItem("나무 활"));
-               player.Inventory.AddItem(ItemInfo.GetItem("가죽갑옷"));
-               player.Inventory.AddItem(ItemInfo.GetItem("숙련자의 로브"));
+               // item initialize
+               switch (player.Job)
+               {
+                    case "전사":
+                         player.Inventory.AddItem(ItemInfo.GetItem("목검"));
+                         player.Inventory.AddItem(ItemInfo.GetItem("가죽갑옷"));
+                         break;
+                    case "궁수":
+                         player.Inventory.AddItem(ItemInfo.GetItem("나무 활"));
+                         player.Inventory.AddItem(ItemInfo.GetItem("가죽 보호구"));
+                         break;
+                    case "도적":
+                         player.Inventory.AddItem(ItemInfo.GetItem("녹슨 단검"));
+                         player.Inventory.AddItem(ItemInfo.GetItem("암행복"));
+                         break;
+                    case "마법사":
+                         player.Inventory.AddItem(ItemInfo.GetItem("나무스태프"));
+                         player.Inventory.AddItem(ItemInfo.GetItem("수련생의 로브"));
+                         break;
+               }
+
+               player.Inventory.GetItem(0).IsEquip = true;
+               player.Inventory.GetItem(1).IsEquip = true;
+               player.Equipment.EquipItem((EquipItem)player.Inventory.GetItem(0));
+               player.Equipment.EquipItem((EquipItem)player.Inventory.GetItem(1));
+
                player.Inventory.AddItem(ItemInfo.GetItem("HP소형포션"), 3);
                player.Inventory.AddItem(ItemInfo.GetItem("MP소형포션"), 3);
 

@@ -33,7 +33,7 @@ namespace TextRPG_group5.Scenes
                player = new Player(name, job);
 
                Console.Clear();
-               Console.WriteLine($"{player.Name}, {player.Job}(이)가 생성되었습니다!");
+               Console.WriteLine($"\"{player.Name}\", {player.Job} (이)가 생성되었습니다!");
                Console.WriteLine("Press any key to continue...");
                Console.ReadKey();
 
