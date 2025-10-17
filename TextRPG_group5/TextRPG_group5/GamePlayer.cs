@@ -28,7 +28,7 @@ namespace TextRPG_group5
             Exp = 0;
             MaxExp = 100;
             Equipment = new PlayerItem(this);
-            Skill = new PlayerSkill(this);
+            
             while (true)
             {
                 if (StatbyJob(job))
@@ -42,6 +42,7 @@ namespace TextRPG_group5
                     job = Console.ReadLine();
                 }
             }
+            Skill = new PlayerSkill(this);
             NowHp = MaxHp;
             NowMp = MaxMp;
             Inventory = new Inventory(this);
