@@ -11,7 +11,7 @@ namespace TextRPG_group5
           static private Scene? currentScene = new NewTitleScene();
           static private Player? player;
           static private bool isSkipInput = false;
-          public const int maxStage = 10;
+          public const int maxStage = 15;
 
           static void Main(string[] args)
           {

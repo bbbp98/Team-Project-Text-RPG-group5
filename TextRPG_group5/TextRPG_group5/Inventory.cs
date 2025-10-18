@@ -184,7 +184,6 @@ namespace TextRPG_group5
 
                     Console.Write($"{name} | ");
                     Console.WriteLine($"{description}");
-                    
                }
           }
 

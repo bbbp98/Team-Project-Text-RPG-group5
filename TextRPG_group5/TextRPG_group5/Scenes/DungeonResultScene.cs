@@ -14,7 +14,7 @@ namespace TextRPG_group5.Scenes
           private int stage;
           private Player player;
           private Player preBattlePlayer;
-
+          private bool isRewardGet = false;
           private class Reward
           {
                public int Gold;
@@ -82,9 +82,28 @@ namespace TextRPG_group5.Scenes
                     Console.WriteLine("===========================================");
                     Console.WriteLine("           던전 클리어 성공!!!");
                     Console.WriteLine("===========================================\n");
-                    Thread.Sleep(1000);
-                    Console.WriteLine("던전을 클리어했다!");
-                    Console.WriteLine("적들의 흔적이 사라지고, 승리의 기운이 감돈다.");
+                    Thread.Sleep(800);
+                    if (stage == Program.maxStage)
+                    {
+                         Console.WriteLine("마침내, 던전의 끝에 닿았다.\n");
+                         Thread.Sleep(800);
+                         Console.WriteLine("오래된 전설처럼… 네 소원이 이뤄질 시간이 다가온다.\n");
+                         Thread.Sleep(800);
+                         Console.WriteLine("네가 걸어온 길의 끝, 그곳에 ‘진실’이 있었다.\n");
+                         Thread.Sleep(1200);
+                         Console.WriteLine("당신은 여태까지의 모험을 통해서 소원을 스스로 이룰 힘을 얻었다.\n");
+                         Thread.Sleep(800);
+
+                    }
+                    else
+                    {
+                         Console.WriteLine("적은 쓰러지고, 고요가 찾아왔다. 한 걸음 더, 소원에 가까워졌다.\n");
+                         Thread.Sleep(800);
+                         Console.WriteLine("새로운 길이 열렸다.\n");
+                         Thread.Sleep(800);
+                         Console.WriteLine("다음 스테이지가 기다린다.\n");
+                         Thread.Sleep(800);
+                    }
                     Console.WriteLine();
                }
                else
@@ -92,20 +111,19 @@ namespace TextRPG_group5.Scenes
                     Console.WriteLine("===========================================");
                     Console.WriteLine("               던전 클리어 실패...");
                     Console.WriteLine("===========================================\n");
-                    Thread.Sleep(1000);
-                    Console.WriteLine("몸이 무겁다. 시야가 흐려진다.");
-                    Thread.Sleep(1000);
-                    Console.WriteLine("[당신은 정신을 잃었습니다...]\n");
-                    Thread.Sleep(2000);
-                    Console.WriteLine("하지만, 포기하지 마라.");
-                    Thread.Sleep(1000);
-                    Console.WriteLine("다시 일어나 도전할 시간이다.");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(800);
+                    Console.WriteLine("무릎 꿇은 자리, 숨이 가쁘다.\n");
+                    Thread.Sleep(1200);
+                    Console.WriteLine("이번에는 패배했지만, 끝은 아니다.\n");
+                    Thread.Sleep(800);
                     Program.SetScene(new MainScene(player));
                }
 
-               Result();
-
+               if (!isRewardGet)
+               {
+                    isRewardGet = true;
+                    Result();
+               }
                if (isClearStage)
                     Console.WriteLine("0. 돌아가기");
           }

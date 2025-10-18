@@ -103,9 +103,9 @@ namespace TextRPG_group5
             Console.WriteLine($"마나: {NowMp}/{MaxMp}");
             Console.WriteLine($"공격력: {Attack}");
             Console.WriteLine($"방어력: {Defence}");
-            Console.WriteLine($"치명타 확률: {Critical * 100}");
-            Console.WriteLine($"회피확률: {Evasion * 100}");
-            Console.WriteLine($"소지금: {Gold}");
+            Console.WriteLine($"치명타 확률: {(int)(Critical * 100)} %");
+            Console.WriteLine($"회피 확률: {(int)(Evasion * 100)} %");
+            Console.WriteLine($"소지금: {Gold} G");
             Console.WriteLine($"도달 스테이지: [{ReachedStage}]Stage");
             Console.WriteLine("===================================\n");
         }
