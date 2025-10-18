@@ -95,9 +95,12 @@ namespace TextRPG_group5
             /* LJH 로부터 요청받은 로직 */
             defenders[0].TakeDamage(attacker.GetFinalAttack(), attacker.GetFinalCritical());
 
-            // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트
+            // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트 및 몬스터 처치 경험치 획득
             if (defenders[0] is Monster && defenders[0].IsDead)
+            {
                 QuestManager.Instance.UpdateProgress(defenders[0].Name);
+                Player.GainExp(((Monster)defenders[0]).Exp);
+            }
 
             ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
             result.Show();
@@ -159,9 +162,12 @@ namespace TextRPG_group5
             PlayerSkill skills = Player.Skill;
             skills.UseSkill(userSkillChoice - 1, defenders[0]);
 
-            // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트
+            // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트 및 몬스터 처치 경험치 획득
             if (defenders[0].IsDead)
+            {
                 QuestManager.Instance.UpdateProgress(defenders[0].Name);
+                Player.GainExp(((Monster)defenders[0]).Exp);
+            }
 
             ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
             result.Show();
