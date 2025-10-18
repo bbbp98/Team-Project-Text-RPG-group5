@@ -19,9 +19,29 @@ namespace TextRPG_group5
                //InitializeSkills();
           }
           public void SetOwner(Player player)
-          { this.player = player; }
+          { 
+            this.player = player;
+            foreach (var skill in skillBook)
+            {
+                switch (skill.Name)
+                {
+                    case "파워 슬래시":
+                        skill.Action = PowerSlash;
+                        break;
+                    case "헤드 샷":
+                        skill.Action = HeadShot;
+                        break;
+                    case "더블 스텝":
+                        skill.Action = DoubleStep;
+                        break;
+                    case "파이어 볼":
+                        skill.Action = FireBall;
+                        break;
+                }
+            }
+        }
 
-          public void InitializeSkills()
+        public void InitializeSkills()
           {
                switch (player.Job)
                {
