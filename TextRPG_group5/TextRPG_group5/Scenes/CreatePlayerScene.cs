@@ -119,7 +119,7 @@ namespace TextRPG_group5.Scenes
           private void InitializePlayer()
           {
                player = new Player(name, job);
-
+               player.Skill.InitializeSkills();
                Program.Initialize(player);
           }
      }

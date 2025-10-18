@@ -31,19 +31,11 @@ namespace Load
                     };
                     string json = File.ReadAllText(SaveFile);
                     Player? loadedPlayer = JsonConvert.DeserializeObject<Player>(json, settings);
-                    //Player? loadedPlayer = JsonSerializer.Deserialize<Player>(json, settings);
-                    //loadedPlayer.Skill.RestoreActions();
                     loadedPlayer.Skill.SetOwner(loadedPlayer);
-                    loadedPlayer.Skill.InitializeSkills();
                 Console.WriteLine($"데이터를 성공적으로 불러왔습니다.");
 
                     return loadedPlayer;
                }
-               //catch (JsonException ex)
-               //{
-               //     Console.WriteLine($"JSON 데이터 형식 오류: {ex.Message}");
-               //     return null;
-               //}
                catch (Exception ex)
                {
                     Console.WriteLine($"파일 불러오는 중 오류 발생: {ex.Message}");
