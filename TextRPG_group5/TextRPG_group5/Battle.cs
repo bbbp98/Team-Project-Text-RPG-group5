@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TextRPG_group5.ItemManage;
 using TextRPG_group5.Scenes;
+using TextRPG_group5.QuestManagement;
 
 namespace TextRPG_group5
 {
@@ -94,6 +95,10 @@ namespace TextRPG_group5
             /* LJH 로부터 요청받은 로직 */
             defenders[0].TakeDamage(attacker.GetFinalAttack(), attacker.GetFinalCritical());
 
+            // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트
+            if (defenders[0] is Monster && defenders[0].IsDead)
+                QuestManager.Instance.UpdateProgress(defenders[0].Name);
+
             ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
             result.Show();
             Program.SetScene(result);
@@ -153,6 +158,10 @@ namespace TextRPG_group5
             var selectedSkill = Player.Skill.skillBook[userSkillChoice - 1];
             PlayerSkill skills = Player.Skill;
             skills.UseSkill(userSkillChoice - 1, defenders[0]);
+
+            // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트
+            if (defenders[0].IsDead)
+                QuestManager.Instance.UpdateProgress(defenders[0].Name);
 
             ActionResultScene result = new ActionResultScene(this, attacker, defenders, attackerBeforeMp, defendersBeforeHp);
             result.Show();
