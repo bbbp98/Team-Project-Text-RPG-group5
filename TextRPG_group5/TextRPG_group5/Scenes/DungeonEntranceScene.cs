@@ -45,8 +45,12 @@ namespace TextRPG_group5.Scenes
                Console.WriteLine("던전 입구\n");
                Console.ForegroundColor = ConsoleColor.White;
 
-               Console.WriteLine("던전의 문이 다시 열렸다.");
-               Console.WriteLine("용기를 내어 발걸음을 내딛어라.");
+               Console.WriteLine("어둠이 입구를 삼킨다. 이제, 소원을 향한 여정이 다시 시작된다.");
+               Thread.Sleep(800);
+               Console.WriteLine("한 걸음 내딛는 순간, 돌아갈 길은 없다.");
+               Thread.Sleep(800);
+               Console.WriteLine("심장이 뛴다. 이 문 너머에, 네가 찾는 답이 있다.");
+               Thread.Sleep(800);
 
                Console.WriteLine();
                int stage = player.ReachedStage;

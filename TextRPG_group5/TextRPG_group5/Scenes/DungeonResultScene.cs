@@ -82,9 +82,27 @@ namespace TextRPG_group5.Scenes
                     Console.WriteLine("===========================================");
                     Console.WriteLine("           던전 클리어 성공!!!");
                     Console.WriteLine("===========================================\n");
-                    Thread.Sleep(1000);
-                    Console.WriteLine("던전을 클리어했다!");
-                    Console.WriteLine("적들의 흔적이 사라지고, 승리의 기운이 감돈다.");
+                    Thread.Sleep(800);
+                    if (stage == Program.maxStage)
+                    {
+                         Console.WriteLine("적은 쓰러지고, 고요가 찾아왔다. 한 걸음 더, 소원에 가까워졌다.\n");
+                         Thread.Sleep(800);
+                         Console.WriteLine("피와 먼지 속에서도, 너의 빛은 꺼지지 않았다.\n");
+                         Thread.Sleep(800);
+                         Console.WriteLine("던전이 숨을 멈췄다. 너는 끝내 이겨냈다.\n");
+                         Thread.Sleep(800);
+                    }
+                    else
+                    {
+                         Console.WriteLine("마침내, 던전의 끝에 닿았다.\n");
+                         Thread.Sleep(800);
+                         Console.WriteLine("오래된 전설처럼… 네 소원이 이뤄질 시간이 다가온다.\n");
+                         Thread.Sleep(800);
+                         Console.WriteLine("네가 걸어온 길의 끝, 그곳에 ‘진실’이 있었다.\n");
+                         Thread.Sleep(1200);
+                         Console.WriteLine("당신은 여태까지의 모험을 통해서 소원을 스스로 이룰 힘을 얻었다.\n");
+                         Thread.Sleep(800);
+                    }
                     Console.WriteLine();
                }
                else
@@ -92,14 +110,12 @@ namespace TextRPG_group5.Scenes
                     Console.WriteLine("===========================================");
                     Console.WriteLine("               던전 클리어 실패...");
                     Console.WriteLine("===========================================\n");
-                    Thread.Sleep(1000);
-                    Console.WriteLine("몸이 무겁다. 시야가 흐려진다.");
-                    Thread.Sleep(1000);
-                    Console.WriteLine("[당신은 정신을 잃었습니다...]\n");
-                    Thread.Sleep(2000);
-                    Console.WriteLine("하지만, 포기하지 마라.");
-                    Thread.Sleep(1000);
-                    Console.WriteLine("다시 일어나 도전할 시간이다.");
+                    Thread.Sleep(800);
+                    Console.WriteLine("빛이 사라졌다. 그러나 의지는 아직 남아 있다.\n");
+                    Thread.Sleep(800);
+                    Console.WriteLine("무릎 꿇은 자리에서, 다시 일어날 날을 그린다.\n");
+                    Thread.Sleep(800);
+                    Console.WriteLine("던전은 널 삼켰다. 하지만 끝은 아직 아니다.\n");
                     Thread.Sleep(1000);
                     Program.SetScene(new MainScene(player));
                }
