@@ -105,7 +105,7 @@ namespace TextRPG_group5.Scenes
                 }
                 else if (CurrentBattle.GetBattleState() == BattleState.Item)
                 {
-                    if (input > CurrentBattle.UsableItemOnly.Count)
+                    if (input > UsableItemList.Count)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("잘못된 입력입니다.\n");
