@@ -189,6 +189,11 @@ namespace TextRPG_group5.QuestManagement
         // ToDo : 몬스터가 죽을 때 이 메서드를 호출시켜야 함
         public void UpdateProgress(string target)
         {
+            
+            if (Quests == null)
+            {
+                Quests = Load();
+            }
             // 변수 q 에 진행중인 리스트를 순차적으로 저장 
             foreach (var q in Quests.Where(x => x.Status == QuestStatus.InProgress))
             {
@@ -208,6 +213,8 @@ namespace TextRPG_group5.QuestManagement
                     }
                 }
             }
+
+            SaveQuestProgress(Quests);
         }
 
         /// <summary>
