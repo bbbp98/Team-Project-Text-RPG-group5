@@ -12,8 +12,8 @@ namespace TextRPG_group5.ItemManage
      public class Armor : EquipItem
      {
           public int DefPower { get; set; }
-          public JobClass Job { get; set; }
-          public bool isCorrect { get; set; }
+          //public JobClass Job { get; set; }
+          //public bool isCorrect { get; set; }
           public double EvadePro { get; set; }
           public Armor(string name, string description, int defPower, double evadePro, int price, int job, bool isEquip)
           {

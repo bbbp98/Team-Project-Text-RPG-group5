@@ -12,7 +12,7 @@ namespace TextRPG_group5.ItemManage
     {
         public int AtkPower { get; set; }
         public double CriPro { get; set; }
-        public JobClass Job { get; set; }
+        //public JobClass Job { get; set; }
 
         public Weapon(string name, string description, int atkPower, double criPro, int price, int job, bool isEquip)
         {
@@ -44,7 +44,8 @@ namespace TextRPG_group5.ItemManage
                 jobLimits = "공용";
             }
 
-            Description = $"스탯증가량 => 공격력 : +{AtkPower}, 치명타확률 : +{CriPro}, 장착 가능 직업 : {jobLimits}";
+               Price = price;
+            Description = $"스탯 증가량 => 공격력 : +{AtkPower}, 치명타확률 : +{CriPro}, 장착 가능 직업 : {jobLimits}";
             IsEquip = isEquip;
         }
     }

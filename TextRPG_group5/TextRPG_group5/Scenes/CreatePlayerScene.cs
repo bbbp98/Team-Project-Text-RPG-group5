@@ -70,9 +70,10 @@ namespace TextRPG_group5.Scenes
                     Console.Write("입력: ");
                     name = Console.ReadLine() ?? "";
 
-                    if (name == null)
+                    if (name == "")
                     {
                          Console.WriteLine("이름을 다시 입력해주세요.");
+                         Thread.Sleep(1000);
                          continue;
                     }
 
@@ -106,6 +107,7 @@ namespace TextRPG_group5.Scenes
                               break;
                          default:
                               Console.WriteLine("잘못된 입력입니다. 다시 입력해주세요.\n");
+                              Thread.Sleep(1000);
                               continue;
                     }
 

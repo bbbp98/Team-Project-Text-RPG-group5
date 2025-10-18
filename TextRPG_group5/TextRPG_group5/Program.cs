@@ -46,7 +46,7 @@ namespace TextRPG_group5
                player = newPlayer;
                player.ReachedStage = 1;
 
-               // item initialize
+               // player item initialize
                switch (player.Job)
                {
                     case "전사":

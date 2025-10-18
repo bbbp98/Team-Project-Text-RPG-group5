@@ -23,6 +23,6 @@ namespace TextRPG_group5.ItemManage
      /// </summary>
      public class EquipItem : ItemManagement
      {
-
+          public JobClass Job { get; set; }
      }
 }

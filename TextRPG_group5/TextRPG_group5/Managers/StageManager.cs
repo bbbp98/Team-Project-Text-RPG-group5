@@ -8,16 +8,16 @@ namespace TextRPG_group5.Managers
 {
      internal class StageManager
      {
-          static private StageManager? _instance;
+          static private StageManager? instance;
           private readonly Dictionary<int, IStageFactory> stageFactories = new();
           // singleton
           public static StageManager Instance
           {
                get
                {
-                    if (_instance == null)
-                         _instance = new StageManager();
-                    return _instance;
+                    if (instance == null)
+                         instance = new StageManager();
+                    return instance;
                }
           }
 

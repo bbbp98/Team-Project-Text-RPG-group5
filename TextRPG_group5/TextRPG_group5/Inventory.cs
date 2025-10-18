@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using TextRPG_group5.ItemManage;
+using TextRPG_group5.Managers;
 
 namespace TextRPG_group5
 {
@@ -142,15 +143,18 @@ namespace TextRPG_group5
 
                for (int i = 0; i < Items.Count; i++)
                {
-                    string equipMark = Items[i].IsEquip ? "[E]" : "";
+                    // 1. item name
                     Console.Write($"- {i + 1}. ");
+                    string equipMark = Items[i].IsEquip ? "[E]" : "";
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"{equipMark}");
                     Console.ForegroundColor = ConsoleColor.White;
+                    string name = StringManager.Instance.PadRightForMixedText(Items[i].Name, Items[i].IsEquip ? 10 : 13);
+                    Console.Write($"{name} | ");
 
-                    Console.Write($"{Items[i].Name!.PadRight(10)} | ");
-                    Console.WriteLine(Items[i].Description);
-                    Console.ForegroundColor = ConsoleColor.White;
+                    // 2. item stat
+                    Console.WriteLine(StringManager.Instance.PadRightForMixedText(Items[i].Description, 30));
+                    //Console.ForegroundColor = ConsoleColor.White;
                }
           }
 

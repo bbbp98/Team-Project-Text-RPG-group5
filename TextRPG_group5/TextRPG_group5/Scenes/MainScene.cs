@@ -24,23 +24,26 @@ namespace TextRPG_group5.Scenes
           {
                switch (input)
                {
-                    case 0: 
+                    case 0: // 게임 종료
                          ExitScene exitScene = new ExitScene();
                          exitScene.HandleExitAsync().Wait();
                          break;
-                    case 1:
+                    case 1: // 캐릭터 정보 확인
                          Program.SetScene(new PlayerInfoScene(player));
                          break;
-                    case 2:
+                    case 2: // 인벤토리
                          Program.SetScene(new InventoryScene(player));
                          break;
-                    case 3:
+                    case 3: // 상점
+                         Program.SetScene(new ShopScene(player));
+                         break;
+                    case 4: // 퀘스트
                          Program.SetScene(new QuestScene(player));
                          break;
-                    case 4:
+                    case 5: // 던전 입장
                          Program.SetScene(new DungeonEntranceScene(player));
                          break;
-                    case 5:
+                    case 6: // 저장
                          Program.SetScene(new SaveScene(player));
                          break;
                     default:
@@ -62,9 +65,10 @@ namespace TextRPG_group5.Scenes
                Console.WriteLine(welcomMessage);
                Console.WriteLine("1. 캐릭터 정보 확인");
                Console.WriteLine("2. 인벤토리 확인");
-               Console.WriteLine("3. 퀘스트 확인");
-               Console.WriteLine("4. 던전 탐험");
-               Console.WriteLine("5. 저장하기");
+               Console.WriteLine("3. 상점 확인");
+               Console.WriteLine("4. 퀘스트 확인");
+               Console.WriteLine("5. 던전 탐험");
+               Console.WriteLine("6. 저장하기");
                Console.WriteLine("0. 게임 종료");
           }
      }
