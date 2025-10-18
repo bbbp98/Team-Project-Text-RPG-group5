@@ -97,7 +97,7 @@ namespace TextRPG_group5.Managers
                }
 
                var shopItem = shopItems[index];
-               if (player.Inventory.CheckItemExist(shopItem) != null)
+               if (shopItem is not UsableItem && player.Inventory.CheckItemExist(shopItem) != null)
                {
                     Console.WriteLine("이미 보유 중인 아이템입니다..");
                     return;
@@ -157,9 +157,11 @@ namespace TextRPG_group5.Managers
                }
                else if (item is UsableItem usableItem)
                {
+                    Console.WriteLine($"{usableItem.Name}을(를) 1개 판매하셨습니다.");
                     player.Inventory.DecreaseItem(usableItem);
                     player.Gold += sellPrice;
-                    player.Inventory.RemoveItem(item);
+                    Thread.Sleep(1000);
+                    //player.Inventory.RemoveItem(item);
                }
           }
      }

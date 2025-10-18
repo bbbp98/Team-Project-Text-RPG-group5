@@ -34,7 +34,7 @@ namespace TextRPG_group5
                     case "도적":
                          skillBook.Add(new SkillData("더블 스텝", 15, DoubleStep));
                          break;
-                    case "법사":
+                    case "마법사":
                          skillBook.Add(new SkillData("파이어 볼", 30, FireBall));
                          break;
 

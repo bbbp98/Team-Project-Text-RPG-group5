@@ -128,6 +128,7 @@ namespace TextRPG_group5
                if (Items.Remove(item))
                {
                     Console.WriteLine($"{item.Name}이(가) 삭제되었습니다.");
+                    Thread.Sleep(500);
                }
                else
                {
@@ -150,20 +151,6 @@ namespace TextRPG_group5
 
                for (int i = 0; i < Items.Count; i++)
                {
-                    // 1. item name
-                    //Console.Write($"- {i + 1}. ");
-                    //string equipMark = Items[i].IsEquip ? "[E]" : "";
-                    //Console.ForegroundColor = ConsoleColor.Green;
-                    //Console.Write($"{equipMark}");
-                    //Console.ForegroundColor = ConsoleColor.White;
-                    //string name = StringManager.Instance.PadRightForMixedText(Items[i].Name, Items[i].IsEquip ? 10 : 13);
-                    //Console.Write($"{name} | ");
-
-                    //// 2. item stat
-                    //Console.WriteLine(StringManager.Instance.PadRightForMixedText(Items[i].Description, 30));
-                    ////Console.ForegroundColor = ConsoleColor.White;
-
-
                     var item = Items[i];
                     Console.Write($"- {i + 1}. ");
                     string equipMark = Items[i].IsEquip ? "[E]" : "";
@@ -189,7 +176,10 @@ namespace TextRPG_group5
                     else if (item is Potion potion)
                     {
                          description = potion.Description!;
-                         description = StringManager.Instance.PadRightForMixedText(description!, 38);
+                         string quantityStr = $" | 개수 : {potion.ItemCounts}";
+                         description = StringManager.Instance.PadRightForMixedText(description!, 25);
+                         quantityStr = StringManager.Instance.PadRightForMixedText(quantityStr, 13);
+                         description += quantityStr;
                     }
 
                     Console.Write($"{name} | ");

@@ -144,7 +144,7 @@ namespace TextRPG_group5.QuestManagement
             
 
             Thread.Sleep(2000);
-
+            if (isNoProgress) DataDelivery();
             return;
         }
         public static bool QuestStatusCheck(Quest q, string[] menu, int idx, Player player, bool isComplete)
@@ -195,13 +195,16 @@ namespace TextRPG_group5.QuestManagement
                 // 저장된 퀘스트의 완료조건 체크, 진행상황 반영, 조건 충족시 완료 상태로 변경
                 foreach (var o in q.objectives)
                 {
-                    o.Current++;
-                    Console.WriteLine($"[진행] {o.Target} : {o.Current}/{o.Count}");
-
-                    if (q.CheckCompletion())
+                    if (o.Target == target)
                     {
-                        q.Status = QuestStatus.Complete;
-                        Console.WriteLine($"[완료] {q.QuestTitle}");
+                        o.Current++;
+                        Console.WriteLine($"[진행] {o.Target} : {o.Current}/{o.Count}");
+
+                        if (q.CheckCompletion())
+                        {
+                            q.Status = QuestStatus.Complete;
+                            Console.WriteLine($"[완료] {q.QuestTitle}");
+                        }
                     }
                 }
             }
@@ -243,7 +246,7 @@ namespace TextRPG_group5.QuestManagement
         }
 
 
-        internal void DataDelivery()
+        internal static void DataDelivery()
         {
             SaveQuestProgress(Quests);
         }
