@@ -300,7 +300,7 @@ namespace TextRPG_group5.Scenes
                 string typeStr = (type == PotionType.HealthPotion) ? "HP" : "MP";
 
                 // 소비 아이템만 출력
-                Console.WriteLine($"[{i + 1}] {potion.Name} ({typeStr} +{potion.Amount})");
+                Console.WriteLine($"[{i + 1}] {potion.Name} ({typeStr} +{potion.Amount}) x {potion.ItemCounts}");
             }
             Console.WriteLine();
 
