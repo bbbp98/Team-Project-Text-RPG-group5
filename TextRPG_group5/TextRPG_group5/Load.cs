@@ -31,8 +31,10 @@ namespace Load
                     };
                     string json = File.ReadAllText(SaveFile);
                     Player? loadedPlayer = JsonConvert.DeserializeObject<Player>(json, settings);
-                //Player? loadedPlayer = JsonSerializer.Deserialize<Player>(json, settings);
-                loadedPlayer.Skill.RestoreActions();
+                    //Player? loadedPlayer = JsonSerializer.Deserialize<Player>(json, settings);
+                    //loadedPlayer.Skill.RestoreActions();
+                    loadedPlayer.Skill.SetOwner(loadedPlayer);
+                    loadedPlayer.Skill.InitializeSkills();
                 Console.WriteLine($"데이터를 성공적으로 불러왔습니다.");
 
                     return loadedPlayer;
