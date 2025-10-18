@@ -206,13 +206,28 @@ namespace TextRPG_group5.Scenes
                     {
                          if (input != 0)
                          {
-                              ShopManager.Instance.BuyItem(player, input - 1);
-                              //Console.WriteLine(success ?
-                                   //$"{ShopManager.Instance.GetShopItems()[input].Name}을(를) 구매 하셨습니다!" : "Gold가 부족합니다.");
-                              Thread.Sleep(2000);
+                              if (input > 0 || input < ShopManager.Instance.GetShopItems().Count)
+                              {
+                                   ShopManager.Instance.BuyItem(player, input - 1);
+                                   Thread.Sleep(2000);
+                              }
+                              else
+                              {
+                                   Console.ForegroundColor = ConsoleColor.Red;
+                                   Console.WriteLine("잘못된 입력입니다.");
+                                   Console.ForegroundColor = ConsoleColor.White;
+                                   Thread.Sleep(800);
+                              }
                          }
                          else
                               isExit = true;
+                    }
+                    else
+                    {
+                         Console.ForegroundColor = ConsoleColor.Red;
+                         Console.WriteLine("잘못된 입력입니다.");
+                         Console.ForegroundColor = ConsoleColor.White;
+                         Thread.Sleep(800);
                     }
 
                     Console.Clear();
@@ -285,9 +300,29 @@ namespace TextRPG_group5.Scenes
                     if (byte.TryParse(Console.ReadLine(), out byte input))
                     {
                          if (input != 0)
-                              ShopManager.Instance.SellItem(player, input - 1);
+                         {
+                              if (input > 0 && input < ShopManager.Instance.GetShopItems().Count)
+                              {
+                                   ShopManager.Instance.SellItem(player, input - 1);
+                                   Thread.Sleep(2000);
+                              }
+                              else
+                              {
+                                   Console.ForegroundColor = ConsoleColor.Red;
+                                   Console.WriteLine("잘못된 입력입니다.");
+                                   Console.ForegroundColor = ConsoleColor.White;
+                                   Thread.Sleep(800);
+                              }
+                         }
                          else
                               isExit = true;
+                    }
+                    else
+                    {
+                         Console.ForegroundColor = ConsoleColor.Red;
+                         Console.WriteLine("잘못된 입력입니다.");
+                         Console.ForegroundColor = ConsoleColor.White;
+                         Thread.Sleep(800);
                     }
 
                     Console.Clear();
