@@ -51,6 +51,8 @@ namespace TextRPG_group5.Scenes
 
                     CurrentBattle.SetBattleState(BattleState.None);
                     CurrentBattle.userChoice = 0;
+                    CurrentBattle.userTargetChoice = 0;
+                    CurrentBattle.userSkillChoice = 0;
                     CurrentBattle.isPlayerTurn = !CurrentBattle.isPlayerTurn; // 턴 교체
 
                     Program.SetScene(new BattleScene(CurrentBattle));
@@ -94,7 +96,8 @@ namespace TextRPG_group5.Scenes
                     break;
                 case BattleState.Skill:
                     // Attacker == Player (무조건)
-                    Console.WriteLine($"{Attacker.Name} 의 스킬 {CurrentBattle.userChoice} 번");
+                    string selectedSkillName = ((Player)Attacker).Skill.skillBook[CurrentBattle.userSkillChoice - 1].Name;
+                    Console.WriteLine($"{Attacker.Name} 의 {selectedSkillName} 사용!");
                     Console.WriteLine($"MP {AttBeforeMp} -> {((Player)Attacker).NowMp}");
                     break;
                 case BattleState.Item:
