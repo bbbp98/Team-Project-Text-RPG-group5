@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.ItemManage;
 
 namespace TextRPG_group5.Scenes
 {
@@ -17,6 +18,8 @@ namespace TextRPG_group5.Scenes
 
         public Battle CurrentBattle { get; private set; }
 
+        private Potion selectedItem;
+
         public ActionResultScene(Battle current, Character att, List<Character> defs, int attBeforeMp, List<int> defBeforeHp)
         {
             // 일반 공격, 스킬 공격용 ActionResultScene 생성자
@@ -29,13 +32,15 @@ namespace TextRPG_group5.Scenes
             CurrentBattle = current;
         }
 
-        public ActionResultScene(Battle current, int playerBeforeHp, int playerBeforeMp)
+        public ActionResultScene(Battle current, int playerBeforeHp, int playerBeforeMp, UsableItem selectedItem)
         {
             // 아이템 사용용 ActionResultScene 생성자
             CurrentBattle = current;
             Attacker = CurrentBattle.Player;
             AttBeforeHp = playerBeforeHp;
             AttBeforeMp = playerBeforeMp;
+
+            this.selectedItem = (Potion)selectedItem;
         }
 
         public override void HandleInput(byte input)
@@ -102,10 +107,20 @@ namespace TextRPG_group5.Scenes
                     break;
                 case BattleState.Item:
                     // Attacker == Player (무조건)
-                    Console.WriteLine($"{Attacker.Name} 의 {CurrentBattle.UsableItemOnly[CurrentBattle.userChoice - 1].Name} 사용");
+                    Console.WriteLine($"{Attacker.Name} 의 {selectedItem.Name} 사용");
 
-                    // TODO : 일단은 HP 만, 나중에 MP, 상태이상 등도 추가
-                    Console.WriteLine($"HP : {AttBeforeHp} -> {Attacker.NowHp}");
+                    // TODO : 일단은 HP,MP만, 나중에 상태이상 등도 추가
+                    switch (selectedItem.Type)
+                    {
+                        case PotionType.HealthPotion:
+                            Console.WriteLine($"HP {AttBeforeHp} -> {Attacker.NowHp} (+{Attacker.NowHp - AttBeforeHp})");
+                            break;
+                        case PotionType.ManaPotion:
+                            Console.WriteLine($"MP {AttBeforeMp} -> {((Player)Attacker).NowMp} (+{((Player)Attacker).NowMp - AttBeforeMp})");
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;

@@ -183,7 +183,7 @@ namespace TextRPG_group5
             UsableItem selectedItem = usableItems[userChoice - 1];
             Player.Inventory.UseItem(selectedItem);
 
-            ActionResultScene result = new ActionResultScene(this, attackerBeforeHp, attackerBeforeMp);
+            ActionResultScene result = new ActionResultScene(this, attackerBeforeHp, attackerBeforeMp, selectedItem);
             result.Show();
             Program.SetScene(result);
         }
