@@ -144,7 +144,7 @@ namespace TextRPG_group5.QuestManagement
             
 
             Thread.Sleep(2000);
-
+            if (isNoProgress) DataDelivery();
             return;
         }
         public static bool QuestStatusCheck(Quest q, string[] menu, int idx, Player player, bool isComplete)
@@ -243,7 +243,7 @@ namespace TextRPG_group5.QuestManagement
         }
 
 
-        internal void DataDelivery()
+        internal static void DataDelivery()
         {
             SaveQuestProgress(Quests);
         }
