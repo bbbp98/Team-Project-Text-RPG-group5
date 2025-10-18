@@ -9,7 +9,7 @@ namespace TextRPG_group5
 {
     internal class PlayerSkill
     {
-        [JsonIgnore]
+        
         private Player player;
         
             public List<SkillData> skillBook { get; set; } = new List<SkillData>();
