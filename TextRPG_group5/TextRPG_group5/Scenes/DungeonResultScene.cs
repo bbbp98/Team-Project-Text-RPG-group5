@@ -14,7 +14,7 @@ namespace TextRPG_group5.Scenes
           private int stage;
           private Player player;
           private Player preBattlePlayer;
-
+          private bool isRewardGet = false;
           private class Reward
           {
                public int Gold;
@@ -93,7 +93,7 @@ namespace TextRPG_group5.Scenes
                          Thread.Sleep(1200);
                          Console.WriteLine("당신은 여태까지의 모험을 통해서 소원을 스스로 이룰 힘을 얻었다.\n");
                          Thread.Sleep(800);
-                         
+
                     }
                     else
                     {
@@ -119,8 +119,11 @@ namespace TextRPG_group5.Scenes
                     Program.SetScene(new MainScene(player));
                }
 
-               Result();
-
+               if (!isRewardGet)
+               {
+                    isRewardGet = true;
+                    Result();
+               }
                if (isClearStage)
                     Console.WriteLine("0. 돌아가기");
           }
