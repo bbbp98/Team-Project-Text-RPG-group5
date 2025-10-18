@@ -17,6 +17,8 @@ namespace TextRPG_group5.Scenes
         /* LJH 로부터 요청받은 프로퍼티 : 효과가 처리되었는지 여부 확인용 */
         public bool effectsProcessed = false;
 
+        public List<UsableItem> UsableItemList { get { return Player.Inventory.GetUsableItems(); } }
+
         public BattleScene(Battle currentBattle)
         {
             CurrentBattle = currentBattle;
@@ -290,7 +292,7 @@ namespace TextRPG_group5.Scenes
 
         void PrintUsableItemList()
         {
-            List<UsableItem> usableItems = CurrentBattle.UsableItemOnly;
+            List<UsableItem> usableItems = UsableItemList;
 
             for (int i = 0; i < usableItems.Count; i++)
             {
