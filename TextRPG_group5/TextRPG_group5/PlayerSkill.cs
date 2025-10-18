@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace TextRPG_group5
 {
     internal class PlayerSkill
     {
+        [JsonIgnore]
         private Player player;
         
             public List<SkillData> skillBook { get; set; } = new List<SkillData>();
@@ -114,12 +116,35 @@ namespace TextRPG_group5
             target.TakeDamage(damage, 0);
             Console.WriteLine($"파이어 볼 사용. {target.Name}에게 {damage} 의 피해를 입힘");
         }
+        public void RestoreActions()
+        {
+            foreach (var skill in skillBook)
+            {
+                switch (skill.Name)
+                {
+                    case "파워 슬래시":
+                        skill.Action = PowerSlash;
+                        break;
+                    case "헤드 샷":
+                        skill.Action = HeadShot;
+                        break;
+                    case "더블 스텝":
+                        skill.Action = DoubleStep;
+                        break;
+                    case "파이어 볼":
+                        skill.Action = FireBall;
+                        break;
+                }
+            }
+        }
     }
     internal class SkillData //UseSkill(int index, Character target)로도 가능
     {
         public string Name { get; }
-        public Action<Character> Action { get; }
         public int MpCost { get; }
+        [JsonIgnore]
+        public Action<Character> Action { get; set; }
+        public SkillData() { }
 
         public SkillData(string name, int mpCost, Action<Character> action)
         {
