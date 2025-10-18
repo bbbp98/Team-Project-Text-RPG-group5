@@ -37,9 +37,9 @@ namespace TextRPG_group5.Scenes
   _____                          __  __      ___    _    
  |_   _|____ __ _____ _ _   ___ / _| \ \    / (_)__| |_  
    | |/ _ \ V  V / -_) '_| / _ \  _|  \ \/\/ /| (_-< ' \ 
-   |_|\___/\_/\_/\___|_|   \___/_|     \_/\_/ |_/__/_||_|                                                       
+   |_|\___/\_/\_/\___|_|   \___/_|     \_/\_/ |_/__/_||_|
+                                                                                                       
             ";
-               
                Console.WriteLine(asciiArt);
                Console.ForegroundColor = ConsoleColor.White;
                Console.WriteLine("Game Start");

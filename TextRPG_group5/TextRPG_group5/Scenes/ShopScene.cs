@@ -115,16 +115,20 @@ namespace TextRPG_group5.Scenes
                     description = $"방어력: +{armor.DefPower}";
                     description = StringManager.Instance.PadRightForMixedText(description, 38);
                }
-               else if (item is Potion potion)
+               else if (item is UsableItem usableItem)
                {
-                    description = potion.Description!;
-                    description = StringManager.Instance.PadRightForMixedText(description!, 38);
+                    description = usableItem.Description!;
+                    string quantityStr = $" | 개수 : {usableItem.ItemCounts}";
+                    description = StringManager.Instance.PadRightForMixedText(description!, 27);
+                    quantityStr = StringManager.Instance.PadRightForMixedText(quantityStr, 8);
+                    description += quantityStr;
                }
 
                Console.Write($"{name} | ");
                Console.Write($"{description} | ");
                // 보유 중인 아이템 체크
-               if (player.Inventory.CheckItemExist(item) != null)
+               if (player.Inventory.CheckItemExist(item) != null
+                    && item is not UsableItem)
                {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("[보유중]");
@@ -141,7 +145,7 @@ namespace TextRPG_group5.Scenes
                while (!isExit)
                {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("상점");
+                    Console.WriteLine("상점 - 아이템 구매");
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine();
 
@@ -222,7 +226,7 @@ namespace TextRPG_group5.Scenes
                while (!isExit)
                {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("상점");
+                    Console.WriteLine("상점 - 아이템 판매");
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine();
 
@@ -237,7 +241,11 @@ namespace TextRPG_group5.Scenes
                     for (int i = 0; i < player.Inventory.GetCount(); i++)
                     {
                          var item = player.Inventory.GetItem(i);
-                         string name = StringManager.Instance.PadRightForMixedText(item.Name!, 15);
+                         string equipMark = item.IsEquip ? "[E]" : "";
+                         Console.ForegroundColor = ConsoleColor.Green;
+                         Console.Write($"{equipMark}");
+                         Console.ForegroundColor = ConsoleColor.White;
+                         string name = StringManager.Instance.PadRightForMixedText(item.Name!, item.IsEquip ? 12 : 15);
                          string description = "";
                          if (item is Weapon weapon)
                          {
@@ -255,7 +263,10 @@ namespace TextRPG_group5.Scenes
                          else if (item is Potion potion)
                          {
                               description = potion.Description!;
-                              description = StringManager.Instance.PadRightForMixedText(description!, 38);
+                              string quantityStr = $" | 개수 : {potion.ItemCounts}";
+                              description = StringManager.Instance.PadRightForMixedText(description!, 25);
+                              quantityStr = StringManager.Instance.PadRightForMixedText(quantityStr, 13);
+                              description += quantityStr;
                          }
 
                          int sellPrice = (int)(item.Price * 0.8f);
@@ -266,13 +277,17 @@ namespace TextRPG_group5.Scenes
                          Console.WriteLine($"{sellPrice} G");
                     }
 
+                    Console.WriteLine();
                     Console.WriteLine("0. 돌아가기\n");
                     Console.WriteLine("판매하실 아이템을 선택해주세요.");
                     Console.Write(">> ");
 
-                    if (byte.TryParse(Console.ReadLine(), out byte input) && input != 0)
+                    if (byte.TryParse(Console.ReadLine(), out byte input))
                     {
-                         ShopManager.Instance.SellItem(player, input - 1);
+                         if (input != 0)
+                              ShopManager.Instance.SellItem(player, input - 1);
+                         else
+                              isExit = true;
                     }
 
                     Console.Clear();
