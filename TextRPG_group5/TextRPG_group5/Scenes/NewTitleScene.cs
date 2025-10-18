@@ -22,6 +22,7 @@ namespace TextRPG_group5.Scenes
                     case 2:
                          // 캐릭터 로드
                          player = load.Load();
+                         player.Skill.SetOwner(player);
                          player.Inventory.SetOwner(player);
                          Console.Clear();
                          Program.SetScene(new MainScene(player));
