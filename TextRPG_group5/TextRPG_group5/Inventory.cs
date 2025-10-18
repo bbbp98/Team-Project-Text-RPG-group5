@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using TextRPG_group5.EffectManagement;
 using TextRPG_group5.ItemManage;
 using TextRPG_group5.Managers;
 
@@ -44,7 +45,7 @@ namespace TextRPG_group5
           /// </summary>
           /// <param name="item"></param>
           /// <returns>존재하면 item을 return, null: 존재X</returns>
-          private ItemManagement? CheckItemExist(ItemManagement item) => Items.FirstOrDefault(i => i.Name == item.Name);
+          public ItemManagement? CheckItemExist(ItemManagement item) => Items.FirstOrDefault(i => i.Name == item.Name);
 
           /// <summary>
           /// Inventory의 아이템 종류 개수 받아오기
@@ -112,6 +113,12 @@ namespace TextRPG_group5
                }
           }
 
+          public void DecreaseItem(UsableItem item)
+          {
+               item.ItemCounts--;
+               if (item.ItemCounts <= 0)
+                    RemoveItem(item);
+          }
 
           /// <summary>
           /// Inventory의 아이템 삭제
@@ -144,17 +151,50 @@ namespace TextRPG_group5
                for (int i = 0; i < Items.Count; i++)
                {
                     // 1. item name
+                    //Console.Write($"- {i + 1}. ");
+                    //string equipMark = Items[i].IsEquip ? "[E]" : "";
+                    //Console.ForegroundColor = ConsoleColor.Green;
+                    //Console.Write($"{equipMark}");
+                    //Console.ForegroundColor = ConsoleColor.White;
+                    //string name = StringManager.Instance.PadRightForMixedText(Items[i].Name, Items[i].IsEquip ? 10 : 13);
+                    //Console.Write($"{name} | ");
+
+                    //// 2. item stat
+                    //Console.WriteLine(StringManager.Instance.PadRightForMixedText(Items[i].Description, 30));
+                    ////Console.ForegroundColor = ConsoleColor.White;
+
+
+                    var item = Items[i];
                     Console.Write($"- {i + 1}. ");
                     string equipMark = Items[i].IsEquip ? "[E]" : "";
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"{equipMark}");
                     Console.ForegroundColor = ConsoleColor.White;
-                    string name = StringManager.Instance.PadRightForMixedText(Items[i].Name, Items[i].IsEquip ? 10 : 13);
-                    Console.Write($"{name} | ");
+                    string name = StringManager.Instance.PadRightForMixedText(Items[i].Name!, Items[i].IsEquip ? 12 : 15);
+                    //string name = StringManager.Instance.PadRightForMixedText(item.Name!, 15);
+                    string description = "";
+                    if (item is Weapon weapon)
+                    {
+                         string attack = $"공격력: +{weapon.AtkPower}";
+                         attack = StringManager.Instance.PadRightForMixedText(attack, 15);
+                         string crit = $"치명타 확률: +{weapon.CriPro}";
+                         crit = StringManager.Instance.PadRightForMixedText(crit, 20);
+                         description = $"{attack} | {crit}";
+                    }
+                    else if (item is Armor armor)
+                    {
+                         description = $"방어력: +{armor.DefPower}";
+                         description = StringManager.Instance.PadRightForMixedText(description, 38);
+                    }
+                    else if (item is Potion potion)
+                    {
+                         description = potion.Description!;
+                         description = StringManager.Instance.PadRightForMixedText(description!, 38);
+                    }
 
-                    // 2. item stat
-                    Console.WriteLine(StringManager.Instance.PadRightForMixedText(Items[i].Description, 30));
-                    //Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write($"{name} | ");
+                    Console.WriteLine($"{description}");
+                    
                }
           }
 
