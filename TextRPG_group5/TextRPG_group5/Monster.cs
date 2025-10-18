@@ -19,7 +19,7 @@ namespace TextRPG_group5
         public int Exp { get; set; } // 처치 시 얻는 경험치
         public int Gold { get; set; } // 처치 시 얻는 골드
 
-        public int expEvent = 50; // 원활한 테스트를 위해 경험치 50배로 상승
+        public int expEvent = 10; // 원활한 테스트를 위해 경험치 10배로 상승
         public Monster(string name, string msg, MonsterType type, int hp, int atk, int def, double critical, double evasion) : base(name, hp, atk, def)
         {
             Msg = msg;
