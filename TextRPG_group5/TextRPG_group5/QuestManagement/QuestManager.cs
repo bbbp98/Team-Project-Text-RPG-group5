@@ -71,98 +71,118 @@ namespace TextRPG_group5.QuestManagement
         }
 
         // 퀘스트 수락시 진행상황을 변경하는 메서드
-        public static void AcceptQuest(byte id)
+        public static void AcceptQuest(byte id, Player player)
         {
             int idx = 0;
             string[] menu = ["수락", "거절"];
             bool isActive = true;
             bool isSelect = false;
+            bool isComplete = false;
             bool isNoProgress = false;
 
             ConsoleKeyInfo key = new ConsoleKeyInfo();
             Quest? q = Quests.FirstOrDefault(x => x.QuestID == id);
 
-            while (isActive)
+
+            if (q.Status != QuestStatus.Complete)
             {
-                if (idx < 0) idx = 1;
-                else if (idx == menu.Length) idx = 0;
-
-                Console.WriteLine($"선택한 퀘스트 : {q.QuestTitle}");
-
-                Console.WriteLine(" 퀘스트를 수락하시겠습니까? ");
-                for (int i = 0; i < menu.Length; i++)
+                while (isActive)
                 {
-                    if (i == idx)
+                    if (q.Status != QuestStatus.Complete)
                     {
-                        Console.BackgroundColor = ConsoleColor.Yellow;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.Write(menu[i]);
-                        Console.ResetColor();
+                        if (idx < 0) idx = 1;
+                        else if (idx == menu.Length) idx = 0;
+
+                        Console.WriteLine($"선택한 퀘스트 : {q.QuestTitle}");
+
+                        Console.WriteLine(" 퀘스트를 수락하시겠습니까? ");
+                        for (int i = 0; i < menu.Length; i++)
+                        {
+                            if (i == idx)
+                            {
+                                Console.BackgroundColor = ConsoleColor.Yellow;
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.Write(menu[i]);
+                                Console.ResetColor();
+                            }
+                            else Console.Write(menu[i]);
+
+                            Console.Write("   ");
+                        }
+                        Console.WriteLine("\n * 좌우방향키로 포인터이동, 엔터 입력시 선택");
+
+                        key = Console.ReadKey(true);
+
+                        switch (key.Key)
+                        {
+                            case ConsoleKey.RightArrow:
+                                idx++;
+                                Console.Clear();
+                                break;
+                            case ConsoleKey.LeftArrow:
+                                idx--;
+                                Console.Clear();
+                                break;
+                            case ConsoleKey.Enter:
+                                isActive = false;
+                                isSelect = true;
+                                Console.Clear();
+                                break;
+                        }
+
                     }
-                    else Console.Write(menu[i]);
-
-                    Console.Write("   ");
                 }
-                Console.WriteLine("\n * 좌우방향키로 포인터이동, 엔터 입력시 선택");
 
-                key = Console.ReadKey(true);
-
-                switch (key.Key)
-                {
-                    case ConsoleKey.RightArrow:
-                        idx++;
-                        Console.Clear();
-                        break;
-                    case ConsoleKey.LeftArrow:
-                        idx--;
-                        Console.Clear();
-                        break;
-                    case ConsoleKey.Enter:
-                        isActive = false;
-                        isSelect = true;
-                        Console.Clear();
-                        break;
-                }
+                isNoProgress = QuestStatusCheck(q, menu, idx, player, isComplete);
+            }
+            else
+            {
+                isComplete = true;
+                isNoProgress = QuestStatusCheck(q, menu, idx, player, isComplete);
             }
 
-            isNoProgress = QuestStatusCheck(q, menu, idx);
+            
 
             Thread.Sleep(2000);
 
-            if (isNoProgress) SaveQuestProgress(Quests);
-            else return;
+            return;
         }
-        public static bool QuestStatusCheck(Quest q, string[] menu, int idx)
+        public static bool QuestStatusCheck(Quest q, string[] menu, int idx, Player player, bool isComplete)
         {
-            if (q != null && q.Status == QuestStatus.NoProgress && menu[idx] == "수락")
+            if (!isComplete)
             {
-                q.Status = QuestStatus.InProgress;
-                Console.WriteLine($"[퀘스트를 수락하셨습니다.] {q.QuestTitle}");
+                if (q != null && q.Status == QuestStatus.NoProgress && menu[idx] == "수락")
+                {
+                    q.Status = QuestStatus.InProgress;
+                    Console.WriteLine($"[퀘스트를 수락하셨습니다.] {q.QuestTitle}");
+                    Console.WriteLine("메인으로 돌아갑니다.");
+
+                    return true;
+                }
+                else if (q != null && q.Status == QuestStatus.InProgress && menu[idx] == "수락")
+                {
+                    Console.WriteLine($"[해당 퀘스트는 이미 수행 중입니다.] {q.QuestTitle}");
+                    Console.WriteLine("메인으로 돌아갑니다.");
+
+                    return false;
+                }
+                else
+                {
+                    Console.WriteLine($"{q.QuestTitle} \n [퀘스트를 거절하셨습니다.]");
+                    Console.WriteLine("메인으로 돌아갑니다.");
+
+                    return false;
+                }
+            }
+            else
+            {
+                Console.WriteLine($"[완료된 퀘스트입니다.] {q.QuestTitle}");
+                Console.WriteLine($"[플레이어에게 보상이 지급됩니다.]");
+                QuestManager.Instance.GiveReward(player);
                 Console.WriteLine("메인으로 돌아갑니다.");
 
                 return true;
             }
-            else if (q != null && q.Status == QuestStatus.InProgress && menu[idx] == "수락")
-            {
-                Console.WriteLine($"[해당 퀘스트는 이미 수행 중입니다.] {q.QuestTitle}");
-                Console.WriteLine("메인으로 돌아갑니다.");
-
-                return false;
-            }
-            else if (q != null && q.Status == QuestStatus.Complete && menu[idx] == "수락")
-            {
-                Console.WriteLine($"[해당 퀘스트는 이미 완료된 퀘스트입니다.] {q.QuestTitle}");
-                Console.WriteLine("메인으로 돌아갑니다.");
-
-                return false;
-            }
-            else
-            {
-                Console.WriteLine($"{q.QuestTitle} \n [퀘스트를 거절하셨습니다.]");
-                Console.WriteLine("메인으로 돌아갑니다.");
-
-                return false;
-            } 
         }
 
         // 처치한 몬스터 이름을 받아 진행 중 상태인 퀘스트에 반영하는 메서드
@@ -185,8 +205,6 @@ namespace TextRPG_group5.QuestManagement
                     }
                 }
             }
-
-            SaveQuestProgress(Quests);
         }
 
         /// <summary>
@@ -198,17 +216,36 @@ namespace TextRPG_group5.QuestManagement
             {
                 // 플레이어의 경험치, 돈 변경 로직 추가
                 player.GainExp(q.Rewards.Exp);
+                Console.WriteLine($"{q.Rewards.Gold}G 획득.");
                 player.Gold += q.Rewards.Gold;
                 // 보상 아이템을 순차적으로 인벤토리에 추가
                 ItemManagement item; // string배열 Rewards.Items의 멤버를 아이템형식으로 변환후 넣을 ItemManagement자료형
                 for(int i = 0; i < q.Rewards.Items.Count; i++)
                 {
+                    
                     item = ItemInfo.GetItem(q.Rewards.Items[i]);
-                    player.Inventory.AddItem(item);
+
+                    if(item is Potion)
+                    {
+                        Console.WriteLine($"{item.Name}이 인벤토리에 추가됩니다.");
+                        player.Inventory.AddItem(item, 1);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{item.Name}이 인벤토리에 추가됩니다.");
+                        player.Inventory.AddItem(item);
+                    }
                 }
                 
                 q.Status = QuestStatus.Done; // 보상을 한번만 받을 수 있도록 설정
             }
+            
+        }
+
+
+        internal void DataDelivery()
+        {
+            SaveQuestProgress(Quests);
         }
 
         /// <summary>
