@@ -23,8 +23,8 @@ namespace TextRPG_group5
                return (player.Job == "전사" && job == JobClass.Warrior)
                || (player.Job == "마법사" && job == JobClass.Magician)
                || (player.Job == "궁수" && job == JobClass.Archer)
-               || (player.Job == "도적" && job == JobClass.Thief);
-               //|| job == Class.All;
+               || (player.Job == "도적" && job == JobClass.Thief)
+               || job == JobClass.All;
           }
 
           public void EquipItem(EquipItem item)
@@ -69,18 +69,28 @@ namespace TextRPG_group5
 
           public void UnEquipItem(EquipItem item)
           {
-               if (item is Weapon weapon && EquippedWeapon == weapon)
+               if (item is Weapon weapon)
                {
                     player.Attack -= weapon.AtkPower;
                     player.AddCritical(-weapon.CriPro);
                     weapon.IsEquip = false;
+                    var existingItem = player.Inventory.CheckItemExist(weapon);
+                    if (existingItem != null)
+                    {
+                         existingItem.IsEquip = false;
+                    }
                     EquippedWeapon = null;
                     Console.WriteLine($"{weapon.Name}을(를) 해제했습니다.");
                }
-               else if (item is Armor armor && EquippedArmor == armor)
+               else if (item is Armor armor)
                {
                     player.Defence -= armor.DefPower;
                     armor.IsEquip = false;
+                    var existingItem = player.Inventory.CheckItemExist(armor);
+                    if (existingItem != null)
+                    {
+                         existingItem.IsEquip = false;
+                    }
                     EquippedArmor = null;
                     Console.WriteLine($"{armor.Name}을(를) 해제했습니다");
                }

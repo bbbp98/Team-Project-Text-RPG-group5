@@ -47,6 +47,7 @@ namespace TextRPG_group5
           /// <returns>존재하면 item을 return, null: 존재X</returns>
           public ItemManagement? CheckItemExist(ItemManagement item) => Items.FirstOrDefault(i => i.Name == item.Name);
 
+
           /// <summary>
           /// Inventory의 아이템 종류 개수 받아오기
           /// </summary>
