@@ -304,6 +304,12 @@ namespace TextRPG_group5.Scenes
                 // 소비 아이템만 출력
                 Console.WriteLine($"[{i + 1}] {potion.Name} ({typeStr} +{potion.Amount}) x {potion.ItemCounts}");
             }
+
+            if (usableItems.Count == 0)
+            {
+                Console.WriteLine("사용 가능한 아이템이 없습니다.");
+            }
+
             Console.WriteLine();
 
             Console.WriteLine("0. 취소");
