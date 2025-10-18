@@ -9,6 +9,7 @@ using System.Text.Json.Serialization;
 using System.Text.Unicode;
 using System.Threading.Tasks;
 using TextRPG_group5.ItemManage;
+using TextRPG_group5.Managers;
 
 
 namespace TextRPG_group5.QuestManagement
@@ -21,7 +22,17 @@ namespace TextRPG_group5.QuestManagement
             "QuestsInfo.json");
 
         public static List<Quest>? Quests { get; set; }
+        static private QuestManager? instance;
 
+        public static QuestManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new QuestManager();
+                return instance;
+            }
+        }
 
         public static List<Quest> Load()
         {
