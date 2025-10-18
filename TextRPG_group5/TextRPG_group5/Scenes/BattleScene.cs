@@ -30,7 +30,7 @@ namespace TextRPG_group5.Scenes
                 switch (input)
                 {
                     case 0:
-                        CurrentBattle.SetBattleState(BattleState.None);
+                        CurrentBattle.SetBattleState(BattleState.Escape);
                         break;
                     case 1:
                         CurrentBattle.SetBattleState(BattleState.NormalAttack);
@@ -112,6 +112,25 @@ namespace TextRPG_group5.Scenes
                     }
                 }
 
+                else if (CurrentBattle.GetBattleState() == BattleState.Escape)
+                {
+                    if (input == 1)
+                    {
+                        //Program.SetScene(new DungeonEntranceScene(CurrentBattle.PreBattlePlayer));
+                        Program.SetScene(new DungeonEntranceScene(Player));
+                        return;
+                    }
+
+                    
+                    if (input != 1 && input != 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("잘못된 입력입니다.\n");
+                        Console.ResetColor();
+                        return;
+                    }
+                }
+
                 CurrentBattle.userChoice = input;
             }
         }
@@ -141,7 +160,7 @@ namespace TextRPG_group5.Scenes
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Battle!!");
-            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
 
             PrintEnemyInfo();
@@ -192,6 +211,10 @@ namespace TextRPG_group5.Scenes
                     else
                         CurrentBattle.UseItem();
                     break;
+                case BattleState.Escape:
+                    if (CurrentBattle.userChoice == 0)
+                        ConfirmEscape();
+                    break;
                 default:
                     break;
             }
@@ -229,6 +252,9 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("1. 일반 공격");
             Console.WriteLine("2. 스킬 사용");
             Console.WriteLine("3. 아이템 사용");
+            Console.WriteLine();
+
+            Console.WriteLine("0. 이번 던전 포기하기");
         }
 
         void PrintTargetList()
@@ -279,6 +305,18 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine();
 
             Console.WriteLine("0. 취소");
+        }
+
+        void ConfirmEscape()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("정말로 포기하시겠습니까?");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine();
+
+            Console.WriteLine("1. 포기하기");
+            Console.WriteLine("0. 전투로 돌아가기");
         }
     }
 }

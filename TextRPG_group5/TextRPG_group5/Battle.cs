@@ -14,7 +14,7 @@ namespace TextRPG_group5
         NormalAttack,
         Skill,
         Item,
-        ActionResult
+        Escape
     }
 
     internal class Battle
@@ -32,7 +32,7 @@ namespace TextRPG_group5
 
         public bool isPlayerTurn;
 
-        private Player preBattlePlayer;
+        public Player PreBattlePlayer { get; private set; }
 
         public List<UsableItem> UsableItemOnly { get; private set; }
 
@@ -47,7 +47,7 @@ namespace TextRPG_group5
 
             state = BattleState.None;
 
-            preBattlePlayer = Player.Clone();
+            PreBattlePlayer = Player.Clone();
 
             UsableItemOnly = Player.Inventory.GetUsableItems();
         }
@@ -199,7 +199,7 @@ namespace TextRPG_group5
 
         public void EndBattle(bool isClear)
         {
-            Program.SetScene(new DungeonResultScene(Player, preBattlePlayer, CurrentStage, isClear));
+            Program.SetScene(new DungeonResultScene(Player, PreBattlePlayer, CurrentStage, isClear));
         }
 
         /* LJH 로부터 요청받은 로직 : 상태 이상으로 인한 전투 종료 로직 */
