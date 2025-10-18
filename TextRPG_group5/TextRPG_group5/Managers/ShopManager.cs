@@ -110,7 +110,14 @@ namespace TextRPG_group5.Managers
                }
 
                player.Gold -= shopItem.Price;
-               player.Inventory.AddItem(shopItem);
+               if (shopItem is UsableItem usableItem)
+               {
+                    player.Inventory.AddItem(usableItem, 1);
+               }
+               else
+               {
+                    player.Inventory.AddItem(shopItem);
+               }
 
                Console.WriteLine($"{shopItem.Name}을(를) 구매 하셨습니다!");
                return;
