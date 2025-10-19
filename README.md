@@ -114,14 +114,129 @@ public bool TryEvade()
 
 ----------------
 
-2. 던전
+2. Monster class
+- Character 클래스를 상속받는 하위 클래스입니다.
+- Character에서 상속한 변수 외에 공격 메시지, 처시 시 경험치, 골드를 추가로 가집니다.
+- 모든 몬스터들은 Monster class의 자식 클래스로, 각각 컨셉을 가지고, 그에 맞춰 다른 성장 공식을 가지고 있습니다.
+
+```cs
+/* 몬스터 작업 규칙
+internal class 이름 : Monster
+{
+    public 이름() : base("name", "msg", type, hp, atk, def, exp, gold, critical, evasion)
+    {
+        MaxHp += (HP 성장 공식);
+        NowHp = MaxHp;
+        Attack += (Atk 성장 공식);
+        Defence += (방어력 성장 공식);
+        Exp += (경험치 성장 공식);
+        Gold += (골드 증가 공식);
+        Critical += (치명타 확률 증가 공식);// 필요한 경우에만
+        Evasion += (회피 확률 증가 공식);// 필요한 경우에만
+    }
+}
+*/
+```
+- 깜짝상자: 낮은 확률로 던전에서 마주칠 수 있는 많은 골드를 주는 럭키 몬스터
+- 도플갱어: 플레이어의 능력치를 80%로 복사하는 몬스터. 플레이어의 방어력과 공격력의 차이가 클 수록 위험한 몬스터
+- 드래곤: 매우 높은 스테이터스를 가진 최종 보스 몬스터
+- 그 외에도 특색있는 몬스터들을 구현하였습니다.
+>[Monster.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Monster.cs)
+
+---------------------
+
+3. 전투 효과
+- 플레이어에게 적용되는 효과(버프, 디버프, 지속 피해(DoT), 상태이상)을 담당합니다.
+```cs
+internal abstract class Effect // 효과 클래스
+{
+    public EffectType Type { get; protected set; }  // 효과 타입
+    public int Duration { get; set; }               // 효과 지속 시간 (턴 단위)
+    
+    protected Character Caster;                     // 효과를 건 시전자
+
+    public Effect(Character caster, int duration)
+    {
+        this.Caster = caster;
+        Duration = duration;
+    }
+
+    public virtual void OnTurnStart(Character target) { }
+    // 턴 시작 시 발동하는 효과 (독, 화상 등). 아무 효과가 없으면 빈 메서드
+
+    public virtual int GetAttackModifier() { return 0; }
+    public virtual int GetDefenceModifier() { return 0; }
+    public virtual double GetCriticalModifier() { return 0.0; }
+    public virtual double GetEvasionModifier() { return 0.0; }
+    // 각 스탯에 대한 보정 값을 반환하는 메서드들.
+    // 기본적으로는 0을 반환. 버프/디버프 효과에서 이 메서드를 재정의(override)하여 사용.
+
+```
+- 각 효과는 시전자의 정보와 지속 시간(턴)을 매개 변수로 받습니다.
+
+
+```cs
+public enum EffectType  // 효과 타입
+{
+    // 긍정적 효과
+    AtkUp, DefUp, CriticalUp, EvasionUp,            // 버프 계열(미구현)
+    Shield,                                         // 보호막 계열(미구현)
+
+    // 부정적 효과
+    AtkDown, DefDown, CriticalDown, EvasionDown,    // 디버프 계열(미구현)
+    Burn, Freeze, Poison,                           // 지속 피해 계열
+    Stun                                            // 상태이상 계열
+}
+```
+효과 타입은 enum을 통해 구분하고 있습니다.
+
+```cs
+public bool IsStun => effects.Any(e => e.Type == EffectType.Stun);
+```
+
+- '기절'의 경우, 부모 클래스인 Character에서 체크합니다.
+- 전투 시 턴이 시작되었을 때 '기절' 상태라면 그 객체는 행동할 수 없습니다.
+
+```cs
+public void ApplyEffect(Effect effect) // 효과를 적용하는 메서드
+{
+     effects.Add(effect);                                                            // 동일 효과도 중첩 적용 가능
+     Console.WriteLine($"{Name}에게 {effect.Type} 효과가 적용됩니다!");              // 효과 적용 메시지 출력
+}
+
+public void UpdateEffect() // 턴마다 효과를 처리하고 지속시간을 관리하는 메서드
+{
+     if (effects.Count == 0) return;
+
+     for (int i = effects.Count - 1; i >= 0; i--)
+     {
+          var effect = effects[i];
+          effect.OnTurnStart(this);   // 턴마다 효과가 적용되는 효과 로직을 실행하라고 지시.
+          effect.Duration--;          // 지속시간을 1 감소시키고, 0이 되면 제거.
+          if (effect.Duration <= 0)
+          {
+               Console.WriteLine($"{Name}의 {effect.Type} 효과가 사라졌습니다.");
+               effects.RemoveAt(i);
+          }
+     }
+}
+```
+- Character의 ApplyEffect 메서드와 UpdateEffect 메서드를 통해
+객체에게 적용되어 있는 효과를 관리합니다.
+>[Effect.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/EffectManagement/Effect.cs)
+<br>[EffectType.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/EffectManagement/EffectType.cs)
+-----------------
+
+4. 던전
 - 던전은 1층부터 15층까지로, 플레이어가 도달한 층까지의 목록을 보여주고, 입장할 수 있습니다.
 - 던전의 클리어 여부에 따라서 화면을 출력하고, 보상을 지급합니다.
 
 >[DungeonEntranceScene.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Scenes/DungeonEntranceScene.cs)
 <br>[DungeonResultScene.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Scenes/DungeonResultScene.cs)
 
-3. 스테이지 구성
+-----------------
+
+5. 스테이지 구성
 - 각 스테이지의 몬스터 정보는 StageManager를 통해서 전달됩니다.
 - StageManager에서는 몬스터를 생성해주는 StageFactory를 통해 몬스터의 List를 반환합니다.
 
@@ -141,13 +256,49 @@ public List<Monster> CreateMonsters(int currentStage)
 <br>[StageFactories.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/StageFactories.cs)
 <br>[IStageFactory.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/IStageFactory.cs)
 
-4. 인벤토리
+----------------------------------
+
+6. 아이템
+- ItemManagerment 클래스
+<br>모든 아이템들의 이름, 설명, 가격 등의 프로퍼티가 정의된 클래스입니다.
+- EquipItem 클래스
+<br>무기와 방어구를 관리하는 클래스
+<br>각 장비마다 착용할 수 있는 직업들을 구분하기 위한 enum이 정의되어 있습니다.
+- Armor 클래스
+<br>EquipItem클래스를 상속받고, 생성자에서 아이템 이름, 방어력, 회피율, 가격, 설명, 장착여부, 착용가능 직업 을 넘겨받은 매개변수로 세팅합니다.
+<br> 여기서 착용가능 직업의 데이터는 int자료형을 enum자료형으로 명시적 변환하여 저장합니다.
+- Weapon클래스
+<br> EquipItem클래스를 상속받고, 생성자에서 아이템 이름, 공격력, 크리티컬 확률, 가격, 설명, 장착여부, 착용가능 직업 을 넘겨받은 매개변수로 세팅합니다.
+<br>여기서 착용가능 직업의 데이터는 int자료형을 enum자료형으로 명시적 변환하여 저장.
+- UsableItem 클래스
+<br>ItemManagement클래스를 상속받고, 포션의 종류를 구분하기 위한 enum이 선언된 클래스입니다.
+<br> 포션의 종류에 따라 효과를 다르게해야하기 때문에, 가상메서드가 선언되어있음.
+- Potion 클래스
+<br>HP와 MP 회복 포션의 효과를 다르게 적용하기 위해, 부모클래스인 UsableItem의 enum을 이용해 구분하고, 다른 효과를 적용하기 위해 부모클래스에 선언된 가상메서드가 재정의 되어있습니다.
+<br>Hp회복포션 사용시와 Mp회복포션 사용시의 메시지가 각각 다르게 표시하고, 회복효과가 플레이어의 최대 체력과 최대 마나를 초과하지 않도록 하기위한 로직이 포함되어 있습니다.
+- ItemInfo 클래스
+<br>무기, 방어구 등의 장비아이템과, 포션 등의 소모아이템이 각각 다른 딕셔너리에 저장되어있고, GetItem 메서드에 아이템의 이름을 매개변수로 전달하면 먼저 장비아이템 관련 딕셔너리에서 키값이 일치하는지 확인 -> 없으면 소비아이템 관련 딕셔너리에서 키값이 일치하는 항목 확인 -> 없으면 null을 반환하고 일치하는 항목이 있다면 장비아이템의 경우 장비아이템 딕셔너리의 키와 일치하는 항목만을 전달하고, 포션의 경우, UsableItem형의 항목을 Potion 형으로 다운캐스팅 후 반환합니다. 
+<br>( Usable형으로 받아올 경우 Potion형만의 프로퍼티 값을 받아올 수 없기 때문 )
+
+>[ItemManagement.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/ItemManage/ItemManagement.cs)
+<br>[EquipItem.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/ItemManage/EquipItem.cs)
+<br>[Armor.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/ItemManage/Armor.cs)
+<br>[Weapon.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/ItemManage/Weapon.cs)
+<br>[UsableItem.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/ItemManage/UsableItem.cs)
+<br>[Potion.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/ItemManage/Potion.cs)
+<br>[ItemInfo.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/ItemManage/ItemInfo.cs)
+
+-------------------
+
+7. 인벤토리
 - 인벤토리는 장비 아이템, 소비 아이템들의 정보를 가지고 있습니다.
 - 정렬, 아이템 탈/장착, 소비 아이템의 사용에 관한 기능을 수행합니다.
 
 >[Inventory.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Inventory.cs)
 
-5. 상점
+-------------------------------------
+
+8. 상점
 - 아이템을 구매/판매할 수 있는 상점입니다.
 - 아이템의 스테이터스와 같은 설명, 가격이 표시됩니다.
 - 아이템의 구매/판매 기능은 ShopManager를 통해서 수행됩니다.
@@ -165,3 +316,16 @@ public List<Monster> CreateMonsters(int currentStage)
 
 >[ShopScene.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Scenes/ShopScene.cs)
 <br>[ShopManager.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Managers/ShopManager.cs)
+
+9. 퀘스트
+퀘스트정보가 저장되어 있는 json파일을 읽어와 역직렬화를 진행하고, 읽어온 값을 퀘스트 클래스의 각 프로퍼티에 자동으로 적용합니다. 
+<br>try, catch문을 사용해 오류발생시 파일 로드 실패 메시지를 출력하고 null을 반환하다록 설정되어 있고, 파일로드 성공시에는 읽어온 퀘스트데이터를 리스트화 시킨후 퀘스트씬 클래스에 넘겨줍니다. 
+<br>퀘스트 씬에서는, 불러온 퀘스트정보 중에 이미 완료하고 보상까지 받은퀘스트는 제외하고 출력하는 로직이 있어 진행전, 진행중, 보상수령가능 퀘스트만 출력된다. 
+<br>여기서 플레이어는 퀘스트id를 입력하여 특정 퀘스트를 선택하고 이를 퀘스트 매니저 클래스의 AcceptQuest메서드에 전달하고 호출하면, 진행전인 퀘스트에는 수락과 거절을 묻는 메시지가 출력되며 플레이어는 왼쪽오른쪽 방향키를 이용하여 수락과 거절을 선택할 수 있고, 수락을 선택하면, 퀘스트를 수락하고, 퀘스트의 스테이터스를 변경하고 이를 json파일에 저장하며, 거절 시에는 메인 메뉴로 돌아옵니다. 
+<br>진행중인 퀘스트를 선택했을 경우에 퀘스트 수락하기를 누르면 이미 진행중인 퀘스트라는 메시지를 출력하고 어떠한 변경사항도 적용되지 않고 메인메뉴로 복귀합니다. 
+<br>보상수령가능한 완료퀘스트의 경우에는 수락 거절을 묻는 메시지는 생략하고, 메시지로 안내후 보상수령 메서드에 플레이어형 데이터를 전달후 경험치, 골드, 보상아이템을 플레이어의 인벤토리에 추가합니다.
+<br> 퀘스트의 진행상황은 battle 클래스에서 몬스터가 사망했을때, 몬스터의 이름을 UpdateProgress메서드에 전달하면 진행중인 퀘스트의 조건에 들어있는 몬스터의 이름과 대조하여 일치하면 조건과 관련해 저장되어 있는 리스트의 Current수치를 1올려주고, 퀘스트 완료여부를 확인하여 완료되면 퀘스트 스테이터스를 완료 상태로 전환하고, 변경사항을 json파일에 저장한다.
+<br>퀘스트 정보를 저장할 때에는 먼저 퀘스트정보를 한글로도 원활하게 저장할 수 있게 엔코더 옵션을 설정한후, 데이터를 직렬화시켜 기존 json파일을 덮어쓰는 형식으로 저장됩니다.
+
+>[Quest.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/QuestManagement/Quest.cs)
+<br>[QuestManager.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/QuestManagement/QuestManager.cs)
