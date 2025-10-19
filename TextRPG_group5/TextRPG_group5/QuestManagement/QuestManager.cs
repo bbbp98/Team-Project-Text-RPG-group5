@@ -234,16 +234,18 @@ namespace TextRPG_group5.QuestManagement
                 {
                     
                     item = ItemInfo.GetItem(q.Rewards.Items[i]);
-
-                    if(item is Potion)
+                    if (item != null)
                     {
-                        Console.WriteLine($"{item.Name}이 인벤토리에 추가됩니다.");
-                        player.Inventory.AddItem(item, 1);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{item.Name}이 인벤토리에 추가됩니다.");
-                        player.Inventory.AddItem(item);
+                        if (item is Potion)
+                        {
+                            Console.WriteLine($"{item.Name}이 인벤토리에 추가됩니다.");
+                            player.Inventory.AddItem(item, 1);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{item.Name}이 인벤토리에 추가됩니다.");
+                            player.Inventory.AddItem(item);
+                        }
                     }
                 }
                 
