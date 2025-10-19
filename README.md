@@ -163,3 +163,5 @@ public List<Monster> CreateMonsters(int currentStage)
         - 소비 아이템을 모두 판매하면 상점의 판매 리스트에서 사라집니다.
 
 
+>[ShopScene.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Scenes/ShopScene.cs)
+<br>[ShopManager.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Managers/ShopManager.cs)
