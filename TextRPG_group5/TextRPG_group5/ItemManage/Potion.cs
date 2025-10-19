@@ -49,7 +49,7 @@ namespace TextRPG_group5.ItemManage
             {
                 if (player.MaxMp < player.NowMp + potion.Amount)
                 {
-                    player.NowHp = player.MaxHp;
+                    player.NowMp = player.MaxMp;
                     Console.WriteLine("MP를 완전히 회복했습니다.");
                     return;
                 }
