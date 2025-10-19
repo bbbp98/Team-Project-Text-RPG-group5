@@ -181,7 +181,6 @@ namespace TextRPG_group5.Managers
                     player.Inventory.DecreaseItem(usableItem);
                     player.Gold += sellPrice;
                     Thread.Sleep(500);
-                    //player.Inventory.RemoveItem(item);
                }
           }
      }
