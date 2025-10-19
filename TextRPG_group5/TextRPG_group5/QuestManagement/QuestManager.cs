@@ -34,7 +34,7 @@ namespace TextRPG_group5.QuestManagement
             }
         }
 
-        public static List<Quest> Load()
+        public List<Quest> Load()
         {
             try
             {

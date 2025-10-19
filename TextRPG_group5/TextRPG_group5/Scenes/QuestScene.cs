@@ -26,7 +26,7 @@ namespace TextRPG_group5.Scenes
                 {
                     QuestManager.AcceptQuest(input, player);
                     Console.Clear();
-                    Program.SetScene(new MainScene(player));
+                    Program.SetScene(new QuestScene(player));
                 }
                 else
                 {
@@ -49,7 +49,7 @@ namespace TextRPG_group5.Scenes
             byte id = 0;
 
             List<Quest> quests = new List<Quest>();
-            quests = QuestManager.Load();
+            quests = QuestManager.Instance.Load();
 
 
             for (questIdx = 0; questIdx < quests.Count; questIdx++)
