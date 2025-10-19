@@ -19,9 +19,29 @@ namespace TextRPG_group5
                //InitializeSkills();
           }
           public void SetOwner(Player player)
-          { this.player = player; }
+          { 
+            this.player = player;
+            foreach (var skill in skillBook)
+            {
+                switch (skill.Name)
+                {
+                    case "파워 슬래시":
+                        skill.Action = PowerSlash;
+                        break;
+                    case "헤드 샷":
+                        skill.Action = HeadShot;
+                        break;
+                    case "더블 스텝":
+                        skill.Action = DoubleStep;
+                        break;
+                    case "파이어 볼":
+                        skill.Action = FireBall;
+                        break;
+                }
+            }
+        }
 
-          public void InitializeSkills()
+        public void InitializeSkills()
           {
                switch (player.Job)
                {
@@ -73,7 +93,7 @@ namespace TextRPG_group5
                }
                player.NowMp -= mpCost;
                int damage = player.Attack * 2;
-               target.TakeDamage(damage, 0);
+               target.TakeDamage(damage, 0, true);
                Console.WriteLine($"파워 슬래시 사용.{target.Name} 에게 {damage} 의 피해를 입힘");
           }
           private void HeadShot(Character target) // 크리 터짐
@@ -86,7 +106,7 @@ namespace TextRPG_group5
                }
                player.NowMp -= mpCost;
                int damage = player.Attack * 3;
-               target.TakeDamage(damage, player.Critical);
+               target.TakeDamage(damage, player.Critical, true);
                Console.WriteLine($"헤드 샷 사용.{target.Name} 에게 {damage} 의 피해를 입힘");
           }
           private void DoubleStep(Character target) // 2회공격 크리터짐
@@ -99,7 +119,7 @@ namespace TextRPG_group5
                }
                player.NowMp -= mpCost;
                int damage = player.Attack * 1;
-               target.TakeDamage(damage, player.Critical);
+               target.TakeDamage(damage, player.Critical, true);
                Console.WriteLine($"더블 스텝 사용.");
                Console.WriteLine($"{target.Name}에게 {damage} 의 피해를 입힘");
                target.TakeDamage(damage, player.Critical);
@@ -115,7 +135,7 @@ namespace TextRPG_group5
                }
                player.NowMp -= mpCost;
                int damage = player.Attack * 4;
-               target.TakeDamage(damage, 0);
+               target.TakeDamage(damage, 0, true);
                Console.WriteLine($"파이어 볼 사용. {target.Name}에게 {damage} 의 피해를 입힘");
           }
 
