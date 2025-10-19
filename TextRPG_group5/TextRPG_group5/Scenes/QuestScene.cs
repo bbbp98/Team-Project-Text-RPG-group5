@@ -74,6 +74,8 @@ namespace TextRPG_group5.Scenes
                     {
                         Console.WriteLine("완료 (보상 수령 가능)");
                     }
+
+                    Console.WriteLine("\n");
                 }
             }
 
