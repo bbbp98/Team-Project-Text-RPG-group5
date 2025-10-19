@@ -98,11 +98,11 @@ namespace TextRPG_group5.Scenes
                     else
                     {
                          Console.WriteLine("적은 쓰러지고, 고요가 찾아왔다. 한 걸음 더, 소원에 가까워졌다.\n");
-                         Thread.Sleep(800);
+                         //Thread.Sleep(800);
                          Console.WriteLine("새로운 길이 열렸다.\n");
-                         Thread.Sleep(800);
+                         //Thread.Sleep(800);
                          Console.WriteLine("다음 스테이지가 기다린다.\n");
-                         Thread.Sleep(800);
+                         //Thread.Sleep(800);
                     }
                     Console.WriteLine();
                }
@@ -150,7 +150,8 @@ namespace TextRPG_group5.Scenes
                          defStr = $"{defStr} -> {player.Defence}";
                     }
 
-                    Console.WriteLine($"Lv: {levelStr} {player.Name}");
+                    Console.WriteLine($"이름: {player.Name}"); 
+                    Console.WriteLine($"Lv: {levelStr}");
                     Console.WriteLine($"HP: {preBattlePlayer.NowHp} -> {player.NowHp}");
                     Console.WriteLine($"MP: {preBattlePlayer.NowMp} -> {player.NowMp}");
                     Console.WriteLine($"공격력: {atkStr}");
