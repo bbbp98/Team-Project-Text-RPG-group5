@@ -120,6 +120,26 @@ public bool TryEvade()
 - 모든 몬스터들은 Monster class의 자식 클래스로, 각각 컨셉을 가지고, 그에 맞춰 다른 성장 공식을 가지고 있습니다.
 
 ```cs
+internal class Monster : Character
+{
+    public MonsterType Type { get; set; }
+    public string Msg { get; set; } // 몬스터 공격 메시지 예: 슬라임이 말랑거린다. 고블린이 날카로운 칼날을 휘두른다!
+    public int Exp { get; set; } // 처치 시 얻는 경험치
+    public int Gold { get; set; } // 처치 시 얻는 골드
+
+    public int expEvent = 50; // 원활한 테스트를 위해 경험치 10배로 상승
+    public Monster(string name, string msg, MonsterType type, int hp, int atk, int def, double critical, double evasion) : base(name, hp, atk, def)
+    {
+        Msg = msg;
+        Critical = critical;
+        Evasion = evasion;
+    }
+}
+
+```
+
+
+```cs
 /* 몬스터 작업 규칙
 internal class 이름 : Monster
 {
