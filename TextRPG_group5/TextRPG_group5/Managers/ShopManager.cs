@@ -134,40 +134,53 @@ namespace TextRPG_group5.Managers
                var item = player.Inventory.GetItem(inventoryIndex);
                int sellPrice = (int)(item.Price * 0.8f);
 
-               // 장착 중인 아이템
-               if (item.IsEquip)
+               // 장비 아이템
+               if (item is EquipItem equipItem)
                {
-                    while (true)
+                    // 장착 중인 아이템
+                    if (equipItem.IsEquip)
                     {
-                         Console.WriteLine("장착 중인 아이템입니다. 정말로 판매하시겠습니까? (Y/N)");
-                         string check = Console.ReadLine() ?? "";
-                         check = check.ToLower();
-                         if (check == "y")
+                         while (true)
                          {
-                              Console.WriteLine("장착 중인 아이템을 판매합니다.");
-                              Thread.Sleep(1000);
-                              player.Gold += sellPrice;
-                              player.Inventory.RemoveItem(item);
-                              item.IsEquip = false;
-                              break;
+                              Console.WriteLine("장착 중인 아이템입니다. 정말로 판매하시겠습니까? (Y/N)");
+                              string check = Console.ReadLine() ?? "";
+                              check = check.ToLower();
+                              if (check == "y")
+                              {
+                                   Console.WriteLine("장착 중인 아이템을 판매했습니다.");
+                                   Thread.Sleep(500);
+                                   player.Gold += sellPrice;
+                                   player.Inventory.RemoveItem(equipItem);
+                                   equipItem.IsEquip = false;
+                                   break;
+                              }
+                              else if (check == "n")
+                              {
+                                   Console.WriteLine("장착 중인 아이템을 판매하지 않았습니다.");
+                                   Thread.Sleep(500);
+                                   break;
+                              }
+                              else continue;
                          }
-                         else if (check == "n")
-                         {
-                              Console.WriteLine("장착 중인 아이템을 판매하지 않습니다.");
-                              Thread.Sleep(1000);
-                              break;
-                         }
-                         else continue;
-                    }
 
-                    return;
+                         return;
+                    }
+                    else
+                    {
+                         Console.WriteLine($"{item.Name}을(를) 판매했습니다.");
+                         Thread.Sleep(500);
+                         player.Gold += sellPrice;
+                         player.Inventory.RemoveItem(item);
+                         item.IsEquip = false;
+                    }
                }
+               // 소비 아이템
                else if (item is UsableItem usableItem)
                {
-                    Console.WriteLine($"{usableItem.Name}을(를) 1개 판매하셨습니다.");
+                    Console.WriteLine($"{usableItem.Name}을(를) 1개 판매했습니다.");
                     player.Inventory.DecreaseItem(usableItem);
                     player.Gold += sellPrice;
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     //player.Inventory.RemoveItem(item);
                }
           }
