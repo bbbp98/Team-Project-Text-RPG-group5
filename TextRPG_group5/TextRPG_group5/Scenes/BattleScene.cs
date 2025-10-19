@@ -17,6 +17,8 @@ namespace TextRPG_group5.Scenes
         /* LJH 로부터 요청받은 프로퍼티 : 효과가 처리되었는지 여부 확인용 */
         public bool effectsProcessed = false;
 
+        public List<UsableItem> UsableItemList { get { return Player.Inventory.GetUsableItems(); } }
+
         public BattleScene(Battle currentBattle)
         {
             CurrentBattle = currentBattle;
@@ -103,7 +105,7 @@ namespace TextRPG_group5.Scenes
                 }
                 else if (CurrentBattle.GetBattleState() == BattleState.Item)
                 {
-                    if (input > CurrentBattle.UsableItemOnly.Count)
+                    if (input > UsableItemList.Count)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("잘못된 입력입니다.\n");
@@ -290,7 +292,7 @@ namespace TextRPG_group5.Scenes
 
         void PrintUsableItemList()
         {
-            List<UsableItem> usableItems = CurrentBattle.UsableItemOnly;
+            List<UsableItem> usableItems = UsableItemList;
 
             for (int i = 0; i < usableItems.Count; i++)
             {
@@ -300,8 +302,14 @@ namespace TextRPG_group5.Scenes
                 string typeStr = (type == PotionType.HealthPotion) ? "HP" : "MP";
 
                 // 소비 아이템만 출력
-                Console.WriteLine($"[{i + 1}] {potion.Name} ({typeStr} +{potion.Amount})");
+                Console.WriteLine($"[{i + 1}] {potion.Name} ({typeStr} +{potion.Amount}) x {potion.ItemCounts}");
             }
+
+            if (usableItems.Count == 0)
+            {
+                Console.WriteLine("사용 가능한 아이템이 없습니다.");
+            }
+
             Console.WriteLine();
 
             Console.WriteLine("0. 취소");
