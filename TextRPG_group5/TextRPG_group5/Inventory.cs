@@ -21,8 +21,6 @@ namespace TextRPG_group5
                { typeof(EtcItem), 4 },
           };
 
-          // 소비, 기타 아이템용
-          public int Quanitity { get; set; } = 1;
           public List<ItemManagement> Items { get; set; }
           private Player Owner { get; set; }
 
@@ -67,8 +65,6 @@ namespace TextRPG_group5
                {
                     Console.WriteLine($"{item.Name}은(는) 이미 보유 중입니다.");
                }
-
-               //Console.WriteLine($"{item.Name}을(를) 인벤토리에 추가했습니다.");
           }
 
           /// <summary>
@@ -107,10 +103,7 @@ namespace TextRPG_group5
                if (item is Potion potion)
                {
                     potion.UseItem(Owner, potion);
-                    potion.ItemCounts--; // 1개 줄이기
-                    // 개수가 0개면 Remove
-                    if (existing.ItemCounts <= 0)
-                         RemoveItem(potion);
+                    DecreaseItem(potion);
                }
           }
 
@@ -202,12 +195,6 @@ namespace TextRPG_group5
                     Console.WriteLine("장착할 수 있는 아이템이 없습니다.");
                     return;
                }
-
-               //if (items[index].IsEquip)
-               //{
-               //     Console.WriteLine($"{items[index].Name}은(는) 이미 장착 중입니다.");
-               //     return;
-               //}
 
                if (Items[index] is EquipItem equipItem)
                {

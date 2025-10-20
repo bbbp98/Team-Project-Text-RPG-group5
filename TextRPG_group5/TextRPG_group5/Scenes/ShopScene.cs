@@ -304,7 +304,7 @@ namespace TextRPG_group5.Scenes
                               if (input > 0 && input < ShopManager.Instance.GetShopItems().Count)
                               {
                                    ShopManager.Instance.SellItem(player, input - 1);
-                                   Thread.Sleep(2000);
+                                   Thread.Sleep(1000);
                               }
                               else
                               {

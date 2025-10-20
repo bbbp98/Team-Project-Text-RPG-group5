@@ -46,9 +46,9 @@ namespace TextRPG_group5.Scenes
                Console.ForegroundColor = ConsoleColor.White;
 
                Console.WriteLine("어둠이 입구를 삼킨다.");
-               Thread.Sleep(800);
+               //Thread.Sleep(800);
                Console.WriteLine("이제, 소원을 향한 여정이 다시 시작된다.");
-               Thread.Sleep(800);
+               //Thread.Sleep(800);
 
                Console.WriteLine();
                int stage = player.ReachedStage;

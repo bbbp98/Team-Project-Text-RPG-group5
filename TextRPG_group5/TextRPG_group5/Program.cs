@@ -16,7 +16,7 @@ namespace TextRPG_group5
           static void Main(string[] args)
           {
                //Initialize();
-
+               Console.Title = "Tower of Wish";
                while (true)
                {
                     if (currentScene is NewTitleScene
