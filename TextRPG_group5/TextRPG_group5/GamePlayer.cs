@@ -110,7 +110,17 @@ namespace TextRPG_group5
             Console.WriteLine($"소지금: {Gold} G");
             Console.WriteLine($"도달 스테이지: [{ReachedStage}]Stage");
             Console.WriteLine("===================================\n");
+            if (Skill != null && Skill.skillBook.Any())
+            {
+                Console.WriteLine("\n=====Player Skill=====");
+                foreach (var skill in Skill.skillBook)
+                {
+                    Console.WriteLine($"- {skill.Name} (MP {skill.MpCost})");
+                }
+                Console.WriteLine("===================");
+            }
         }
+
         public void GainExp(int amount)
         {
             Exp += amount;
