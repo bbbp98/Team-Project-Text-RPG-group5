@@ -16,11 +16,18 @@ namespace TextRPG_group5.QuestManagement
 {
     internal class QuestManager : Exception
     {
-        private static readonly string PATH = Path.Combine(
+        private static readonly string ORIGIN_FILE_PATH = Path.Combine(
             Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName,
             "QuestManagement",
-            "QuestsInfo.json");
+            "DefaultQuestsInfo.json");
 
+        private static readonly string PERSONAL_FILE_PATH = Path.Combine(
+            Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName,
+            "QuestManagement",
+            "QuestsInfo");
+        public string fullPath;
+
+        public Player player { get; set; }
         public static List<Quest>? Quests { get; set; }
         static private QuestManager? instance;
 
@@ -38,6 +45,8 @@ namespace TextRPG_group5.QuestManagement
         {
             try
             {
+                string json;
+                fullPath = PERSONAL_FILE_PATH +"_"+ player.Name + ".json";
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true,
@@ -49,7 +58,17 @@ namespace TextRPG_group5.QuestManagement
                     Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.All)
                 };
 
-                string json = File.ReadAllText(PATH, Encoding.UTF8); // json 파일 전체를 저장
+
+                if(!File.Exists(fullPath))
+                {
+                    File.Copy(ORIGIN_FILE_PATH, fullPath);
+                    json = File.ReadAllText(fullPath, Encoding.UTF8);
+                }
+                else
+                {
+                    json = File.ReadAllText(fullPath, Encoding.UTF8);
+                }
+
                 Quests = JsonSerializer.Deserialize<List<Quest>>(json, options); // 시리얼화 -> 퀘스트 리스트에 추가 (각 프로퍼티에 자동 적용)
 
                 return Quests;
@@ -71,7 +90,7 @@ namespace TextRPG_group5.QuestManagement
         }
 
         // 퀘스트 수락시 진행상황을 변경하는 메서드
-        public static void AcceptQuest(byte id, Player player)
+        public void AcceptQuest(byte id, Player player)
         {
             int idx = 0;
             string[] menu = ["수락", "거절"];
@@ -144,7 +163,7 @@ namespace TextRPG_group5.QuestManagement
             
 
             Thread.Sleep(2000);
-            if (isNoProgress) DataDelivery();
+            if (isNoProgress) SaveQuestProgress(Quests);
             return;
         }
         public static bool QuestStatusCheck(Quest q, string[] menu, int idx, Player player, bool isComplete)
@@ -255,7 +274,7 @@ namespace TextRPG_group5.QuestManagement
         }
 
 
-        internal static void DataDelivery()
+        internal void DataDelivery()
         {
             SaveQuestProgress(Quests);
         }
@@ -264,7 +283,7 @@ namespace TextRPG_group5.QuestManagement
         /// 퀘스트 저장
         /// </summary>
         /// <param name="quests"></param>
-        public static void SaveQuestProgress(List<Quest> quests)
+        public void SaveQuestProgress(List<Quest> quests)
         {
             var options = new JsonSerializerOptions
             {
@@ -277,7 +296,7 @@ namespace TextRPG_group5.QuestManagement
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.All) // 영어 이외에도 출력할 수 있게
             };
             string json = JsonSerializer.Serialize(quests, options); // 퀘스트 리스트를 시리얼화
-            File.WriteAllText(PATH, json, new UTF8Encoding(false)); // json파일작성 (순수 UTF8 형식)
+            File.WriteAllText(fullPath, json, new UTF8Encoding(false)); // json파일작성 (순수 UTF8 형식)
         }
     }
 }
