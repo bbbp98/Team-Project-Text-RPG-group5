@@ -93,13 +93,13 @@ namespace TextRPG_group5.EffectManagement
     //----------------------------------------↓ 지속 피해 계열 ↓---------------------------------------- 
     internal class Burn : Effect // 시전자의 시전 당시 마나(NowMp)에 비례하여 지속적인 피해를 입히는 효과
     {
-        public double burnRate = 0.1; // 화상 피해 비율
+        public double burnRate = 0.4; // 화상 피해 비율
         public int Value;
 
         public Burn(Character caster, int duration) : base(caster, duration)
         {
             Type = EffectType.Burn;
-            this.Value = (int)(7 + caster.NowMp * burnRate);    // 매 턴 7 + 시전자의 시전 당시 마나의 10% 만큼 피해
+            this.Value = (int)(35 + caster.NowMp * burnRate);    // 매 턴 35 + 시전자의 시전 당시 마나의 40% 만큼 피해
         }
         public override void OnTurnStart(Character target)
         {
@@ -113,14 +113,14 @@ namespace TextRPG_group5.EffectManagement
 
     internal class Freeze : Effect // 시전자의 최대 마나(MaxMp)에 비례하여 지속적인 피해를 주고, 일정 확률로 행동 불능 상태에 빠뜨린다.
     {
-        private double FreezeRate = 0.1;    // 빙결 피해 비율
+        private double FreezeRate = 0.3;    // 빙결 피해 비율
         private double freezeChance;        // 행동 불능 확률
         public int Value;
 
         public Freeze(Character caster, int duration, double chance) : base(caster, duration)
         {
             Type = EffectType.Freeze;
-            this.Value = (int)(5 + caster.MaxMp * FreezeRate);    // 매 턴 5 + 시전자의 최대 마나의 10% 만큼 피해
+            this.Value = (int)(5 + caster.MaxMp * FreezeRate);    // 매 턴 25 + 시전자의 최대 마나의 30% 만큼 피해
             this.freezeChance = chance; // 예: 0.3은 30% 확률로 행동 불능
         }
         public bool TryFreeze()
@@ -147,12 +147,12 @@ namespace TextRPG_group5.EffectManagement
     internal class Poison : Effect
     {
         // 시전자의 레벨에 비례하여 지속적인 피해를 입히는 효과
-        public double poisonRate = 0.05; // 독 피해 비율
+        public double poisonRate = 0.5; // 독 피해 비율
         public int Value;
         public Poison(Character caster, int duration) : base(caster, duration)
         {
             Type = EffectType.Poison;
-            this.Value = (int)(3 + caster.Attack * poisonRate);    // 매 턴 3 + 시전자의 공격력 5% 만큼 피해
+            this.Value = (int)(30 + caster.Attack * poisonRate);    // 매 턴 3 + 시전자의 공격력 50% 만큼 피해
         }
 
         public override void OnTurnStart(Character target)

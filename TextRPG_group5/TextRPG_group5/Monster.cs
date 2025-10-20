@@ -106,11 +106,11 @@ namespace TextRPG_group5
                 if (Level <= 5)
                     return Level * 2;
                 else if (Level <= 10)
-                    return 5 + (Level * 2);
+                    return 5 + (Level * 3);
                 else if (Level <= 20)
-                    return 15 + (Level * 3);
+                    return 15 + (Level * 4);
                 else
-                    return 30 + (Level * 4);
+                    return 30 + (Level * 5);
             }
             // 어느 구간에 도달할 때마다 공격력이 크게 증가
         }
@@ -141,13 +141,13 @@ namespace TextRPG_group5
             get
             {
                 if (Level <= 5)
-                    return (int)(Level * 2);
+                    return (int)(Level * 3);
                 else if (Level <= 10)
-                    return 6 + (Level * 3);
+                    return 6 + (Level * 4);
                 else if (Level <= 20)
-                    return 18 + (int)(Level * 4);
+                    return 18 + (int)(Level * 5);
                 else
-                    return 36 + (Level * 5);
+                    return 36 + (Level * 6);
             }
             // 어느 구간에 도달할 때마다 공격력이 크게 증가
         }
@@ -160,7 +160,7 @@ namespace TextRPG_group5
         우월하고 강인한 유전자로 태생부터 강력하지만, 우둔하여 레벨이 올라도 성장폭은 크지 않다.
         강력한 체력, 공격력, 방어력을 가졌지만, 치명타 확률과 회피율은 낮다.
         */
-        public double orcGrow = 1.3; // 오크의 성장률
+        public double orcGrow = 1.5; // 오크의 성장률
 
         public Orc(int level) : base("오크", "오크가 거대한 도끼를 휘두른다!", MonsterType.unique, 250, 60, 40, 0.08, 0.05)
         {
@@ -202,13 +202,13 @@ namespace TextRPG_group5
         죽은 자의 뼈로 만들어진 언데드 몬스터. 전체적인 능력치는 낮지만, 회피율이 높아 일반 공격으로는 잘 안 죽는다.
         전혀 위협적이지는 않지만 스킬을 소모하게 만드는, 짜증나는 몬스터
         */
-        public Skeleton(int level) : base("스켈레톤", "스켈레톤이 턱뼈를 달그락거리며 달라붙는다.", MonsterType.normal, 15, 5, 3, 0.05, 0.55)
+        public Skeleton(int level) : base("스켈레톤", "스켈레톤이 턱뼈를 달그락거리며 달라붙는다.", MonsterType.normal, 15, 5, 3, 0.05, 0.45)
         {
             this.Level = level;
             MaxHp += (int)(Level * 3);                  // 레벨에 비례    
             NowHp = MaxHp;
-            Attack += (int)(Level * 1.5);               // 레벨에 비례
-            Defence += (int)(Level * 1.5);              // 레벨에 비례
+            Attack += (int)(Level * 2);               // 레벨에 비례
+            Defence += (int)(Level * 2);              // 레벨에 비례
             Exp += (int)(Level * 3) * expEvent;         // 레벨에 비례
             Gold += (int)(Level * 4);                   // 레벨에 비례
         }
@@ -250,7 +250,7 @@ namespace TextRPG_group5
             this.Level = level;
             MaxHp += (int)(Level * 4);              // 레벨에 비례    
             NowHp = MaxHp;
-            jesterAttack = (int)(10 + Level * 2);   // 레벨에 비례해 늘어나는 기본 공격력
+            jesterAttack = (int)(10 + Level * 3);   // 레벨에 비례해 늘어나는 기본 공격력
             Defence += (int)(Level * 2);            // 레벨에 비례
             Exp += (int)(Level * 5) * expEvent;     // 레벨에 비례
             Gold += (int)(Level * 5);               // 레벨에 비례
@@ -259,10 +259,8 @@ namespace TextRPG_group5
         {
             get
             {
-                int randomInt = rand.Next(-3, 3);                   // -3 ~ +2 사이의 난수를 생성
+                int randomInt = rand.Next(-2, 3);                   // -2 ~ +2 사이의 난수를 생성
                 int finalAttack = jesterAttack + randomInt * Level; // 현재 공격력에 난수를 더해 값을 변경
-                if (finalAttack < 1)                                // 공격력이 1 미만으로 떨어지지 않도록 보정
-                    finalAttack = 1;
                 return finalAttack;                                 // 변경된 값을 반환
             }
             set
@@ -303,7 +301,7 @@ namespace TextRPG_group5
     {
         public double dopleRate = 0.95; // 플레이어 능력치의 95%를 흉내낸다.
 
-        public Dople(Player targetPlayer) : base("도플갱어", "당신과 닮은 모습을 한 몬스터가 당신을 흉내낸다!", MonsterType.boss, 0, 0, 0, 0, 0)
+        public Dople(Player targetPlayer) : base("도플갱어", "당신과 닮은 모습을 한 몬스터가 당신을 흉내낸다!", MonsterType.boss, 30, 30, 30, 30, 30)
         {
             /*
             도플갱어: 플레이어가 강해질수록 더 강해지는 보스 몬스터
