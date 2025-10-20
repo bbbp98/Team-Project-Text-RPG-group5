@@ -1,0 +1,132 @@
+[
+  {
+    "QuestID": 1,
+    "QuestTitle": "고블린 토벌",
+    "QuestDescription": "고블린의 개체 수 급증으로 던전을 나와 사람을 습격하는 일이 잦아졌다. 고블린들의 씨를 말려버리자.",
+    "objectives": [
+      {
+        "Type": "토벌",
+        "Target": "고블린",
+        "Count": 10,
+        "Current": 0
+      }
+    ],
+    "Rewards": {
+      "Exp": 50,
+      "Gold": 200,
+      "Items": [
+        "HP소형포션",
+        "강철검"
+      ]
+    },
+    "Status": "NoProgress"
+  },
+  {
+    "QuestID": 2,
+    "QuestTitle": "홉고블린 토벌",
+    "QuestDescription": "던전에서 빠져나온 고블린들의 우두머리격으로 보이는 개체가 확인되었다. 홉고블린들을 처치하여 고블린의 조직적인 활동을 제한하라.",
+    "objectives": [
+      {
+        "Type": "토벌",
+        "Target": "홉고블린",
+        "Count": 3,
+        "Current": 0
+      }
+    ],
+    "Rewards": {
+      "Exp": 200,
+      "Gold": 500,
+      "Items": [
+        "HP대형포션",
+        "가죽갑옷"
+      ]
+    },
+    "Status": "NoProgress"
+  },
+  {
+    "QuestID": 3,
+    "QuestTitle": "오크의 위협",
+    "QuestDescription": "던전에 오크들이 매우 호전적으로 변이되어 던전에서 빠져나오는 고블린의 수가 늘어난 것으로 보인다. 오크의 개체수를 줄이면 줄어들 것이다.",
+    "objectives": [
+      {
+        "Type": "토벌",
+        "Target": "오크",
+        "Count": 5,
+        "Current": 0
+      }
+    ],
+    "Rewards": {
+      "Exp": 400,
+      "Gold": 1000,
+      "Items": [
+        "가죽보호구"
+      ]
+    },
+    "Status": "NoProgress"
+  },
+  {
+    "QuestID": 4,
+    "QuestTitle": "골렘 제거",
+    "QuestDescription": "버려졌던 골렘들이 누군가에 의해 폭주했다. 폭주한 골렘들을 파괴하라",
+    "objectives": [
+      {
+        "Type": "토벌",
+        "Target": "골렘",
+        "Count": 4,
+        "Current": 0
+      }
+    ],
+    "Rewards": {
+      "Exp": 500,
+      "Gold": 2000,
+      "Items": [
+        "강철갑옷"
+      ]
+    },
+    "Status": "NoProgress"
+  },
+  {
+    "QuestID": 5,
+    "QuestTitle": "광대 공포증",
+    "QuestDescription": "던전에 출몰하는 어릿광대를 토벌하라.",
+    "objectives": [
+      {
+        "Type": "토벌",
+        "Target": "어릿광대",
+        "Count": 3,
+        "Current": 0
+      }
+    ],
+    "Rewards": {
+      "Exp": 600,
+      "Gold": 2500,
+      "Items": [
+        "카람빗",
+        "암행복"
+      ]
+    },
+    "Status": "NoProgress"
+  },
+  {
+    "QuestID": 6,
+    "QuestTitle": "드래곤 슬레이어",
+    "QuestDescription": "하늘 아래 두 개의 태양은 없다. 드래곤을 무찌르고 유일한 최강자로 군림하라.",
+    "objectives": [
+      {
+        "Type": "토벌",
+        "Target": "드래곤",
+        "Count": 1,
+        "Current": 0
+      }
+    ],
+    "Rewards": {
+      "Exp": 2000,
+      "Gold": 10000,
+      "Items": [
+        "창세신의 무구",
+        "창세신의 가호"
+      ]
+    },
+    "Status": "NoProgress"
+  }
+]

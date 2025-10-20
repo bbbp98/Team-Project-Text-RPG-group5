@@ -24,7 +24,7 @@ namespace TextRPG_group5.Scenes
             {
                 if (input != 0)
                 {
-                    QuestManager.AcceptQuest(input, player);
+                    QuestManager.Instance.AcceptQuest(input, player);
                     Console.Clear();
                     Program.SetScene(new QuestScene(player));
                 }
