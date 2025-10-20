@@ -95,13 +95,5 @@ namespace TextRPG_group5
                     Console.WriteLine($"{armor.Name}을(를) 해제했습니다");
                }
           }
-
-          public void ShowEquipStatus()
-          {
-               Console.WriteLine("\n=======Equipment=======");
-               Console.WriteLine($"Weapon:{(EquippedWeapon != null ? "[E]" + EquippedWeapon.Name : "없음")}");
-               Console.WriteLine($"Armor: {(EquippedArmor != null ? "[E]" + EquippedArmor.Name : "없음")}");
-               Console.WriteLine("=======================\n");
-          }
      }
 }

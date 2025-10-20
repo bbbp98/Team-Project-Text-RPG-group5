@@ -8,7 +8,7 @@ namespace TextRPG_group5
 {
      internal class Program
      {
-          static private Scene? currentScene = new NewTitleScene();
+          static private Scene? currentScene = new TitleScene();
           static private Player? player;
           static private bool isSkipInput = false;
           public const int maxStage = 15;
@@ -19,7 +19,7 @@ namespace TextRPG_group5
                Console.Title = "Tower of Wish";
                while (true)
                {
-                    if (currentScene is NewTitleScene
+                    if (currentScene is TitleScene
                          || currentScene is CreatePlayerScene)
                     { currentScene!.Show(); }
                     else

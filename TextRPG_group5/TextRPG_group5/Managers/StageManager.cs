@@ -39,7 +39,7 @@ namespace TextRPG_group5.Managers
                {
                     return factory.Create(player!, currentStage);
                }
-
+               
                return new List<Monster>();
           }
 

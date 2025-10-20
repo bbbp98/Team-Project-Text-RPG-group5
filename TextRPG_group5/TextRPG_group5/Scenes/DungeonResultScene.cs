@@ -27,20 +27,6 @@ namespace TextRPG_group5.Scenes
                }
           }
 
-          public DungeonResultScene(Player player, int stage, bool isClearStage)
-          {
-               this.player = player;
-               this.preBattlePlayer = new Player
-               {
-                    NowHp = player.NowHp,
-                    Attack = player.Attack,
-                    Defence = player.Defence,
-                    Level = player.Level,
-               };
-               this.stage = stage;
-               this.isClearStage = isClearStage;
-          }
-
           public DungeonResultScene(Player player, Player preBattlePlayer, int stage, bool isClearStage)
           {
                this.player = player;
