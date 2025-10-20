@@ -27,7 +27,7 @@ namespace TextRPG_group5.Scenes
         // 입력 값 처리 메서드
         public override void HandleInput(byte input)
         {
-            if (CurrentBattle.GetBattleState() == BattleState.None)
+            if (CurrentBattle.CurrentState == BattleState.None)
             {
                 switch (input)
                 {
@@ -58,7 +58,7 @@ namespace TextRPG_group5.Scenes
                     return;
                 }
 
-                if (CurrentBattle.GetBattleState() == BattleState.NormalAttack)
+                if (CurrentBattle.CurrentState == BattleState.NormalAttack)
                 {
                     if (input > Monsters.Count || Monsters[input - 1].IsDead)
                     {   // 몬스터 번호 범위 밖이거나, 이미 죽은 몬스터 선택
@@ -66,7 +66,7 @@ namespace TextRPG_group5.Scenes
                         return;
                     }
                 }
-                else if (CurrentBattle.GetBattleState() == BattleState.Skill)
+                else if (CurrentBattle.CurrentState == BattleState.Skill)
                 {
                     if (CurrentBattle.userSkillChoice == 0)
                     {
@@ -95,7 +95,7 @@ namespace TextRPG_group5.Scenes
                         return;
                     }
                 }
-                else if (CurrentBattle.GetBattleState() == BattleState.Item)
+                else if (CurrentBattle.CurrentState == BattleState.Item)
                 {
                     if (input > UsableItemList.Count)
                     {
@@ -104,7 +104,7 @@ namespace TextRPG_group5.Scenes
                     }
                 }
 
-                else if (CurrentBattle.GetBattleState() == BattleState.Escape)
+                else if (CurrentBattle.CurrentState == BattleState.Escape)
                 {
                     if (input == 1)
                     {
@@ -171,7 +171,7 @@ namespace TextRPG_group5.Scenes
                 return;
             }
 
-            switch (CurrentBattle.GetBattleState())
+            switch (CurrentBattle.CurrentState)
             {
                 case BattleState.None:
                     PrintActionList();

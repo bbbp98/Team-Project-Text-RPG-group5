@@ -24,7 +24,7 @@ namespace TextRPG_group5
         public List<Monster> Monsters { get; private set; }
         public byte CurrentStage { get; private set; }
 
-        private BattleState state;
+        public BattleState CurrentState { get; private set; }
         public byte userChoice;
 
         // 스킬 사용 시, 사용자 입력용
@@ -44,13 +44,12 @@ namespace TextRPG_group5
             // Player 선공
             isPlayerTurn = true;
 
-            state = BattleState.None;
+            CurrentState = BattleState.None;
 
             PreBattlePlayer = Player.Clone();
         }
 
-        public void SetBattleState(BattleState currentState) => state = currentState;
-        public BattleState GetBattleState() => state;
+        public void SetBattleState(BattleState currentState) => CurrentState = currentState;
 
         public void HitNormalAttack()
         {
