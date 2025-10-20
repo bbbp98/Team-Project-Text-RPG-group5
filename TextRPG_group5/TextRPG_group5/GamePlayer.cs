@@ -97,27 +97,28 @@ namespace TextRPG_group5
         public override void ShowStatus()
         {
             Console.WriteLine("=============Player status==============");
-            Console.WriteLine($"이름:          {Name}");
-            Console.WriteLine($"직업:          {Job}");
-            Console.WriteLine($"레벨:          {Level}");
-            Console.WriteLine($"경험치:        {Exp} / {MaxExp}");
-            Console.WriteLine($"체력:          {NowHp} / {MaxHp}");
-            Console.WriteLine($"마나:          {NowMp} / {MaxMp}");
-            Console.WriteLine($"공격력:        {Attack}");
-            Console.WriteLine($"방어력:        {Defence}");
-            Console.WriteLine($"치명타 확률:   {(int)(Critical * 100)} %");
-            Console.WriteLine($"회피 확률:     {(int)(Evasion * 100)} %");
-            Console.WriteLine($"소지금:        {Gold} G");
-            Console.WriteLine($"도달 스테이지: [{ReachedStage}]Stage");
-            Console.WriteLine("========================================\n\n");
+            Console.WriteLine($"이름:             {Name}");
+            Console.WriteLine($"직업:             {Job}");
+            Console.WriteLine($"레벨:             {Level}");
+            Console.WriteLine($"경험치:           {Exp} / {MaxExp}");
+            Console.WriteLine($"체력:             {NowHp} / {MaxHp}");
+            Console.WriteLine($"마나:             {NowMp} / {MaxMp}");
+            Console.WriteLine($"공격력:           {Attack}");
+            Console.WriteLine($"방어력:           {Defence}");
+            Console.WriteLine($"치명타 확률:      {(int)(Critical * 100)} %");
+            Console.WriteLine($"회피 확률:        {(int)(Evasion * 100)} %");
+            Console.WriteLine($"소지금:           {Gold} G");
+            Console.WriteLine($"도달 스테이지:    [{ReachedStage}]Stage");
+            Console.WriteLine("========================================\n");
             if (Skill != null && Skill.skillBook.Any())
             {
+                Console.WriteLine("                    *                   \n");
                 Console.WriteLine("==============Player Skill==============\n");
                 foreach (var skill in Skill.skillBook)
                 {
                     Console.WriteLine($"- {skill.Name} (MP {skill.MpCost})");
                 }
-                Console.WriteLine("========================================");
+                Console.WriteLine("\n========================================");
             }
         }
         public void GainExp(int amount)
