@@ -54,37 +54,50 @@ namespace TextRPG_group5.Scenes
                Console.WriteLine("[아이템 목록]");
 
                JobClass preClass = JobClass.All;
+               bool didOnce = false;
                // print item list
                foreach (ItemManagement item in ShopManager.Instance.GetShopItems())
                {
+                    string? typeStr = "";
                     if (item is EquipItem equipItem)
                     {
                          if (preClass != equipItem.Job)
                          {
                               preClass = equipItem.Job;
-                              string? classStr = "";
                               switch (preClass)
                               {
                                    case JobClass.All:
-                                        classStr = "전직업";
+                                        typeStr = "전직업";
                                         break;
                                    case JobClass.Warrior:
-                                        classStr = "전사";
+                                        typeStr = "전사";
                                         break;
                                    case JobClass.Archer:
-                                        classStr = "궁수";
+                                        typeStr = "궁수";
                                         break;
                                    case JobClass.Magician:
-                                        classStr = "마법사";
+                                        typeStr = "마법사";
                                         break;
                                    case JobClass.Thief:
-                                        classStr = "도적";
+                                        typeStr = "도적";
                                         break;
                               }
                               Console.ForegroundColor = ConsoleColor.Cyan;
                               Console.WriteLine();
-                              Console.WriteLine($"[{classStr}용 아이템]");
+                              Console.WriteLine($"[{typeStr}용 아이템]");
                               Console.ForegroundColor = ConsoleColor.White;
+                         }
+                    }
+                    else
+                    {
+                         if (!didOnce)
+                         {
+                              typeStr = "소비";
+                              Console.ForegroundColor = ConsoleColor.Cyan;
+                              Console.WriteLine();
+                              Console.WriteLine($"[{typeStr}용 아이템]");
+                              Console.ForegroundColor = ConsoleColor.White;
+                              didOnce = true;
                          }
                     }
                     Console.Write("- ");
@@ -118,7 +131,11 @@ namespace TextRPG_group5.Scenes
                else if (item is UsableItem usableItem)
                {
                     description = usableItem.Description!;
-                    string quantityStr = $" | 개수 : {usableItem.ItemCounts}";
+                    var existingItem = player.Inventory.CheckItemExist(usableItem);
+                    int quantity = 0;
+                    if (existingItem != null)
+                         quantity = existingItem.ItemCounts;
+                    string quantityStr = $" | 개수 : {quantity}";
                     description = StringManager.Instance.PadRightForMixedText(description!, 27);
                     quantityStr = StringManager.Instance.PadRightForMixedText(quantityStr, 8);
                     description += quantityStr;
