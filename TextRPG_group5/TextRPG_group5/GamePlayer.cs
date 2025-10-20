@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPG_group5.ItemManage;
+using TextRPG_group5.QuestManagement;
 
 namespace TextRPG_group5
 {
@@ -46,6 +47,7 @@ namespace TextRPG_group5
             NowHp = MaxHp;
             NowMp = MaxMp;
             Inventory = new Inventory(this);
+            QuestManager.Instance.player = this;
         }
         public Player()
         {
