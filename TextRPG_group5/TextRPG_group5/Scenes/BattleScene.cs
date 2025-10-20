@@ -44,9 +44,7 @@ namespace TextRPG_group5.Scenes
                         CurrentBattle.SetBattleState(BattleState.Item);
                         break;
                     default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("잘못된 입력입니다.\n");
-                        Console.ResetColor();
+                        PrintInvalidInputMessage();
                         break;
                 }
             }
@@ -64,9 +62,7 @@ namespace TextRPG_group5.Scenes
                 {
                     if (input > Monsters.Count || Monsters[input - 1].IsDead)
                     {   // 몬스터 번호 범위 밖이거나, 이미 죽은 몬스터 선택
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("잘못된 입력입니다.\n");
-                        Console.ResetColor();
+                        PrintInvalidInputMessage();
                         return;
                     }
                 }
@@ -83,9 +79,7 @@ namespace TextRPG_group5.Scenes
                         // 잘못된 입력 방지: 대상 범위, 생존 여부 모두 체크
                         if (input > Monsters.Count || Monsters[input - 1].IsDead)
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("잘못된 입력입니다.\n");
-                            Console.ResetColor();
+                            PrintInvalidInputMessage();
                             return;
                         }
 
@@ -97,9 +91,7 @@ namespace TextRPG_group5.Scenes
                     if (CurrentBattle.userSkillChoice > Player.Skill.skillBook.Count ||
                         CurrentBattle.userTargetChoice > Monsters.Count)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("잘못된 입력입니다.\n");
-                        Console.ResetColor();
+                        PrintInvalidInputMessage();
                         return;
                     }
                 }
@@ -107,9 +99,7 @@ namespace TextRPG_group5.Scenes
                 {
                     if (input > UsableItemList.Count)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("잘못된 입력입니다.\n");
-                        Console.ResetColor();
+                        PrintInvalidInputMessage();
                         return;
                     }
                 }
@@ -126,9 +116,7 @@ namespace TextRPG_group5.Scenes
                     
                     if (input != 1 && input != 0)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("잘못된 입력입니다.\n");
-                        Console.ResetColor();
+                        PrintInvalidInputMessage();
                         return;
                     }
                 }
@@ -325,6 +313,13 @@ namespace TextRPG_group5.Scenes
 
             Console.WriteLine("1. 포기하기");
             Console.WriteLine("0. 전투로 돌아가기");
+        }
+
+        void PrintInvalidInputMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("잘못된 입력입니다.\n");
+            Console.ResetColor();
         }
     }
 }
