@@ -84,9 +84,11 @@ namespace TextRPG_group5.Scenes
                     Console.WriteLine("분명 약했을 것이다.\n");
                     Console.WriteLine("하지만 지금의 당신은 어떤가?");
                     Thread.Sleep(1500);
-                    Console.WriteLine("지금의 당신은 분명히 강하다.\n");
+                    Console.WriteLine("나는 장담할 수 있다.\n지금의 당신은 분명히 강하다.\n");
+                    Thread.Sleep(500);
                     Console.WriteLine("그래, 당신은 여태까지의 여정을 통해서 강해졌다.");
-                    Console.WriteLine("그러니 스스로의 힘으로 당신의 소원을 이루길 바란다.\n");
+                    Console.WriteLine("그러니 이제 스스로의 힘으로 소원을 이루길 바란다.\n");
+                    Console.WriteLine("------------------------------------------------------------------------\n");
                     Thread.Sleep(2000);
                     Console.WriteLine("·\n·\n·\n·\n·");
                 }
