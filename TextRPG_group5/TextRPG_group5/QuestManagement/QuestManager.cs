@@ -179,21 +179,21 @@ namespace TextRPG_group5.QuestManagement
                 {
                     q.Status = QuestStatus.InProgress;
                     Console.WriteLine($"[퀘스트를 수락하셨습니다.] {q.QuestTitle}");
-                    Console.WriteLine("메인으로 돌아갑니다.");
+                    Console.WriteLine("퀘스트 확인창으로 돌아갑니다.");
 
                     return true;
                 }
                 else if (q != null && q.Status == QuestStatus.InProgress && menu[idx] == "수락")
                 {
                     Console.WriteLine($"[해당 퀘스트는 이미 수행 중입니다.] {q.QuestTitle}");
-                    Console.WriteLine("메인으로 돌아갑니다.");
+                    Console.WriteLine("퀘스트 확인창으로 돌아갑니다.");
 
                     return false;
                 }
                 else
                 {
                     Console.WriteLine($"{q.QuestTitle} \n [퀘스트를 거절하셨습니다.]");
-                    Console.WriteLine("메인으로 돌아갑니다.");
+                    Console.WriteLine("퀘스트 확인창으로 돌아갑니다.");
 
                     return false;
                 }
@@ -203,7 +203,7 @@ namespace TextRPG_group5.QuestManagement
                 Console.WriteLine($"[완료된 퀘스트입니다.] {q.QuestTitle}");
                 Console.WriteLine($"[플레이어에게 보상이 지급됩니다.]");
                 QuestManager.Instance.GiveReward(player);
-                Console.WriteLine("메인으로 돌아갑니다.");
+                Console.WriteLine("퀘스트 확인창으로 돌아갑니다.");
 
                 return true;
             }
