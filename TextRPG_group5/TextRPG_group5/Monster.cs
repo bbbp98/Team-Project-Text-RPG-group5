@@ -301,13 +301,13 @@ namespace TextRPG_group5
 
     internal class Dople : Monster  // Doppelganger가 맞는 표기법이지만, 편의상 Dople로 표기
     {
-        public double dopleRate = 0.95; // 플레이어 능력치의 80%를 흉내낸다.
+        public double dopleRate = 0.95; // 플레이어 능력치의 95%를 흉내낸다.
 
         public Dople(Player targetPlayer) : base("도플갱어", "당신과 닮은 모습을 한 몬스터가 당신을 흉내낸다!", MonsterType.boss, 0, 0, 0, 0, 0)
         {
             /*
             도플갱어: 플레이어가 강해질수록 더 강해지는 보스 몬스터
-            플레이어를 흉내낼 줄 아는 마물. 플레이어의 능력치를 80% 정도 흉내낸다.
+            플레이어를 흉내낼 줄 아는 마물. 플레이어의 능력치를 95% 정도 흉내낸다.
             플레이어가 강해질수록 더 강해지기 때문에, 까다롭다.
             */
             this.Level = targetPlayer.Level;
@@ -317,7 +317,6 @@ namespace TextRPG_group5
             this.Defence += (int)(targetPlayer.Defence * dopleRate);
             this.Critical += (targetPlayer.Critical * dopleRate);
             this.Evasion += (targetPlayer.Evasion * dopleRate);
-            // 플레이어의 80% 능력치를 가진다.
             this.Exp += (int)(10 + targetPlayer.Level * dopleRate * 10) * expEvent;
             this.Gold += (int)(15 + targetPlayer.Level * dopleRate * 10);
             // 플레이어의 레벨에 따라 보상이 달라진다.
