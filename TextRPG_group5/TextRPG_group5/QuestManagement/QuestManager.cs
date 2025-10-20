@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -45,8 +46,12 @@ namespace TextRPG_group5.QuestManagement
         {
             try
             {
+                if(Quests != null)
+                {
+                    Quests = null;
+                }
                 string json;
-                fullPath = PERSONAL_FILE_PATH +"_"+ player.Name + ".json";
+                fullPath = PERSONAL_FILE_PATH + "_" + player.Name + ".json";
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true,
@@ -59,7 +64,7 @@ namespace TextRPG_group5.QuestManagement
                 };
 
 
-                if(!File.Exists(fullPath))
+                if (!File.Exists(fullPath))
                 {
                     File.Copy(ORIGIN_FILE_PATH, fullPath);
                     json = File.ReadAllText(fullPath, Encoding.UTF8);
@@ -160,7 +165,7 @@ namespace TextRPG_group5.QuestManagement
                 isNoProgress = QuestStatusCheck(q, menu, idx, player, isComplete);
             }
 
-            
+
 
             Thread.Sleep(2000);
             if (isNoProgress) SaveQuestProgress(Quests);
@@ -174,21 +179,21 @@ namespace TextRPG_group5.QuestManagement
                 {
                     q.Status = QuestStatus.InProgress;
                     Console.WriteLine($"[퀘스트를 수락하셨습니다.] {q.QuestTitle}");
-                    Console.WriteLine("메인으로 돌아갑니다.");
+                    Console.WriteLine("퀘스트 확인창으로 돌아갑니다.");
 
                     return true;
                 }
                 else if (q != null && q.Status == QuestStatus.InProgress && menu[idx] == "수락")
                 {
                     Console.WriteLine($"[해당 퀘스트는 이미 수행 중입니다.] {q.QuestTitle}");
-                    Console.WriteLine("메인으로 돌아갑니다.");
+                    Console.WriteLine("퀘스트 확인창으로 돌아갑니다.");
 
                     return false;
                 }
                 else
                 {
                     Console.WriteLine($"{q.QuestTitle} \n [퀘스트를 거절하셨습니다.]");
-                    Console.WriteLine("메인으로 돌아갑니다.");
+                    Console.WriteLine("퀘스트 확인창으로 돌아갑니다.");
 
                     return false;
                 }
@@ -198,7 +203,7 @@ namespace TextRPG_group5.QuestManagement
                 Console.WriteLine($"[완료된 퀘스트입니다.] {q.QuestTitle}");
                 Console.WriteLine($"[플레이어에게 보상이 지급됩니다.]");
                 QuestManager.Instance.GiveReward(player);
-                Console.WriteLine("메인으로 돌아갑니다.");
+                Console.WriteLine("퀘스트 확인창으로 돌아갑니다.");
 
                 return true;
             }
@@ -208,7 +213,7 @@ namespace TextRPG_group5.QuestManagement
         // ToDo : 몬스터가 죽을 때 이 메서드를 호출시켜야 함
         public void UpdateProgress(string target)
         {
-            
+
             if (Quests == null)
             {
                 Quests = Load();
@@ -249,9 +254,9 @@ namespace TextRPG_group5.QuestManagement
                 player.Gold += q.Rewards.Gold;
                 // 보상 아이템을 순차적으로 인벤토리에 추가
                 ItemManagement item; // string배열 Rewards.Items의 멤버를 아이템형식으로 변환후 넣을 ItemManagement자료형
-                for(int i = 0; i < q.Rewards.Items.Count; i++)
+                for (int i = 0; i < q.Rewards.Items.Count; i++)
                 {
-                    
+
                     item = ItemInfo.GetItem(q.Rewards.Items[i]);
                     if (item != null)
                     {
@@ -267,10 +272,10 @@ namespace TextRPG_group5.QuestManagement
                         }
                     }
                 }
-                
+
                 q.Status = QuestStatus.Done; // 보상을 한번만 받을 수 있도록 설정
             }
-            
+
         }
 
 
@@ -298,5 +303,6 @@ namespace TextRPG_group5.QuestManagement
             string json = JsonSerializer.Serialize(quests, options); // 퀘스트 리스트를 시리얼화
             File.WriteAllText(fullPath, json, new UTF8Encoding(false)); // json파일작성 (순수 UTF8 형식)
         }
+
     }
 }
