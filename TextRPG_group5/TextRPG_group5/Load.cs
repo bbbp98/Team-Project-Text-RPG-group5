@@ -9,7 +9,6 @@ namespace Load
 {
     internal class LoadData
     {
-        //private static string SavePath = @"C:\Users\Public\Downloads";
         private static string SaveFile = Path.Combine("Savedata.json");
         private static readonly JsonSerializerOptions options = new JsonSerializerOptions
         {
@@ -32,8 +31,6 @@ namespace Load
                 };
                 string json = File.ReadAllText(SaveFile);
                 Player? loadedPlayer = JsonConvert.DeserializeObject<Player>(json, settings);
-                //loadedPlayer.Skill.SetOwner(loadedPlayer);
-                QuestManager.Instance.player = loadedPlayer;
                 Console.WriteLine($"데이터를 성공적으로 불러왔습니다.");
 
                 return loadedPlayer;
