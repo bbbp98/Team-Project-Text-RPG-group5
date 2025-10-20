@@ -9,7 +9,7 @@ namespace TextRPG_group5.Scenes
     {
         const string welcomMessage = "고개를 들면 하늘을 향해 높이 솟아 있는 거대한 탑이 보인다.\n\n" +
           "'꼭대기 층에 도달한 자는 소원을 이룰 수 있다.'\n그런 전설이 전해지는 소원의 탑.\n\n" +
-          "꼭대기에 오르기 위해 도전한 자들은 많았지만\n아직 그 누구도 성공한 사람은 없다.\n";
+          "전설을 확인하기 위해 도전한 이들은 많았지만\n아직 그 누구도 성공한 자는 없다.\n";
 
         private Player player;
 
@@ -61,6 +61,7 @@ namespace TextRPG_group5.Scenes
 
             Console.WriteLine(welcomMessage);
             Console.WriteLine("탑을 오르기 전 충분한 준비를 하고 가자.\n\n");
+            Console.WriteLine("----------------------------------------\n\n") ;
             Console.WriteLine("1. 캐릭터 정보 확인");
             Console.WriteLine("2. 인벤토리 확인");
             Console.WriteLine("3. 상점 확인");
