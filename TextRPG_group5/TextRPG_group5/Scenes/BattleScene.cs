@@ -70,11 +70,17 @@ namespace TextRPG_group5.Scenes
                 {
                     if (CurrentBattle.userSkillChoice == 0)
                     {
+                        if (input > Player.Skill.skillBook.Count)
+                        {
+                            PrintInvalidInputMessage();
+                            return;
+                        }
+                        
                         CurrentBattle.userSkillChoice = input;
                         return;
                     }
 
-                    if (CurrentBattle.userTargetChoice == 0)
+                    else if (CurrentBattle.userSkillChoice != 0 &&CurrentBattle.userTargetChoice == 0)
                     {
                         // 잘못된 입력 방지: 대상 범위, 생존 여부 모두 체크
                         if (input > Monsters.Count || Monsters[input - 1].IsDead)
