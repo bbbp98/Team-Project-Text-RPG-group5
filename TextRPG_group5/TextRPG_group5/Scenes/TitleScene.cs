@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.QuestManagement;
 
 namespace TextRPG_group5.Scenes
 {
-     internal class NewTitleScene : Scene
+     internal class TitleScene : Scene
      {
           Player player;
           Load.LoadData load = new Load.LoadData();
@@ -24,6 +25,7 @@ namespace TextRPG_group5.Scenes
                          player = load.Load();
                          player.Skill.SetOwner(player);
                          player.Inventory.SetOwner(player);
+                         QuestManager.Instance.player = player;
                          Console.Clear();
                          Program.SetScene(new MainScene(player));
                          break;
