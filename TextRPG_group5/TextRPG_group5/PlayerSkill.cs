@@ -111,7 +111,7 @@ namespace TextRPG_group5
             player.NowMp -= mpCost;
             int damage = player.Attack * 2;
             target.TakeDamage(damage, 0, true);
-            Console.WriteLine($"파워 슬래시 사용.{target.Name} 에게 {damage} 의 피해를 입힘");
+            Console.WriteLine($"파워 슬래시 사용.{target.Name} 에게 강력한 피해를 입힘");
             Thread.Sleep(1000);
         }
         private void PowerStrike(Character target)
@@ -126,7 +126,7 @@ namespace TextRPG_group5
             int damage = player.Attack * 3;
             target.TakeDamage(damage, 0, true);
             target.ApplyEffect(new Stun(player, 1));
-            Console.WriteLine($"파워 스트라이크 사용.{target.Name} 에게 {damage} 의 피해를 입히고 1턴 동안 스턴 부여");
+            Console.WriteLine($"파워 스트라이크 사용.{target.Name} 에게 치명적인 피해를 입히고 1턴 동안 스턴 부여");
             Thread.Sleep(1000);
         }
         private void HeadShot(Character target) // 크리 터짐
@@ -140,7 +140,7 @@ namespace TextRPG_group5
             player.NowMp -= mpCost;
             int damage = player.Attack * 3;
             target.TakeDamage(damage, player.Critical, true);
-            Console.WriteLine($"헤드 샷 사용.{target.Name} 에게 {damage} 의 피해를 입힘");
+            Console.WriteLine($"헤드 샷 사용.{target.Name} 에게 강력한 피해를 입힘");
             Thread.Sleep(1000);
         }
         private void PoisonArrow(Character target) // 크리 터짐
@@ -155,7 +155,7 @@ namespace TextRPG_group5
             int damage = player.Attack * 3;
             target.TakeDamage(damage, player.Critical, true);
             target.ApplyEffect(new Poison(player, 3));
-            Console.WriteLine($"포이즌 애로우 사용.{target.Name} 에게 {damage} 의 피해를 입히고 3턴 동안 중독 부여");
+            Console.WriteLine($"포이즌 애로우 사용.{target.Name} 에게 치명적인 피해를 입히고 3턴 동안 중독 부여");
             Thread.Sleep(1000);
         }
         private void DoubleStep(Character target) // 2회공격 크리터짐
@@ -170,9 +170,9 @@ namespace TextRPG_group5
             int damage = player.Attack * 1;
             target.TakeDamage(damage, player.Critical, true);
             Console.WriteLine($"더블 스텝 사용.");
-            Console.WriteLine($"{target.Name}에게 {damage} 의 피해를 입힘");
+            Console.WriteLine($"{target.Name}에게 강력한 피해를 입힘");
             target.TakeDamage(damage, player.Critical);
-            Console.WriteLine($"{target.Name}에게 {damage} 의 피해를 입힘");
+            Console.WriteLine($"{target.Name}에게 강력한 피해를 입힘");
             Thread.Sleep(1000);
         }
         private void BloodStep(Character target) // 크리 터짐
@@ -187,7 +187,7 @@ namespace TextRPG_group5
             int damage = player.Attack * 3;
             target.TakeDamage(damage, player.Critical, true);
             target.ApplyEffect(new Poison(player, 3));
-            Console.WriteLine($"블러드 스텝 사용.{target.Name} 에게 {damage} 의 피해를 입히고 3턴 동안 출혈 부여");
+            Console.WriteLine($"블러드 스텝 사용.{target.Name} 에게 치명적인 피해를 입히고 3턴 동안 출혈 부여");
             Thread.Sleep(1000);
         }
         private void FireBall(Character target)
@@ -201,7 +201,7 @@ namespace TextRPG_group5
             player.NowMp -= mpCost;
             int damage = player.Attack * 4;
             target.TakeDamage(damage, 0, true);
-            Console.WriteLine($"파이어 볼 사용. {target.Name}에게 {damage} 의 피해를 입힘");
+            Console.WriteLine($"파이어 볼 사용. {target.Name}에게 강력한 피해를 입힘");
             Thread.Sleep(1000);
         }
         private void FreezingBreath(Character target)
@@ -216,7 +216,7 @@ namespace TextRPG_group5
             int damage = player.Attack * 4;
             target.TakeDamage(damage, 0, true);
             target.ApplyEffect(new Freeze(player, 3, 0.5));
-            Console.WriteLine($"프리징 브레스 사용. {target.Name}에게 {damage} 의 피해를 입히고 빙결 부여");
+            Console.WriteLine($"프리징 브레스 사용. {target.Name}에게 치명적인 피해를 입히고 빙결 부여");
             Thread.Sleep(1000);
         }
 
