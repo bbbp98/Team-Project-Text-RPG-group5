@@ -116,11 +116,29 @@ namespace TextRPG_group5
                 Console.WriteLine("==============Player Skill==============\n");
                 foreach (var skill in Skill.skillBook)
                 {
+                    string description = GetSkillDescription(skill.Name);
                     Console.WriteLine($"- {skill.Name} (MP {skill.MpCost})");
+                    Console.WriteLine($"  ▶ {description}");
                 }
                 Console.WriteLine("\n========================================");
             }
         }
+        private string GetSkillDescription(string skillName)
+        {
+            return skillName switch
+            {
+                "파워 슬래시" => "강력한 베기로 2배의 피해를 입힌다.",
+                "파워 스트라이크" => "적을 강타해 3배 피해 및 1턴 스턴 부여.",
+                "헤드 샷" => "정확한 조준으로 3배 피해를 입힌다.",
+                "포이즌 애로우" => "3배 피해 및 3턴 중독 부여.",
+                "더블 스텝" => "2회 연속 공격을 가한다.",
+                "블러드 스텝" => "3배 피해 및 3턴 출혈 부여.",
+                "파이어 볼" => "4배의 마법 피해를 준다.",
+                "프리징 브레스" => "4배 피해 및 3턴 동안 빙결 부여.",
+                _ => "스킬 설명이 없습니다."
+            };
+        }
+
         public void GainExp(int amount)
         {
             Exp += amount;
