@@ -87,7 +87,7 @@ namespace TextRPG_group5.Scenes
 
         void PrintAttackerInfo()
         {
-            switch (CurrentBattle.GetBattleState())
+            switch (CurrentBattle.CurrentState)
             {
                 case BattleState.NormalAttack:
                     if (Attacker is Player)
@@ -131,7 +131,7 @@ namespace TextRPG_group5.Scenes
 
         void PrintDefendersInfo()
         {
-            switch (CurrentBattle.GetBattleState())
+            switch (CurrentBattle.CurrentState)
             {
                 case BattleState.NormalAttack:
                 case BattleState.Skill:
