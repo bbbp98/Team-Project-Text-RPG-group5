@@ -75,8 +75,8 @@ namespace TextRPG_group5
                player.Inventory.AddItem(ItemInfo.GetItem("HP소형포션"), 3);
                player.Inventory.AddItem(ItemInfo.GetItem("MP소형포션"), 3);
 
-               // scene initialize
-               currentScene = new MainScene(player); // startScene
+               // scene initialize after create player
+               currentScene = new MainScene(player);
           }
 
           static public void SetScene(Scene scene)

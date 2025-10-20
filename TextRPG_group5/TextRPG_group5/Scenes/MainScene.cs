@@ -9,7 +9,6 @@ namespace TextRPG_group5.Scenes
      {
           const string welcomMessage = "스파르타 마을에 오신 여러분 환영합니다.\n" +
                "이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.\n";
-          GameProgress gameProgress = new GameProgress();
 
           private Player player;
 
@@ -17,8 +16,6 @@ namespace TextRPG_group5.Scenes
           {
                this.player = player;
           }
-
-          const string savePath = "player.json";
 
           public override void HandleInput(byte input)
           {
@@ -56,7 +53,6 @@ namespace TextRPG_group5.Scenes
 
           public override void Show()
           {
-               //Console.Clear();
                Console.ForegroundColor = ConsoleColor.Yellow;
                Console.WriteLine("마을");
                Console.ForegroundColor = ConsoleColor.White;

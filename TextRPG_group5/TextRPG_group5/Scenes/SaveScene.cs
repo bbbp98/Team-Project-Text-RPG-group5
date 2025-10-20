@@ -9,8 +9,6 @@ namespace TextRPG_group5.Scenes
 {
      internal class SaveScene : Scene
      {
-
-          //private const string SavePath = @"C:\Users\Public\Downloads";
           private static string SaveFile = ("Savedata.json");
           private static readonly JsonSerializerOptions options = new JsonSerializerOptions
           {
@@ -64,26 +62,6 @@ namespace TextRPG_group5.Scenes
 
           }
 
-          //internal class  SaveDddafafda
-          //{
-
-          //    private static SaveData scene;
-          //    private static GameProgress gameProgress;
-          //    private static SaveData saveData1;
-
-          //    public bool ShouldExitGame { get; private set; } = false;
-          //    public static SaveData GetInstance(GameProgress gp)
-          //    {
-          //        if (scene == null)
-          //        {
-          //            SaveData saveData = saveData1;
-          //            scene = saveData;
-          //        }
-          //        gameProgress = gp;
-          //        return scene;
-          //    }
-
-
           internal static object HandleExitAsync()
           {
                throw new NotImplementedException();
@@ -95,6 +73,3 @@ namespace TextRPG_group5.Scenes
           }
      }
 }
-
-
-
