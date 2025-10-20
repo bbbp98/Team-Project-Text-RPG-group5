@@ -75,18 +75,26 @@ namespace TextRPG_group5.Scenes
                     Thread.Sleep(1000);
                     Console.WriteLine("오래된 전설처럼… 내 소원이 이뤄질 시간이 다가온다.\n");
                     Thread.Sleep(1000);
-                    Console.WriteLine("탑의 꼭대기, 그곳에 ‘진실이 있었다.\n");
+                    Console.WriteLine("탑의 꼭대기, 그곳에 ‘진실'이 있었다.\n");
                     Thread.Sleep(1000);
-                    Console.WriteLine("");
-                    Console.WriteLine("당신은 여태까지의 모험을 통해서 소원을 스스로 이룰 힘을 얻었다.\n");
-                    Thread.Sleep(800);
-
+                    Console.WriteLine("------------------------------------------------------------------------\n");
+                    Console.WriteLine("탑의 꼭대기에 오른 위대한 모험가여.");
+                    Console.WriteLine("탑을 처음 오를 때의 당신은 어땠는가?");
+                    Thread.Sleep(1500);
+                    Console.WriteLine("분명 약했을 것이다.\n");
+                    Console.WriteLine("하지만 지금의 당신은 어떤가?");
+                    Thread.Sleep(1500);
+                    Console.WriteLine("지금의 당신은 분명히 강하다.\n");
+                    Console.WriteLine("그래, 당신은 여태까지의 여정을 통해서 강해졌다.");
+                    Console.WriteLine("그러니 스스로의 힘으로 당신의 소원을 이루길 바란다.\n");
+                    Thread.Sleep(2000);
+                    Console.WriteLine("·\n·\n·\n·\n·");
                 }
                 else
                 {
                     Console.WriteLine("적이 쓰러지고, 문이 열리는 소리가 들린다.\n");
                     Console.WriteLine("이렇게 한 걸음 더, 소원에 가까워졌다.\n\n");
-                    Console.WriteLine("다음 층으로 향하는 길이 열렸다.\n");
+                    Console.WriteLine("다음 층으로 향하는 길이 열렸다.\n\n");
                 }
                 Console.WriteLine();
             }
