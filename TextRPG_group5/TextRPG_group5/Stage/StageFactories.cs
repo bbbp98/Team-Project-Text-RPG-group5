@@ -90,8 +90,8 @@ namespace TextRPG_group5.Stage
         {
             return new List<Monster>
                {
-                    new Golem(stage + 13),
-                    new Golem(stage + 13),
+                    new Golem(stage + 18),
+                    new Golem(stage + 18),
                };
         }
     }
@@ -102,8 +102,8 @@ namespace TextRPG_group5.Stage
         {
             return new List<Monster>
                {
-                    new ShadowAssassin(stage + 12),
                     new ShadowAssassin(stage + 16),
+                    new ShadowAssassin(stage + 18),
                };
         }
     }
@@ -114,9 +114,9 @@ namespace TextRPG_group5.Stage
         {
             return new List<Monster>
                {
-                    new Orc(stage + 11),
-                    new HobGoblin(stage + 11),
-                    new HobGoblin(stage + 11),
+                    new Orc(stage + 16),
+                    new HobGoblin(stage + 16),
+                    new HobGoblin(stage + 16),
                };
         }
     }
@@ -128,7 +128,7 @@ namespace TextRPG_group5.Stage
             return new List<Monster>
                {
                     new Dople(player),
-                    new Golem(stage + 15)
+                    new Golem(stage + 20)
                };
         }
     }
@@ -139,9 +139,9 @@ namespace TextRPG_group5.Stage
         {
             return new List<Monster>
                {
-                    new Goblin(stage + 24),
+                    new Goblin(stage + 29),
                     new Goblin(stage + 34),
-                    new HobGoblin(stage + 29),
+                    new HobGoblin(stage + 34),
                };
         }
     }
@@ -152,7 +152,7 @@ namespace TextRPG_group5.Stage
         {
             return new List<Monster>
                {
-                    new Orc(stage + 28),
+                    new Orc(stage + 33),
                     new Dople(player),
                     new Dople(player),
                };
@@ -165,9 +165,9 @@ namespace TextRPG_group5.Stage
         {
             return new List<Monster>
                {
+                    new Jester(stage + 32),
                     new Jester(stage + 27),
-                    new Jester(stage + 27),
-                    new ShadowAssassin(stage + 22),
+                    new ShadowAssassin(stage + 27),
                };
         }
     }

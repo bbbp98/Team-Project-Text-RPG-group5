@@ -19,7 +19,7 @@ namespace TextRPG_group5
         public int Exp { get; set; } // 처치 시 얻는 경험치
         public int Gold { get; set; } // 처치 시 얻는 골드
 
-        public int expEvent = 3; // 원활한 테스트를 위해 경험치 3배로 상승
+        public int expEvent = 2; // 원활한 테스트를 위해 경험치 2배로 상승
         public Monster(string name, string msg, MonsterType type, int hp, int atk, int def, double critical, double evasion) : base(name, hp, atk, def)
         {
             Msg = msg;
@@ -332,7 +332,7 @@ namespace TextRPG_group5
         고대의 신비를 품은 던전의 주인. 불합리한 공격력과 방어력을 가지고 있다. 모든 공격이 치명타로 적용하지만, 덩치 탓에 회피율은 낮다.
         플레이어는 드래곤을 상대하기 위해 가능한 좋은 장비와 스킬을 모두 갖추고 도전해야 한다.
         */
-        public Dragon(int level) : base("드래곤", "분노한 용의 숨결이 눈앞을 뒤덮는다.", MonsterType.boss, 3000, 300, 300, 0.5, 0.1)
+        public Dragon(int level) : base("드래곤", "분노한 용의 숨결이 눈앞을 뒤덮는다.", MonsterType.boss, 3000, 500, 500, 0.5, 0.1)
         {
             this.Level = level;                 // 레벨과 상관없이 절대적인 능력치를 가진다.
             NowHp = MaxHp;
