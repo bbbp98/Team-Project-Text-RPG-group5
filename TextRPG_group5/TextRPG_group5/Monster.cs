@@ -19,7 +19,7 @@ namespace TextRPG_group5
         public int Exp { get; set; } // 처치 시 얻는 경험치
         public int Gold { get; set; } // 처치 시 얻는 골드
 
-        public int expEvent = 50; // 원활한 테스트를 위해 경험치 10배로 상승
+        public int expEvent = 2; // 원활한 테스트를 위해 경험치 2배로 상승
         public Monster(string name, string msg, MonsterType type, int hp, int atk, int def, double critical, double evasion) : base(name, hp, atk, def)
         {
             Msg = msg;
@@ -301,13 +301,13 @@ namespace TextRPG_group5
 
     internal class Dople : Monster  // Doppelganger가 맞는 표기법이지만, 편의상 Dople로 표기
     {
-        public double dopleRate = 0.95; // 플레이어 능력치의 80%를 흉내낸다.
+        public double dopleRate = 0.95; // 플레이어 능력치의 95%를 흉내낸다.
 
         public Dople(Player targetPlayer) : base("도플갱어", "당신과 닮은 모습을 한 몬스터가 당신을 흉내낸다!", MonsterType.boss, 0, 0, 0, 0, 0)
         {
             /*
             도플갱어: 플레이어가 강해질수록 더 강해지는 보스 몬스터
-            플레이어를 흉내낼 줄 아는 마물. 플레이어의 능력치를 80% 정도 흉내낸다.
+            플레이어를 흉내낼 줄 아는 마물. 플레이어의 능력치를 95% 정도 흉내낸다.
             플레이어가 강해질수록 더 강해지기 때문에, 까다롭다.
             */
             this.Level = targetPlayer.Level;
@@ -317,7 +317,6 @@ namespace TextRPG_group5
             this.Defence += (int)(targetPlayer.Defence * dopleRate);
             this.Critical += (targetPlayer.Critical * dopleRate);
             this.Evasion += (targetPlayer.Evasion * dopleRate);
-            // 플레이어의 80% 능력치를 가진다.
             this.Exp += (int)(10 + targetPlayer.Level * dopleRate * 10) * expEvent;
             this.Gold += (int)(15 + targetPlayer.Level * dopleRate * 10);
             // 플레이어의 레벨에 따라 보상이 달라진다.
@@ -332,7 +331,7 @@ namespace TextRPG_group5
         고대의 신비를 품은 던전의 주인. 불합리한 공격력과 방어력을 가지고 있다. 모든 공격이 치명타로 적용하지만, 덩치 탓에 회피율은 낮다.
         플레이어는 드래곤을 상대하기 위해 가능한 좋은 장비와 스킬을 모두 갖추고 도전해야 한다.
         */
-        public Dragon(int level) : base("드래곤", "분노한 용의 숨결이 눈앞을 뒤덮는다.", MonsterType.boss, 3000, 300, 300, 0.5, 0.1)
+        public Dragon(int level) : base("드래곤", "분노한 용의 숨결이 눈앞을 뒤덮는다.", MonsterType.boss, 3000, 500, 500, 0.5, 0.1)
         {
             this.Level = level;                 // 레벨과 상관없이 절대적인 능력치를 가진다.
             NowHp = MaxHp;

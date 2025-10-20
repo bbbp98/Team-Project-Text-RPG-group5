@@ -107,6 +107,7 @@ namespace TextRPG_group5.EffectManagement
             if (target.NowHp < 0)
                 target.NowHp = 0;
             Console.WriteLine($"{target.Name}은(는) 타들어가는 고통을 느낍니다. {Value}의 피해!");
+            Thread.Sleep(1000);
         }
     }
 
@@ -139,6 +140,7 @@ namespace TextRPG_group5.EffectManagement
             if (target.NowHp < 0)
                 target.NowHp = 0;
             Console.WriteLine($"{target.Name}은(는) 온몸을 감싸는 추위를 느낍니다. {Value}의 피해.");
+            Thread.Sleep(1000);
         }
     }
 
@@ -159,6 +161,7 @@ namespace TextRPG_group5.EffectManagement
             if (target.NowHp < 0)
                 target.NowHp = 0;
             Console.WriteLine($"{target.Name}은(는) 영 속이 좋지 않습니다. {Value}의 피해.");
+            Thread.Sleep(1000);
         }
     }
 
