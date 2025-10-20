@@ -104,7 +104,7 @@ namespace TextRPG_group5
             Program.SetScene(result);
         }
 
-        /* LJH 로부터 요청받은 로직 : 플레이어와 모든 몬스터의 효과를 업데이트 */
+        /* 플레이어와 모든 몬스터의 효과를 업데이트 */
         public bool ProcessStartOfTurnEffects()
         {
             Console.WriteLine("--- 턴 시작 ---");
@@ -147,10 +147,6 @@ namespace TextRPG_group5
 
             defenders.Add(Monsters[userTargetChoice - 1]);
             defendersBeforeHp.Add(defenders[0].NowHp);
-
-            //var selectedSkill = Player.Skill.skillBook[userSkillChoice - 1];
-            //PlayerSkill skills = Player.Skill;
-            //skills.UseSkill(userSkillChoice - 1, defenders[0]);
 
             // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트 및 몬스터 처치 경험치 획득
             if (defenders[0].IsDead)
@@ -204,15 +200,6 @@ namespace TextRPG_group5
         public void EndBattle(bool isClear)
         {
             Program.SetScene(new DungeonResultScene(Player, PreBattlePlayer, CurrentStage, isClear));
-        }
-
-        /* LJH 로부터 요청받은 로직 : 상태 이상으로 인한 전투 종료 로직 */
-        public void EndBattleAsDefeat()
-        {
-            // TODO : 나중에 필요 없으면 삭제해도 OK
-            Console.WriteLine("\n전투 상황이 종료되었습니다.");
-            Thread.Sleep(1500);
-            EndBattle(false); // 효과로 인해 전투가 끝나면 무조건 패배(클리어 실패) 처리
         }
     }
 }
