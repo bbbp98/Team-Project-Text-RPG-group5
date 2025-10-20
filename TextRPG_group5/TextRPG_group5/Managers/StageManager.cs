@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TextRPG_group5.Stage;
 
 namespace TextRPG_group5.Managers
 {
-     internal class StageManager
+    internal class StageManager
      {
           static private StageManager? instance;
           private readonly Dictionary<int, IStageFactory> stageFactories = new();
