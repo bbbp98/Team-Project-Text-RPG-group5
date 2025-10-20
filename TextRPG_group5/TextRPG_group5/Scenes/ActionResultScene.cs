@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TextRPG_group5.ItemManage;
+using TextRPG_group5.QuestManagement;
 
 namespace TextRPG_group5.Scenes
 {
@@ -82,12 +83,12 @@ namespace TextRPG_group5.Scenes
 
             PrintDefendersInfo();
 
-            Console.WriteLine("0. 다음");
+            Console.WriteLine("\n0. 다음");
        }
 
         void PrintAttackerInfo()
         {
-            switch (CurrentBattle.GetBattleState())
+            switch (CurrentBattle.CurrentState)
             {
                 case BattleState.NormalAttack:
                     if (Attacker is Player)
@@ -101,9 +102,9 @@ namespace TextRPG_group5.Scenes
                     break;
                 case BattleState.Skill:
                     // Attacker == Player (무조건)
-                    string selectedSkillName = ((Player)Attacker).Skill.skillBook[CurrentBattle.userSkillChoice - 1].Name;
-                    Console.WriteLine($"{Attacker.Name} 의 {selectedSkillName} 사용!");
-                    Console.WriteLine($"MP {AttBeforeMp} -> {((Player)Attacker).NowMp}");
+                    SkillData selectedSkill = ((Player)Attacker).Skill.skillBook[CurrentBattle.userSkillChoice - 1];
+                    Console.WriteLine($"{Attacker.Name} 의 {selectedSkill.Name} 사용!");
+                    Console.WriteLine($"MP {AttBeforeMp} -> {AttBeforeMp - selectedSkill.MpCost}");
                     break;
                 case BattleState.Item:
                     // Attacker == Player (무조건)
@@ -131,10 +132,9 @@ namespace TextRPG_group5.Scenes
 
         void PrintDefendersInfo()
         {
-            switch (CurrentBattle.GetBattleState())
+            switch (CurrentBattle.CurrentState)
             {
                 case BattleState.NormalAttack:
-                case BattleState.Skill:
                     for (int i = 0; i < Defenders.Count; i++)
                     {
                         int damage = DefBeforeHp[i] - Defenders[i].NowHp;
@@ -160,6 +160,21 @@ namespace TextRPG_group5.Scenes
                             Console.WriteLine($"HP : {DefBeforeHp[i]} -> {Defenders[i].NowHp}");
                         }
                         Console.WriteLine();
+                    }
+                    break;
+
+                case BattleState.Skill:
+                    ((Player)Attacker).Skill.UseSkill(CurrentBattle.userSkillChoice - 1, Defenders[0]);
+                    Console.WriteLine();
+
+                    Console.WriteLine($"{Defenders[0].Name} HP : {DefBeforeHp[0]} -> {Defenders[0].NowHp}");
+                    Console.WriteLine();
+
+                    // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트 및 몬스터 처치 경험치 획득
+                    if (Defenders[0].IsDead)
+                    {
+                        QuestManager.Instance.UpdateProgress(Defenders[0].Name);
+                        ((Player)Attacker).GainExp(((Monster)Defenders[0]).Exp);
                     }
                     break;
                 default:
