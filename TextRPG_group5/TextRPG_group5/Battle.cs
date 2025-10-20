@@ -25,9 +25,11 @@ namespace TextRPG_group5
         public byte CurrentStage { get; private set; }
 
         public BattleState CurrentState { get; private set; }
+
+        // 일반 공격, 아이템 사용 시, 사용자 입력 저장용 변수
         public byte userChoice;
 
-        // 스킬 사용 시, 사용자 입력용
+        // 스킬 사용 시, 사용자 입력 저장용 변수
         public byte userSkillChoice;
         public byte userTargetChoice;
 
@@ -39,13 +41,15 @@ namespace TextRPG_group5
         {
             Player = player;
             Monsters = monsters;
-            CurrentStage = currentStage;
+            CurrentStage = currentStage;    // 사용자가 선택한 스테이지
 
             // Player 선공
             isPlayerTurn = true;
 
+            // 초기 상태 설정
             CurrentState = BattleState.None;
 
+            // 던전 클리어 시, Player 능력치 전후 비교를 위한 복제본 생성
             PreBattlePlayer = Player.Clone();
         }
 
@@ -69,12 +73,11 @@ namespace TextRPG_group5
             }
             else    // Monster 턴
             {
-                /* LJH 로부터 요청받은 로직 : 살아있고, 기절하지 않은 몬스터들만 공격 가능 */
+                /* 살아있고, 기절하지 않은 몬스터들만 공격 가능 */
                 List<Monster> aliveMons = Monsters.Where(m => !m.IsDead && !m.IsStun).ToList();
 
                 if (aliveMons.Count == 0)
                 {
-                    /* TODO : 모든 몬스터를 처치하였는지, 행동불능 상태 몬스터가 남아있는지 확인하는 로직 추가 */
                     EndBattle(IsStageClear());
                     return;
                 }
@@ -87,7 +90,6 @@ namespace TextRPG_group5
                 defendersBeforeHp.Add(Player.NowHp);
             }
 
-            /* LJH 로부터 요청받은 로직 */
             defenders[0].TakeDamage(attacker.GetFinalAttack(), attacker.GetFinalCritical());
 
             // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트 및 몬스터 처치 경험치 획득
@@ -143,13 +145,6 @@ namespace TextRPG_group5
             int attackerBeforeMp = Player.NowMp;
             List<int> defendersBeforeHp = new List<int>();
 
-            /* TODO : 일단 단일 target 만 공격하도록 구현됨
-            foreach (Monster mon in Monsters)
-            {
-                defenders.Add(mon);
-                defendersBeforeHp.Add(mon.NowHp);
-            }*/
-
             defenders.Add(Monsters[userTargetChoice - 1]);
             defendersBeforeHp.Add(defenders[0].NowHp);
 
@@ -175,7 +170,6 @@ namespace TextRPG_group5
             Character attacker = Player;
             List<Character> defenders = new List<Character>();
 
-            // TODO : 일단 HP, MP 회복 두 개만, 나중에 상태이상 회복도 추가
             int attackerBeforeHp = Player.NowHp;
             int attackerBeforeMp = Player.NowMp;
 

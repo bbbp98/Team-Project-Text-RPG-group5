@@ -110,18 +110,8 @@ namespace TextRPG_group5.Scenes
                     // Attacker == Player (무조건)
                     Console.WriteLine($"{Attacker.Name} 의 {selectedItem.Name} 사용");
 
-                    // TODO : 일단은 HP,MP만, 나중에 상태이상 등도 추가
-                    switch (selectedItem.Type)
-                    {
-                        case PotionType.HealthPotion:
-                            Console.WriteLine($"HP {AttBeforeHp} -> {Attacker.NowHp} (+{Attacker.NowHp - AttBeforeHp})");
-                            break;
-                        case PotionType.ManaPotion:
-                            Console.WriteLine($"MP {AttBeforeMp} -> {((Player)Attacker).NowMp} (+{((Player)Attacker).NowMp - AttBeforeMp})");
-                            break;
-                        default:
-                            break;
-                    }
+                    PrintUsingItemResult(selectedItem.Type);
+
                     break;
                 default:
                     break;
@@ -138,44 +128,64 @@ namespace TextRPG_group5.Scenes
                     for (int i = 0; i < Defenders.Count; i++)
                     {
                         int damage = DefBeforeHp[i] - Defenders[i].NowHp;
-                        
-                        if (Defenders[i] is Player)
-                        {
-                            if (damage == 0)
-                                Console.WriteLine($"{Defenders[i].Name} 이(가) 공격을 회피하였습니다. [데미지 : {damage}]");
-                            
-                            else
-                                Console.WriteLine($"{Defenders[i].Name} 을(를) 공격하였습니다. [데미지 : {damage}]");
 
-                            Console.WriteLine($"HP : {DefBeforeHp[i]} -> {Defenders[i].NowHp}");
-                        }
-                        else
-                        {
-                            if (damage == 0)
-                                Console.WriteLine($"Lv.{Defenders[i].Level} {Defenders[i].Name} 이(가) 공격을 회피하였습니다. [데미지 : {damage}]");
-                            else
-
-                                Console.WriteLine($"Lv.{Defenders[i].Level} {Defenders[i].Name} 을(를) 공격하였습니다. [데미지 : {damage}]");
-
-                            Console.WriteLine($"HP : {DefBeforeHp[i]} -> {Defenders[i].NowHp}");
-                        }
-                        Console.WriteLine();
+                        PrintNormalAttackResult(Defenders[i], DefBeforeHp[i], damage);
                     }
                     break;
 
-                case BattleState.Skill:
-                    ((Player)Attacker).Skill.UseSkill(CurrentBattle.userSkillChoice - 1, Defenders[0]);
-                    Console.WriteLine();
+            case BattleState.Skill:
+                ((Player)Attacker).Skill.UseSkill(CurrentBattle.userSkillChoice - 1, Defenders[0]);
+                Console.WriteLine();
 
-                    Console.WriteLine($"{Defenders[0].Name} HP : {DefBeforeHp[0]} -> {Defenders[0].NowHp}");
-                    Console.WriteLine();
+                Console.WriteLine($"{Defenders[0].Name} HP : {DefBeforeHp[0]} -> {Defenders[0].NowHp}");
+                Console.WriteLine();
 
-                    // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트 및 몬스터 처치 경험치 획득
-                    if (Defenders[0].IsDead)
-                    {
-                        QuestManager.Instance.UpdateProgress(Defenders[0].Name);
-                        ((Player)Attacker).GainExp(((Monster)Defenders[0]).Exp);
-                    }
+                // 공격한 몬스터가 죽으면, 퀘스트 진행 상황 업데이트 및 몬스터 처치 경험치 획득
+                if (Defenders[0].IsDead)
+                {
+                    QuestManager.Instance.UpdateProgress(Defenders[0].Name);
+                    ((Player)Attacker).GainExp(((Monster)Defenders[0]).Exp);
+                }
+                break;
+            default:
+                break;
+            }
+        }
+
+        void PrintNormalAttackResult(Character defender, int defBeforeHP, int damage)
+        {
+            if (defender is Player)
+            {
+                if (damage == 0)
+                    Console.WriteLine($"{defender.Name} 이(가) 공격을 회피하였습니다. [데미지 : {damage}]");
+
+                else
+                    Console.WriteLine($"{defender.Name} 을(를) 공격하였습니다. [데미지 : {damage}]");
+
+                Console.WriteLine($"HP : {defBeforeHP} -> {defender.NowHp}");
+            }
+            else
+            {
+                if (damage == 0)
+                    Console.WriteLine($"Lv.{defender.Level} {defender.Name} 이(가) 공격을 회피하였습니다. [데미지 : {damage}]");
+                else
+
+                    Console.WriteLine($"Lv.{defender.Level} {defender.Name} 을(를) 공격하였습니다. [데미지 : {damage}]");
+
+                Console.WriteLine($"HP : {defBeforeHP} -> {defender.NowHp}");
+            }
+            Console.WriteLine();
+        }
+
+        void PrintUsingItemResult(PotionType type)
+        {
+            switch (type)
+            {
+                case PotionType.HealthPotion:
+                    Console.WriteLine($"HP {AttBeforeHp} -> {Attacker.NowHp} (+{Attacker.NowHp - AttBeforeHp})");
+                    break;
+                case PotionType.ManaPotion:
+                    Console.WriteLine($"MP {AttBeforeMp} -> {((Player)Attacker).NowMp} (+{((Player)Attacker).NowMp - AttBeforeMp})");
                     break;
                 default:
                     break;
