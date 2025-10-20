@@ -209,7 +209,7 @@ namespace TextRPG_group5
             int damage = player.Attack * 4;
             target.TakeDamage(damage, 0, true);
             target.ApplyEffect(new Freeze(player, 3, 0.5));
-            Console.WriteLine($"프리징 브레스 사용. {target.Name}에게 {damage} 의 피해를 입히고 1턴간 빙결 부여");
+            Console.WriteLine($"프리징 브레스 사용. {target.Name}에게 {damage} 의 피해를 입히고 빙결 부여");
         }
 
 
