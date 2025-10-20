@@ -14,10 +14,10 @@ namespace TextRPG_group5.Scenes
         public Player Player { get { return CurrentBattle.Player; } }
         public List<Monster> Monsters { get { return CurrentBattle.Monsters; } }
 
-        /* LJH 로부터 요청받은 프로퍼티 : 효과가 처리되었는지 여부 확인용 */
-        public bool effectsProcessed = false;
-
         public List<UsableItem> UsableItemList { get { return Player.Inventory.GetUsableItems(); } }
+
+        /* 효과가 처리되었는지 여부 확인용 */
+        public bool effectsProcessed = false;
 
         public BattleScene(Battle currentBattle)
         {
@@ -114,7 +114,6 @@ namespace TextRPG_group5.Scenes
                 {
                     if (input == 1)
                     {
-                        //Program.SetScene(new DungeonEntranceScene(CurrentBattle.PreBattlePlayer));
                         Program.SetScene(new DungeonEntranceScene(Player));
                         return;
                     }
@@ -134,8 +133,6 @@ namespace TextRPG_group5.Scenes
         // 화면에 보여줄 텍스트들(Console.Write관련)
         public override void Show()
         {
-            /* LJH 로부터 요청받은 로직 : 턴 시작 시 단 한 번만 모든 캐릭터(플레이어/몬스터)에게 걸려있는 효과를 처리 */
-            /* TODO : Battle.ProcessStart~() 내에서 바로 결과창 로드되기 때문에 정상 작동 확인 필요 */
             if (!effectsProcessed)
             {
                 bool battleContinues = CurrentBattle.ProcessStartOfTurnEffects();
@@ -154,6 +151,7 @@ namespace TextRPG_group5.Scenes
                 return;
             }
 
+            // 공통 출력부
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Battle!!");
             Console.ForegroundColor = ConsoleColor.White;
@@ -166,7 +164,6 @@ namespace TextRPG_group5.Scenes
             Console.WriteLine("==============================");
             Console.WriteLine();
 
-            /* LJH 로부터 요청받은 로직 */
             if (Player.IsStun)
             {
                 Console.WriteLine($"{Player.Name}은(는) 움직일 수 없습니다!");
@@ -177,6 +174,7 @@ namespace TextRPG_group5.Scenes
                 return;
             }
 
+            // 선택별 출력부
             switch (CurrentBattle.CurrentState)
             {
                 case BattleState.None:

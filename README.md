@@ -278,7 +278,121 @@ public List<Monster> CreateMonsters(int currentStage)
 
 ----------------------------------
 
-6. 아이템
+6. 전투
+   
+   <img width="719" height="227" alt="image" src="https://github.com/user-attachments/assets/a5e118b5-ac3a-4ef7-a3a6-305cb351215f" />
+
+- Battle 클래스 (`Battle.cs`)
+  - 현재 전투에 대한 전반적인 데이터와 로직을 담고 있는 클래스입니다.
+  - 생성 시, 현재 플레이어(`player`), 선택된 스테이지(`currentStage`), 해당 스테이지 출현 몬스터 목록(`monsters`) 을 필요로 합니다.
+    <br>
+    ```cs
+    internal class Battle
+    {
+        ...
+        
+        public Battle(Player player, List<Monster> monsters, byte currentStage)
+        {
+            Player = player;
+            Monsters = monsters;
+            CurrentStage = currentStage;    // 플레이어어가 선택한 스테이지
+        
+            // Player 선공
+            isPlayerTurn = true;
+        
+            // 초기 상태 설정
+            CurrentState = BattleState.None;
+        
+            // 던전 클리어 시, Player 능력치 전후 비교를 위한 복제본 생성
+            PreBattlePlayer = Player.Clone();
+        }
+        ...
+    }
+        
+    ```
+  - 일반 공격 (`HitNormalAttack()`), 스킬 사용 (`UseSkill()`), 아이템 사용 (`UseItem()`) 등의 전투 행동별 로직이 구현되어 있습니다.
+    - 전투 행동과 턴에 맞게 `Attacker` 와 `Defender` 가 설정되어 `ActionResultScene` 을 호출합니다.
+
+- BattleScene 클래스 (`BattleScene.cs`)
+  - 추상 클래스 Scene 을 상속받아, 메인 전투 씬을 구성하는 클래스입니다.
+  - 호출 시, 현재 전투 정보 (`Battle` 객체) 를 필요로 합니다.
+    ```cs
+    internal class BattleScene : Scene
+    {
+        public Battle CurrentBattle { get; private set; }
+    
+        public Player Player { get { return CurrentBattle.Player; } }
+        public List<Monster> Monsters { get { return CurrentBattle.Monsters; } }
+    
+        public List<UsableItem> UsableItemList { get { return Player.Inventory.GetUsableItems(); } }
+    
+        /* 효과가 처리되었는지 여부 확인용 */
+        public bool effectsProcessed = false;
+    
+        public BattleScene(Battle currentBattle)
+        {
+            CurrentBattle = currentBattle;
+        }
+        ...
+    }
+    ```
+  - `HandleInput()`
+    - `Battle` 의 `CurrentState` 와 다양한 `Choice` 변수들을 활용해, 전투 상황별 플레이어의 입력을 분기하여 처리합니다.
+  - `Show()`
+    - 플레이어의 전투 행동 선택에 따라 부분적으로 출력이 달라지도록 구현되어 있습니다.
+    - 플레이어의 턴이 끝나면, 자동으로 몬스터의 턴으로 넘어가도록 구현되어 있습니다.
+  - 각각의 출력을 메서드로 분리하여, 유지보수성을 높였습니다.
+- ActionResultScene 클래스 (`ActionResultScene.cs`)
+  - 추상 클래스 Scene 을 상속받아, 플레이어가 선택한 전투 행동별 결과 출력 씬을 구성하는 클래스입니다.
+  - 전투 상황별 호출되는 생성자를 분리하여, 현재 전투 정보 (`Battle` 객체) 를 비롯한, 각각의 필요한 데이터를 요구합니다.
+    ```cs
+    internal class ActionResultScene : Scene
+    {
+        public Character Attacker { get; private set; }
+        public List<Character> Defenders { get; private set; }
+    
+        public int AttBeforeHp { get; private set; }
+        public int AttBeforeMp { get; private set; }
+        public List<int> DefBeforeHp { get; private set; }
+    
+        public Battle CurrentBattle { get; private set; }
+    
+        private Potion selectedItem;
+    
+        public ActionResultScene(Battle current, Character att, List<Character> defs, int attBeforeMp, List<int> defBeforeHp)
+        {
+            // 일반 공격, 스킬 공격용 ActionResultScene 생성자
+            Attacker = att;
+            Defenders = defs;
+    
+            AttBeforeMp = attBeforeMp;
+            DefBeforeHp = defBeforeHp;
+    
+            CurrentBattle = current;
+        }
+    
+        public ActionResultScene(Battle current, int playerBeforeHp, int playerBeforeMp, UsableItem selectedItem)
+        {
+            // 아이템 사용용 ActionResultScene 생성자
+            CurrentBattle = current;
+            Attacker = CurrentBattle.Player;
+            AttBeforeHp = playerBeforeHp;
+            AttBeforeMp = playerBeforeMp;
+    
+            this.selectedItem = (Potion)selectedItem;
+        }
+    }
+    ```
+  - `HandleInput()`
+    - 다시 `BattleScene` 으로 돌아가기 전, 필요한 변수들을 초기화 합니다.
+  - `Show()`
+    - 지정된 `Attacker` 와 `Defender` 의 정보를 전투 행동에 따라 출력하도록 구형되어 있습니다. 
+>[Battle.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Battle.cs)
+<br>[BattleScene.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Scenes/BattleScene.cs)
+<br>[ActionResultScene.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Scenes/ActionResultScene.cs)
+
+----------------------------------
+7. 아이템
 - ItemManagerment 클래스
 <br>모든 아이템들의 이름, 설명, 가격 등의 프로퍼티가 정의된 클래스입니다.
 - EquipItem 클래스
@@ -310,7 +424,7 @@ public List<Monster> CreateMonsters(int currentStage)
 
 -------------------
 
-7. 인벤토리
+8. 인벤토리
 - 인벤토리는 장비 아이템, 소비 아이템들의 정보를 가지고 있습니다.
 - 정렬, 아이템 탈/장착, 소비 아이템의 사용에 관한 기능을 수행합니다.
 
@@ -318,7 +432,7 @@ public List<Monster> CreateMonsters(int currentStage)
 
 -------------------------------------
 
-8. 상점
+9. 상점
 - 아이템을 구매/판매할 수 있는 상점입니다.
 - 아이템의 스테이터스와 같은 설명, 가격이 표시됩니다.
 - 아이템의 구매/판매 기능은 ShopManager를 통해서 수행됩니다.
@@ -337,7 +451,7 @@ public List<Monster> CreateMonsters(int currentStage)
 >[ShopScene.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Scenes/ShopScene.cs)
 <br>[ShopManager.cs](https://github.com/bbbp98/Team-Project-Text-RPG-group5/blob/main/TextRPG_group5/TextRPG_group5/Managers/ShopManager.cs)
 
-9. 퀘스트
+10. 퀘스트
 퀘스트정보가 저장되어 있는 json파일을 읽어와 역직렬화를 진행하고, 읽어온 값을 퀘스트 클래스의 각 프로퍼티에 자동으로 적용합니다. 
 <br>try, catch문을 사용해 오류발생시 파일 로드 실패 메시지를 출력하고 null을 반환하다록 설정되어 있고, 파일로드 성공시에는 읽어온 퀘스트데이터를 리스트화 시킨후 퀘스트씬 클래스에 넘겨줍니다. 
 <br>퀘스트 씬에서는, 불러온 퀘스트정보 중에 이미 완료하고 보상까지 받은퀘스트는 제외하고 출력하는 로직이 있어 진행전, 진행중, 보상수령가능 퀘스트만 출력된다. 
