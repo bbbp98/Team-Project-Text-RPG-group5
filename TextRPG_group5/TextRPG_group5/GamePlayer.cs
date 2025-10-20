@@ -79,16 +79,16 @@ namespace TextRPG_group5
             switch (job)
             {
                 case "전사":
-                    MaxHp = 120; Attack = 30; Defence = 50; Critical = 0.1; Evasion = 0.1; MaxMp = 60;
+                    MaxHp = 60; Attack = 15; Defence = 25; Critical = 0.1; Evasion = 0.10; MaxMp = 30;
                     return true;
                 case "궁수":
-                    MaxHp = 90; Attack = 40; Defence = 30; Critical = 0.4; Evasion = 0.2; MaxMp = 80;
+                    MaxHp = 45; Attack = 20; Defence = 20; Critical = 0.4; Evasion = 0.20; MaxMp = 40;
                     return true;
                 case "도적":
-                    MaxHp = 80; Attack = 50; Defence = 20; Critical = 0.3; Evasion = 0.3; MaxMp = 90;
+                    MaxHp = 40; Attack = 25; Defence = 15; Critical = 0.3; Evasion = 0.25; MaxMp = 50;
                     return true;
                 case "마법사":
-                    MaxHp = 60; Attack = 20; Defence = 20; Critical = 0.5; Evasion = 0.1; MaxMp = 120;
+                    MaxHp = 35; Attack = 10; Defence = 10; Critical = 0.5; Evasion = 0.15; MaxMp = 60;
                     return true;
                 default:
                     return false;
@@ -96,20 +96,30 @@ namespace TextRPG_group5
         }
         public override void ShowStatus()
         {
-            Console.WriteLine("===========Player status===========");
-            Console.WriteLine($"이름: {Name}");
-            Console.WriteLine($"직업: {Job}");
-            Console.WriteLine($"레벨: {Level}");
-            Console.WriteLine($"경험치: {Exp}/{MaxExp}");
-            Console.WriteLine($"체력: {NowHp}/{MaxHp}");
-            Console.WriteLine($"마나: {NowMp}/{MaxMp}");
-            Console.WriteLine($"공격력: {Attack}");
-            Console.WriteLine($"방어력: {Defence}");
-            Console.WriteLine($"치명타 확률: {(int)(Critical * 100)} %");
-            Console.WriteLine($"회피 확률: {(int)(Evasion * 100)} %");
-            Console.WriteLine($"소지금: {Gold} G");
-            Console.WriteLine($"도달 스테이지: [{ReachedStage}]Stage");
-            Console.WriteLine("===================================\n");
+            Console.WriteLine("=============Player status==============");
+            Console.WriteLine($"이름:             {Name}");
+            Console.WriteLine($"직업:             {Job}");
+            Console.WriteLine($"레벨:             {Level}");
+            Console.WriteLine($"경험치:           {Exp} / {MaxExp}");
+            Console.WriteLine($"체력:             {NowHp} / {MaxHp}");
+            Console.WriteLine($"마나:             {NowMp} / {MaxMp}");
+            Console.WriteLine($"공격력:           {Attack}");
+            Console.WriteLine($"방어력:           {Defence}");
+            Console.WriteLine($"치명타 확률:      {(int)(Critical * 100)} %");
+            Console.WriteLine($"회피 확률:        {(int)(Evasion * 100)} %");
+            Console.WriteLine($"소지금:           {Gold} G");
+            Console.WriteLine($"도달 스테이지:    [{ReachedStage}]Stage");
+            Console.WriteLine("========================================\n");
+            if (Skill != null && Skill.skillBook.Any())
+            {
+                Console.WriteLine("                    *                   \n");
+                Console.WriteLine("==============Player Skill==============\n");
+                foreach (var skill in Skill.skillBook)
+                {
+                    Console.WriteLine($"- {skill.Name} (MP {skill.MpCost})");
+                }
+                Console.WriteLine("\n========================================");
+            }
         }
         public void GainExp(int amount)
         {
@@ -128,8 +138,8 @@ namespace TextRPG_group5
             switch (Job)
             {
                 case "전사":
-                    Attack += 4;
-                    Defence += 4;
+                    Attack += 5;
+                    Defence += 3;
                     MaxHp += 20;
                     MaxMp += 5;
                     break;
@@ -146,7 +156,7 @@ namespace TextRPG_group5
                     MaxMp += 15;
                     break;
                 case "마법사":
-                    Attack += 7;
+                    Attack += 6;
                     Defence += 2;
                     MaxHp += 5;
                     MaxMp += 20;
