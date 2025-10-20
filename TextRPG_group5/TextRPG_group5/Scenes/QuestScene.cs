@@ -44,12 +44,16 @@ namespace TextRPG_group5.Scenes
 
         public override void Show()
         {
+            Console.Clear();
+            Console.WriteLine("\x1b[3J");
+
             bool isActive = true;
             byte questIdx = 0;
             byte id = 0;
 
             List<Quest> quests = new List<Quest>();
             quests = QuestManager.Instance.Load();
+            quests = quests.DistinctBy(q => q.QuestID).ToList(); // 중복항목제거
 
 
             for (questIdx = 0; questIdx < quests.Count; questIdx++)
