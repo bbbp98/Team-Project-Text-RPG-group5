@@ -103,8 +103,18 @@ namespace TextRPG_group5.Scenes
                 case BattleState.Skill:
                     // Attacker == Player (무조건)
                     SkillData selectedSkill = ((Player)Attacker).Skill.skillBook[CurrentBattle.userSkillChoice - 1];
-                    Console.WriteLine($"{Attacker.Name} 의 {selectedSkill.Name} 사용!");
-                    Console.WriteLine($"MP {AttBeforeMp} -> {AttBeforeMp - selectedSkill.MpCost}");
+
+                    if (AttBeforeMp - selectedSkill.MpCost < 0)
+                    {
+                        Console.WriteLine($"{selectedSkill.Name} 를 사용할 수 없습니다...");
+                        Console.WriteLine($"MP {AttBeforeMp} -> {AttBeforeMp}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{Attacker.Name} 의 {selectedSkill.Name} 사용!");
+                        Console.WriteLine($"MP {AttBeforeMp} -> {AttBeforeMp - selectedSkill.MpCost}");
+                    }
+                    
                     break;
                 case BattleState.Item:
                     // Attacker == Player (무조건)
