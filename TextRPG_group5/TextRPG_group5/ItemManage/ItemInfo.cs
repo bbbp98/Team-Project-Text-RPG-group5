@@ -63,8 +63,8 @@ namespace TextRPG_group5.ItemManage
             {"위장복", new Armor("위장복", " ", 30, 0.5d, 2000, job : 4, false)},
 
             // 최종 파밍 장비 (전직업 공용)
-            {"창세신의 무구", new Weapon("창세신의 무구", " ", 999, 1.0d, 0, job : 5, false)},
-            {"창세신의 가호", new Armor("창세신의 가호", " ", 3000, 1.0d, 0, job : 5, false)},
+            {"창세신의 무구", new Weapon("창세신의 무구", " ", 999, 1.0d, 999999, job : 5, false)},
+            {"창세신의 가호", new Armor("창세신의 가호", " ", 3000, 1.0d, 999999, job : 5, false)},
         };
 
           // 모든 소비아이템 정보를 딕셔너리에 보존
