@@ -51,6 +51,12 @@ namespace TextRPG_group5.Scenes
 
             else
             {
+                if (CurrentBattle.userSkillChoice != 0 && input == 0)
+                {
+                    CurrentBattle.userSkillChoice = input;
+                    return;
+                }
+                
                 if (input == 0)
                 {
                     CurrentBattle.SetBattleState(BattleState.None);
@@ -139,6 +145,7 @@ namespace TextRPG_group5.Scenes
                 effectsProcessed = true; // 효과 처리 끝
                 if (!battleContinues)
                 {
+                    Console.WriteLine("계속하려면 아무 키나 눌러주세요...");
                     return; // 효과 처리로 전투가 종료되었으면 여기서 중단
                 }
             }
@@ -272,10 +279,7 @@ namespace TextRPG_group5.Scenes
             List<SkillData> skills = Player.Skill.skillBook;
 
             for (int i = 0; i < skills.Count; i++)
-            {
-                string skillName = skills[i].Name;
-                Console.WriteLine($"[{i + 1}] {skillName}");
-            }
+                Console.WriteLine($"[{i + 1}] {skills[i].Name} (MP -{skills[i].MpCost})");
 
             Console.WriteLine();
 
