@@ -145,6 +145,7 @@ namespace TextRPG_group5.Scenes
                 effectsProcessed = true; // 효과 처리 끝
                 if (!battleContinues)
                 {
+                    Console.WriteLine("계속하려면 아무 키나 눌러주세요...");
                     return; // 효과 처리로 전투가 종료되었으면 여기서 중단
                 }
             }
