@@ -8,13 +8,16 @@ namespace TextRPG_group5.QuestManagement
 {
     public class Required
     {
-        public string Type { get; set; }
-        public string Target { get; set; }
-        public int Count { get; set; }
-        public int Current { get; set; }
+        public string Type { get; set; } // 퀘스트 조건의 종류
+        public string Target { get; set; } // 퀘스트 조건의 대상
+        public int Count { get; set; } // 퀘스트 조건을 충족하기 위한 대상의 수
+        public int Current { get; set; } // 퀘스트의 현재 진행상황
 
 
-        // 현재 진행상황이 목표를 달성하였을 때. true반환 달성하지 못하였을때는 false반환
+        /// <summary>
+        /// 퀘스트의 진행상황을 체크하여 완료여부를 판단
+        /// </summary>
+        /// <returns></returns>
         public bool IsComplete() => Current >= Count;
     }
 }

@@ -12,9 +12,10 @@ namespace TextRPG_group5.ItemManage
 
      public static class ItemInfo
      {
-
-          // 무기, 방어구의 전체아이템을 딕셔너리에 보존
-          private static Dictionary<string, EquipItem> EquipMentDB = new Dictionary<string, EquipItem>()
+        /// <summary>
+        /// 무기, 방어구의 전체아이템을 딕셔너리에 보존
+        /// </summary>
+        private static Dictionary<string, EquipItem> EquipMentDB = new Dictionary<string, EquipItem>()
         {
             // 전사 무기
             {"목검", new Weapon("목검", " ", 5, 0.05d, 100, job : 1, false)},
@@ -63,8 +64,8 @@ namespace TextRPG_group5.ItemManage
             {"위장복", new Armor("위장복", " ", 30, 0.5d, 2000, job : 4, false)},
 
             // 최종 파밍 장비 (전직업 공용)
-            {"창세신의 무구", new Weapon("창세신의 무구", " ", 999, 1.0d, 0, job : 5, false)},
-            {"창세신의 가호", new Armor("창세신의 가호", " ", 3000, 1.0d, 0, job : 5, false)},
+            {"창세신의 무구", new Weapon("창세신의 무구", " ", 999, 1.0d, 10000, job : 5, false)},
+            {"창세신의 가호", new Armor("창세신의 가호", " ", 3000, 1.0d, 10000, job : 5, false)},
         };
 
           // 모든 소비아이템 정보를 딕셔너리에 보존
@@ -79,6 +80,11 @@ namespace TextRPG_group5.ItemManage
 
           // 획득한 아이템의 이름을 매개변수로 받아 딕셔너리의 키를 대조해 그에 해당하는 아이템 오브젝트를 반환
           // 인벤토리의 아이템을 출력할 때, 아이템의 이름만 매개변수로 받는 로직을 반복문을 통해 반복해주면 출력이 용이
+          /// <summary>
+          /// 매개변수로 전달받은 아이템 이름을 이용해 dictionary의 항목과 대조하여 해당 아이템의 리스트 항목을 반환
+          /// </summary>
+          /// <param name="name"></param>
+          /// <returns></returns>
           public static ItemManagement GetItem(string name)
           {
                if (EquipMentDB.ContainsKey(name))

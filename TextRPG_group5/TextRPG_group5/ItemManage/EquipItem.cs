@@ -11,11 +11,11 @@ namespace TextRPG_group5.ItemManage
      /// </summary>
      public enum JobClass
      {
-          Warrior = 1,
-          Magician,
-          Archer,
-          Thief,
-          All
+          Warrior = 1, // 전사
+          Magician, // 마법사
+          Archer, // 궁수
+          Thief, // 도적
+          All // 전직업
      }
 
      /// <summary>

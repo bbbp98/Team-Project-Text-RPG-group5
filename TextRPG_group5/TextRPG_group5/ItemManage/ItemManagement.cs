@@ -7,13 +7,15 @@ using TextRPG_group5;
 
 namespace TextRPG_group5.ItemManage
 {
-    // 아이템 전체의 관리하는 클래스
+    /// <summary>
+    /// 모든 아이템이 반드시 가지고 있어야하는 정보
+    /// </summary>
     public class ItemManagement
     {
-        public string? Name { get; set; } 
-        public string? Description { get; set; }
-        public int Price { get; set; }
-        public bool IsEquip { get; set; }
-        public int ItemCounts { get; set; }
+        public string? Name { get; set; } // 아이템 이름
+        public string? Description { get; set; } // 아이템 설명
+        public int Price { get; set; } // 아이템 상점가격
+        public bool IsEquip { get; set; } // 아이템 장착 여부
+        public int ItemCounts { get; set; } // 아이템 개수
     }
 }

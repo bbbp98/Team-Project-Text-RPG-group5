@@ -14,6 +14,14 @@ namespace TextRPG_group5.ItemManage
         public int Amount { get; set; }
         public PotionType Type { get; set; }
 
+        /// <summary>
+        /// 포션의 정보를 포션타입에 따라 구별
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="amount"></param>
+        /// <param name="type"></param>
+        /// <param name="price"></param>
         public Potion(string name, string description, int amount, int type, int price)
         {
             Name = name;
@@ -31,6 +39,11 @@ namespace TextRPG_group5.ItemManage
                 this.Description = $"{Amount}만큼 마나를 보충합니다.";
             }
         }
+        /// <summary>
+        /// 포션 사용시 포션타입에 따라 효과를 구분
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="potion"></param>
         public override void UseItem(Player player, Potion potion)
         {
             if (potion.Type == PotionType.HealthPotion)

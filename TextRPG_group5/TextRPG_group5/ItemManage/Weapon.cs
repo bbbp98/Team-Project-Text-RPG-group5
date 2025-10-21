@@ -12,8 +12,17 @@ namespace TextRPG_group5.ItemManage
     {
         public int AtkPower { get; set; }
         public double CriPro { get; set; }
-        //public JobClass Job { get; set; }
 
+        /// <summary>
+        /// 무기의 공격력, 치명타 확률을 세팅하고, int형 변수를 ClassJob(Enum)형으로 명시적 변환을 실행하여 착용가능 직업 설정
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <param name="atkPower"></param>
+        /// <param name="criPro"></param>
+        /// <param name="price"></param>
+        /// <param name="job"></param>
+        /// <param name="isEquip"></param>
         public Weapon(string name, string description, int atkPower, double criPro, int price, int job, bool isEquip)
         {
             string jobLimits;
@@ -23,19 +32,19 @@ namespace TextRPG_group5.ItemManage
             AtkPower = atkPower;
             CriPro = criPro;
 
-            if((int)Job == 1)
+            if (Job == JobClass.Warrior)
             {
                 jobLimits = "전사";
             }
-            else if((int)Job == 2)
+            else if (Job == JobClass.Magician)
             {
                 jobLimits = "마법사";
             }
-            else if((int)Job == 3)
+            else if (Job == JobClass.Archer)
             {
                 jobLimits = "궁수";
             }
-            else if ((int)Job == 4)
+            else if (Job == JobClass.Thief)
             {
                 jobLimits = "도적";
             }
@@ -44,7 +53,7 @@ namespace TextRPG_group5.ItemManage
                 jobLimits = "공용";
             }
 
-               Price = price;
+            Price = price;
             Description = $"스탯 증가량 => 공격력 : +{AtkPower}, 치명타확률 : +{CriPro}, 장착 가능 직업 : {jobLimits}";
             IsEquip = isEquip;
         }

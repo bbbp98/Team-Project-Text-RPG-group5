@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TextRPG_group5.QuestManagement
 {
+    /// <summary>
+    /// 퀘스트의 보상 관련 정보
+    /// </summary>
     public class Rewards
     {
         public int Exp { get; set; } // 보상 경험치 프로퍼티
