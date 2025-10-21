@@ -82,13 +82,13 @@ namespace TextRPG_group5
                     MaxHp = 60; Attack = 15; Defence = 25; Critical = 0.1; Evasion = 0.10; MaxMp = 30;
                     return true;
                 case "궁수":
-                    MaxHp = 45; Attack = 20; Defence = 20; Critical = 0.4; Evasion = 0.20; MaxMp = 40;
+                    MaxHp = 45; Attack = 20; Defence = 20; Critical = 0.3; Evasion = 0.20; MaxMp = 40;
                     return true;
                 case "도적":
-                    MaxHp = 40; Attack = 25; Defence = 15; Critical = 0.3; Evasion = 0.25; MaxMp = 50;
+                    MaxHp = 40; Attack = 25; Defence = 15; Critical = 0.2; Evasion = 0.25; MaxMp = 50;
                     return true;
                 case "마법사":
-                    MaxHp = 35; Attack = 10; Defence = 10; Critical = 0.5; Evasion = 0.15; MaxMp = 60;
+                    MaxHp = 35; Attack = 10; Defence = 10; Critical = 0.4; Evasion = 0.15; MaxMp = 60;
                     return true;
                 default:
                     return false;
@@ -156,8 +156,8 @@ namespace TextRPG_group5
             switch (Job)
             {
                 case "전사":
-                    Attack += 5;
-                    Defence += 3;
+                    Attack += 3;
+                    Defence += 5;
                     MaxHp += 20;
                     MaxMp += 5;
                     break;
