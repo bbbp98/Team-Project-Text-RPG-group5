@@ -272,10 +272,7 @@ namespace TextRPG_group5.Scenes
             List<SkillData> skills = Player.Skill.skillBook;
 
             for (int i = 0; i < skills.Count; i++)
-            {
-                string skillName = skills[i].Name;
-                Console.WriteLine($"[{i + 1}] {skillName}");
-            }
+                Console.WriteLine($"[{i + 1}] {skills[i].Name} (MP -{skills[i].MpCost})");
 
             Console.WriteLine();
 
