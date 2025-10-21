@@ -37,9 +37,9 @@ C#으로 만드는 간단한 텍스트 RPG입니다.
 - 김태환
     - 게임 종료 로직 구현
     - 세이브/로드 기능 구현
-# 실행 화면
 
-
+# 와이어프레임
+<img width="6914" height="8672" alt="Image" src="https://github.com/user-attachments/assets/82d37809-5fcc-4f93-8d5a-2a5214ea17e5" />
 
 # 구현 목록
 0. Main
