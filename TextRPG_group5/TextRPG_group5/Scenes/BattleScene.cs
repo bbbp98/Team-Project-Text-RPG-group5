@@ -51,6 +51,12 @@ namespace TextRPG_group5.Scenes
 
             else
             {
+                if (CurrentBattle.userSkillChoice != 0 && input == 0)
+                {
+                    CurrentBattle.userSkillChoice = input;
+                    return;
+                }
+                
                 if (input == 0)
                 {
                     CurrentBattle.SetBattleState(BattleState.None);
